@@ -1,7 +1,14 @@
-import Image from "next/image";
-import { config } from "@/constants/config";
+'use client'
+
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { config } from '@/constants/config'
+
+
 
 export default function LandingPage() {
+
+    const router = useRouter()
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
       <div className="flex flex-col items-center gap-4 w-full max-w-xs md:max-w-sm">
@@ -10,7 +17,7 @@ export default function LandingPage() {
   alt="Am I? logo"
   width={80}
   height={80}
-  className="rounded-2xl w-16 h-16 md:w-24 md:h-24"
+  className="rounded-2xl w-20 h-20 md:w-24 md:h-24"
 />
 
         <div className="text-center">
@@ -23,9 +30,12 @@ export default function LandingPage() {
         </div>
 
         <div className="flex flex-col gap-3 w-full mt-8">
-          <button className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 active:opacity-75 cursor-pointer">
-            Create room
-          </button>
+          <button
+  onClick={() => router.push('/lobby/create')}
+  className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 active:opacity-75 cursor-pointer"
+>
+  Create room
+</button>
           <button className="w-full py-4 rounded-button font-medium text-base text-accent border border-accent bg-transparent transition-all duration-200 hover:bg-accent hover:text-white active:opacity-75 cursor-pointer">
             Join room
           </button>
