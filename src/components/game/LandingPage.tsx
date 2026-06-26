@@ -36,9 +36,12 @@ export default function LandingPage() {
 >
   Create room
 </button>
-          <button className="w-full py-4 rounded-button font-medium text-base text-accent border border-accent bg-transparent transition-all duration-200 hover:bg-accent hover:text-white active:opacity-75 cursor-pointer">
-            Join room
-          </button>
+        <button
+  onClick={() => router.push('/lobby/join')}
+  className="w-full py-4 rounded-button font-medium text-base text-accent border border-accent bg-transparent transition-all duration-200 hover:bg-accent hover:text-white active:opacity-75 cursor-pointer"
+>
+  Join room
+</button>
           <button className="text-sm mt-2 transition-opacity duration-200 hover:opacity-75 cursor-pointer">
   <span className="text-accent">Sign in</span>
   <span className="text-text-primary"> to save your tally</span>
