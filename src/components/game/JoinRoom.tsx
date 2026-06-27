@@ -2,15 +2,39 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 
 export default function JoinRoom() {
   const router = useRouter()
   const [roomCode, setRoomCode] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleJoin = () => {
-    if (roomCode.trim().length === 6) {
-      router.push(`/room/${roomCode.trim().toUpperCase()}`)
+  const handleJoin = async () => {
+    if (roomCode.trim().length !== 6) return
+
+    setLoading(true)
+    setError(null)
+
+    const { data: room } = await supabase
+      .from('rooms')
+      .select('room_code, status')
+      .eq('room_code', roomCode.trim().toUpperCase())
+      .single()
+
+    if (!room) {
+      setError('Room not found. Check the code and try again.')
+      setLoading(false)
+      return
     }
+
+    if (room.status !== 'waiting') {
+      setError('This room is no longer available.')
+      setLoading(false)
+      return
+    }
+
+    router.push(`/room/${roomCode.trim().toUpperCase()}`)
   }
 
   return (
@@ -37,12 +61,16 @@ export default function JoinRoom() {
           className="w-full bg-surface border border-border rounded-button px-4 py-4 text-text-primary text-center text-2xl font-medium tracking-widest placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200"
         />
 
+        {error && (
+          <p className="text-sm text-center" style={{ color: '#ef4444' }}>{error}</p>
+        )}
+
         <button
           onClick={handleJoin}
-          disabled={roomCode.trim().length !== 6}
+          disabled={roomCode.trim().length !== 6 || loading}
           className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          Join room
+          {loading ? 'Checking...' : 'Join room'}
         </button>
       </div>
     </main>
