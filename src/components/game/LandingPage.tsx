@@ -17,7 +17,7 @@ export default function LandingPage() {
   alt="Am I? logo"
   width={80}
   height={80}
-  className="rounded-2xl w-20 h-20 md:w-24 md:h-24"
+  className="rounded-2xl w-24 h-24 md:w-24 md:h-24"
 />
 
         <div className="text-center">
