@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { config } from '@/constants/config'
 import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
 
 function generateRoomCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
@@ -14,19 +15,26 @@ function generateRoomCode(): string {
 
 export default function CreateRoom() {
   const router = useRouter()
+  const { user, loading: authLoading } = useAuth()
   const [roomCode] = useState(() => generateRoomCode())
   const [copied, setCopied] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    if (authLoading || !user) return
+
     const createRoom = async () => {
       await new Promise(resolve => setTimeout(resolve, 500))
 
       const { error } = await supabase
         .from('rooms')
         .upsert(
-          { room_code: roomCode, status: 'waiting' },
+          {
+            room_code: roomCode,
+            status: 'waiting',
+            host_player_id: user.id
+          },
           { onConflict: 'room_code' }
         )
 
@@ -39,7 +47,7 @@ export default function CreateRoom() {
     }
 
     createRoom()
-  }, [roomCode])
+  }, [roomCode, user, authLoading])
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(roomCode)
