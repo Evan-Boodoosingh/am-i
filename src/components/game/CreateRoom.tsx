@@ -47,7 +47,31 @@ export default function CreateRoom() {
     }
 
     createRoom()
-  }, [roomCode, user, authLoading])
+
+    const channel = supabase
+      .channel(`waiting:${roomCode}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'rooms',
+          filter: `room_code=eq.${roomCode}`,
+        },
+        (payload) => {
+          const updated = payload.new as { status: string; guest_player_id: string | null }
+          
+          if (updated.status === 'active' && updated.guest_player_id) {
+            router.push(`/room/${roomCode}`)
+          }
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [roomCode, user, authLoading, router])
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(roomCode)

@@ -3,24 +3,30 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function JoinRoom() {
   const router = useRouter()
+  const { user, loading: authLoading } = useAuth()
   const [roomCode, setRoomCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const handleJoin = async () => {
-    if (roomCode.trim().length !== 6) return
+    if (roomCode.trim().length !== 6 || !user) return
 
     setLoading(true)
     setError(null)
 
+   
+
     const { data: room } = await supabase
       .from('rooms')
-      .select('room_code, status')
+      .select('room_code, status, host_player_id')
       .eq('room_code', roomCode.trim().toUpperCase())
       .single()
+
+
 
     if (!room) {
       setError('Room not found. Check the code and try again.')
@@ -30,6 +36,28 @@ export default function JoinRoom() {
 
     if (room.status !== 'waiting') {
       setError('This room is no longer available.')
+      setLoading(false)
+      return
+    }
+
+    if (room.host_player_id === user.id) {
+      setError('You cannot join your own room.')
+      setLoading(false)
+      return
+    }
+
+    const { error: updateError } = await supabase
+      .from('rooms')
+      .update({
+        guest_player_id: user.id,
+        status: 'active'
+      })
+      .eq('room_code', roomCode.trim().toUpperCase())
+
+   
+
+    if (updateError) {
+      setError('Failed to join room. Please try again.')
       setLoading(false)
       return
     }
@@ -67,10 +95,10 @@ export default function JoinRoom() {
 
         <button
           onClick={handleJoin}
-          disabled={roomCode.trim().length !== 6 || loading}
+          disabled={roomCode.trim().length !== 6 || loading || authLoading}
           className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {loading ? 'Checking...' : 'Join room'}
+          {loading ? 'Joining...' : 'Join room'}
         </button>
       </div>
     </main>
