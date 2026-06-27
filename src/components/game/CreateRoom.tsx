@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { config } from '@/constants/config'
+import { supabase } from '@/lib/supabase'
 
 function generateRoomCode(): string {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
@@ -15,6 +16,30 @@ export default function CreateRoom() {
   const router = useRouter()
   const [roomCode] = useState(() => generateRoomCode())
   const [copied, setCopied] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const createRoom = async () => {
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      const { error } = await supabase
+        .from('rooms')
+        .upsert(
+          { room_code: roomCode, status: 'waiting' },
+          { onConflict: 'room_code' }
+        )
+
+      if (error) {
+        setError('Failed to create room. Please try again.')
+        console.error(error)
+      } else {
+        setLoading(false)
+      }
+    }
+
+    createRoom()
+  }, [roomCode])
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(roomCode)
@@ -31,6 +56,28 @@ export default function CreateRoom() {
     } else {
       handleCopy()
     }
+  }
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-4">
+        <p className="text-text-secondary text-sm">{error}</p>
+        <button
+          onClick={() => router.back()}
+          className="text-accent text-sm cursor-pointer hover:opacity-75"
+        >
+          Go back
+        </button>
+      </main>
+    )
   }
 
   return (
