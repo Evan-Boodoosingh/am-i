@@ -111,16 +111,15 @@ export default function PlayingScreen({
             <p className="text-text-secondary text-xs capitalize mt-0.5">{opponentCharacter.deck}</p>
           </div>
 
-          {opponentCharacter.image_url && (
-            <div className="w-full aspect-[4/3] overflow-hidden">
-              <img
-                src={opponentCharacter.image_url}
-                alt={opponentCharacter.name}
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-          )}
-
+    {opponentCharacter.image_url && (
+  <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg p-2">
+    <img
+      src={opponentCharacter.image_url}
+      alt={opponentCharacter.name}
+      className="max-h-full max-w-full object-contain"
+    />
+  </div>
+)}
           <div className="px-4 pb-4 pt-3">
             <button
               onClick={() => setDescriptionExpanded(!descriptionExpanded)}
