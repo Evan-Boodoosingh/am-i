@@ -4,14 +4,17 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { useAuth } from '@/hooks/useAuth'
+import { useGameplay } from '@/hooks/useGameplay'
 import { config } from '@/constants/config'
 import RemoveCardsPanel from '@/components/game/RemoveCardsPanel'
+import PlayingScreen from '@/components/game/PlayingScreen'
 
 interface Props {
   roomCode: string
 }
 
 interface Room {
+  id: string
   room_code: string
   status: string
   game_state: string
@@ -38,7 +41,7 @@ export default function GameRoom({ roomCode }: Props) {
     const fetchRoom = async () => {
       const { data, error } = await supabase
         .from('rooms')
-        .select('room_code, status, game_state, host_player_id, guest_player_id, player_one_name, player_two_name, selected_decks, player_one_confirmed, player_two_confirmed, max_removals')
+        .select('id, room_code, status, game_state, host_player_id, guest_player_id, player_one_name, player_two_name, selected_decks, player_one_confirmed, player_two_confirmed, max_removals')
         .eq('room_code', roomCode)
         .single()
 
@@ -77,7 +80,6 @@ export default function GameRoom({ roomCode }: Props) {
 
   const isHost = user?.id === room?.host_player_id
   const bothConnected = !!(room?.host_player_id && room?.guest_player_id)
-  const bothConfirmed = room?.player_one_confirmed && room?.player_two_confirmed
 
   const handleDeckToggle = async (slug: string) => {
     if (!room || confirmed) return
@@ -118,18 +120,18 @@ export default function GameRoom({ roomCode }: Props) {
     setConfirmed(true)
   }
 
-useEffect(() => {
-  if (!room) return
-  if (room.player_one_confirmed && room.player_two_confirmed && room.game_state !== 'playing') {
-    supabase
-      .from('rooms')
-      .update({ game_state: 'playing' })
-      .eq('room_code', roomCode)
-      .then(({ error }) => {
-        if (error) console.error('Error updating game state:', error)
-      })
-  }
-}, [room, roomCode])
+  useEffect(() => {
+    if (!room) return
+    if (room.player_one_confirmed && room.player_two_confirmed && room.game_state !== 'playing') {
+      supabase
+        .from('rooms')
+        .update({ game_state: 'playing' })
+        .eq('room_code', roomCode)
+        .then(({ error }) => {
+          if (error) console.error('Error updating game state:', error)
+        })
+    }
+  }, [room, roomCode])
 
   if (loading) {
     return (
@@ -153,14 +155,14 @@ useEffect(() => {
     )
   }
 
-  if (room?.game_state === 'playing') {
+  if (room?.game_state === 'playing' && user?.id) {
     return (
-      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
-        <div className="flex flex-col gap-4 w-full max-w-xs md:max-w-md mx-auto text-center">
-          <p className="text-text-primary text-lg font-medium">Game starting...</p>
-          <p className="text-text-secondary text-sm">Get ready!</p>
-        </div>
-      </main>
+      <PlayingWrapper
+        room={room}
+        roomCode={roomCode}
+        isHost={isHost}
+        userId={user.id}
+      />
     )
   }
 
@@ -226,13 +228,13 @@ useEffect(() => {
           </div>
 
           {maxRemovals > 0 && selectedDecks.length > 0 && user && (
-  <RemoveCardsPanel
-    selectedDecks={selectedDecks}
-    maxRemovals={maxRemovals}
-    roomCode={roomCode}
-    playerId={user.id}
-  />
-)}
+            <RemoveCardsPanel
+              selectedDecks={selectedDecks}
+              maxRemovals={maxRemovals}
+              roomCode={roomCode}
+              playerId={user.id}
+            />
+          )}
 
           <div>
             <p className="text-text-primary text-sm font-medium mb-2">Your name <span className="text-text-secondary font-normal">(optional)</span></p>
@@ -285,5 +287,77 @@ useEffect(() => {
         </div>
       </div>
     </main>
+  )
+}
+
+function PlayingWrapper({
+  room,
+  roomCode,
+  isHost,
+  userId,
+}: {
+  room: Room
+  roomCode: string
+  isHost: boolean
+  userId: string
+}) {
+  const {
+    round,
+    myCharacter,
+    opponentCharacter,
+    loading,
+    error,
+    endTurn,
+    markCorrect,
+    markIncorrect,
+  } = useGameplay(
+    roomCode,
+    room.id,
+    isHost,
+    room.host_player_id ?? '',
+    room.guest_player_id ?? '',
+    room.selected_decks ?? [],
+    userId
+  )
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          <p className="text-text-secondary text-sm">Setting up the round...</p>
+        </div>
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center px-6">
+        <p className="text-text-secondary text-sm text-center">{error}</p>
+      </main>
+    )
+  }
+
+  if (!round || !myCharacter || !opponentCharacter) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </main>
+    )
+  }
+
+  return (
+    <PlayingScreen
+      round={round}
+      myCharacter={myCharacter}
+      opponentCharacter={opponentCharacter}
+      isHost={isHost}
+      playerOneName={room.player_one_name ?? 'Player 1'}
+      playerTwoName={room.player_two_name ?? 'Player 2'}
+      onEndTurn={endTurn}
+      onMarkCorrect={markCorrect}
+      onMarkIncorrect={markIncorrect}
+    />
   )
 }
