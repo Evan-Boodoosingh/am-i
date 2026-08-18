@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -8,11 +7,9 @@ import { useGameplay } from '@/hooks/useGameplay'
 import { config } from '@/constants/config'
 import RemoveCardsPanel from '@/components/game/RemoveCardsPanel'
 import PlayingScreen from '@/components/game/PlayingScreen'
-
 interface Props {
   roomCode: string
 }
-
 interface Room {
   id: string
   room_code: string
@@ -27,7 +24,6 @@ interface Room {
   player_two_confirmed: boolean
   max_removals: number
 }
-
 export default function GameRoom({ roomCode }: Props) {
   const router = useRouter()
   const { user } = useAuth()
@@ -36,7 +32,6 @@ export default function GameRoom({ roomCode }: Props) {
   const [error, setError] = useState<string | null>(null)
   const [playerName, setPlayerName] = useState('')
   const [confirmed, setConfirmed] = useState(false)
-
   useEffect(() => {
     const fetchRoom = async () => {
       const { data, error } = await supabase
@@ -44,19 +39,15 @@ export default function GameRoom({ roomCode }: Props) {
         .select('id, room_code, status, game_state, host_player_id, guest_player_id, player_one_name, player_two_name, selected_decks, player_one_confirmed, player_two_confirmed, max_removals')
         .eq('room_code', roomCode)
         .single()
-
       if (error || !data) {
         setError('Room not found.')
         setLoading(false)
         return
       }
-
       setRoom(data)
       setLoading(false)
     }
-
     fetchRoom()
-
     const channel = supabase
       .channel(`room:${roomCode}`)
       .on(
@@ -72,28 +63,23 @@ export default function GameRoom({ roomCode }: Props) {
         }
       )
       .subscribe()
-
     return () => {
       supabase.removeChannel(channel)
     }
   }, [roomCode])
-
   const isHost = user?.id === room?.host_player_id
   const bothConnected = !!(room?.host_player_id && room?.guest_player_id)
-
   const handleDeckToggle = async (slug: string) => {
     if (!room || confirmed) return
     const current = room.selected_decks ?? []
     const updated = current.includes(slug)
       ? current.filter((d) => d !== slug)
       : [...current, slug]
-
     await supabase
       .from('rooms')
       .update({ selected_decks: updated })
       .eq('room_code', roomCode)
   }
-
   const handleRemovalChange = async (value: number) => {
     if (!room || confirmed) return
     const clamped = Math.min(10, Math.max(0, value))
@@ -102,13 +88,10 @@ export default function GameRoom({ roomCode }: Props) {
       .update({ max_removals: clamped })
       .eq('room_code', roomCode)
   }
-
   const handleConfirm = async () => {
     if (!room || (room.selected_decks ?? []).length === 0) return
-
     const nameField = isHost ? 'player_one_name' : 'player_two_name'
     const confirmedField = isHost ? 'player_one_confirmed' : 'player_two_confirmed'
-
     await supabase
       .from('rooms')
       .update({
@@ -116,10 +99,8 @@ export default function GameRoom({ roomCode }: Props) {
         [confirmedField]: true,
       })
       .eq('room_code', roomCode)
-
     setConfirmed(true)
   }
-
   useEffect(() => {
     if (!room) return
     if (room.player_one_confirmed && room.player_two_confirmed && room.game_state !== 'playing') {
@@ -132,7 +113,6 @@ export default function GameRoom({ roomCode }: Props) {
         })
     }
   }, [room, roomCode])
-
   if (loading) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
@@ -140,7 +120,6 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
-
   if (error) {
     return (
       <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-4">
@@ -154,7 +133,6 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
-
   if (room?.game_state === 'playing' && user?.id) {
     return (
       <PlayingWrapper
@@ -165,17 +143,14 @@ export default function GameRoom({ roomCode }: Props) {
       />
     )
   }
-
   if (bothConnected) {
     const selectedDecks = room?.selected_decks ?? []
     const myConfirmed = isHost ? room?.player_one_confirmed : room?.player_two_confirmed
     const opponentConfirmed = isHost ? room?.player_two_confirmed : room?.player_one_confirmed
     const maxRemovals = room?.max_removals ?? 0
-
     return (
       <main className="min-h-screen bg-background flex flex-col px-6 py-12 overflow-y-auto">
         <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
-
           <div>
             <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Room {room?.room_code}</p>
             <h1 className="text-2xl font-medium text-text-primary">Game setup</h1>
@@ -183,7 +158,6 @@ export default function GameRoom({ roomCode }: Props) {
               {isHost ? 'You are Player 1' : 'You are Player 2'}
             </p>
           </div>
-
           <div>
             <p className="text-text-primary text-sm font-medium mb-1">Select decks</p>
             <p className="text-text-secondary text-xs mb-3">Both players see the same selection</p>
@@ -204,7 +178,6 @@ export default function GameRoom({ roomCode }: Props) {
               ))}
             </div>
           </div>
-
           <div>
             <p className="text-text-primary text-sm font-medium mb-1">Card removals per player</p>
             <p className="text-text-secondary text-xs mb-3">How many cards each player can remove before the round starts. Default is 0.</p>
@@ -226,7 +199,6 @@ export default function GameRoom({ roomCode }: Props) {
               </button>
             </div>
           </div>
-
           {maxRemovals > 0 && selectedDecks.length > 0 && user && (
             <RemoveCardsPanel
               selectedDecks={selectedDecks}
@@ -235,7 +207,6 @@ export default function GameRoom({ roomCode }: Props) {
               playerId={user.id}
             />
           )}
-
           <div>
             <p className="text-text-primary text-sm font-medium mb-2">Your name <span className="text-text-secondary font-normal">(optional)</span></p>
             <input
@@ -247,7 +218,6 @@ export default function GameRoom({ roomCode }: Props) {
               className="w-full bg-surface border border-border rounded-button px-4 py-3 text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-50"
             />
           </div>
-
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between text-xs">
               <span className="text-text-secondary">You</span>
@@ -262,7 +232,6 @@ export default function GameRoom({ roomCode }: Props) {
               </span>
             </div>
           </div>
-
           <button
             onClick={handleConfirm}
             disabled={confirmed || selectedDecks.length === 0}
@@ -270,12 +239,10 @@ export default function GameRoom({ roomCode }: Props) {
           >
             {confirmed ? 'Waiting for opponent...' : 'Confirm setup'}
           </button>
-
         </div>
       </main>
     )
   }
-
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
       <div className="flex flex-col gap-4 w-full max-w-xs md:max-w-md mx-auto text-center">
@@ -289,7 +256,6 @@ export default function GameRoom({ roomCode }: Props) {
     </main>
   )
 }
-
 function PlayingWrapper({
   room,
   roomCode,
@@ -301,6 +267,7 @@ function PlayingWrapper({
   isHost: boolean
   userId: string
 }) {
+  const router = useRouter()
   const {
     round,
     myCharacter,
@@ -310,6 +277,7 @@ function PlayingWrapper({
     endTurn,
     markCorrect,
     markIncorrect,
+    resolveDrawStage,
   } = useGameplay(
     roomCode,
     room.id,
@@ -319,7 +287,6 @@ function PlayingWrapper({
     room.selected_decks ?? [],
     userId
   )
-
   if (loading) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
@@ -330,7 +297,6 @@ function PlayingWrapper({
       </main>
     )
   }
-
   if (error) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center px-6">
@@ -338,7 +304,6 @@ function PlayingWrapper({
       </main>
     )
   }
-
   if (!round || !myCharacter || !opponentCharacter) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
@@ -346,7 +311,6 @@ function PlayingWrapper({
       </main>
     )
   }
-
   return (
     <PlayingScreen
       round={round}
@@ -358,6 +322,9 @@ function PlayingWrapper({
       onEndTurn={endTurn}
       onMarkCorrect={markCorrect}
       onMarkIncorrect={markIncorrect}
+      onResolveDrawStage={resolveDrawStage}
+      onPlayAgain={() => router.push('/')}
+      onExit={() => router.push('/')}
     />
   )
 }

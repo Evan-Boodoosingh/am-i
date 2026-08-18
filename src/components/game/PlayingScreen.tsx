@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import MatchSummary from './MatchSummary'
 
 interface Character {
   id: string
@@ -17,6 +18,9 @@ interface Round {
   current_turn: string
   status: string
   winner: string | null
+  total_turns: number
+  started_at: string
+  ended_at: string | null
 }
 
 interface Props {
@@ -29,6 +33,9 @@ interface Props {
   onEndTurn: () => void
   onMarkCorrect: () => void
   onMarkIncorrect: () => void
+  onResolveDrawStage: (finalWasCorrect: boolean) => void
+  onPlayAgain: () => void
+  onExit: () => void
 }
 
 export default function PlayingScreen({
@@ -41,6 +48,9 @@ export default function PlayingScreen({
   onEndTurn,
   onMarkCorrect,
   onMarkIncorrect,
+  onResolveDrawStage,
+  onPlayAgain,
+  onExit,
 }: Props) {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false)
 
@@ -52,8 +62,26 @@ export default function PlayingScreen({
   const opponentName = isHost ? playerTwoName : playerOneName
 
   const isDrawStage = round.status === 'draw_stage'
-  const iGotItRight = isDrawStage && round.winner === myRole
-  const opponentGotItRight = isDrawStage && round.winner === opponentRole
+  const isFinished = round.status === 'finished'
+  // In the draw stage, current_turn is the player who has the ONE final turn.
+  // The other player (the one who guessed correctly first, held in `winner`)
+  // waits, then confirms whether that final guess was right.
+  const iGetFinalTurn = isDrawStage && isMyTurn
+  const iConfirmFinalTurn = isDrawStage && isOpponentTurn
+
+  // Game over -> show the match summary instead of the play UI.
+  if (isFinished) {
+    return (
+      <MatchSummary
+        round={round}
+        myRole={myRole}
+        myName={myName}
+        opponentName={opponentName}
+        onPlayAgain={onPlayAgain}
+        onExit={onExit}
+      />
+    )
+  }
 
   return (
     <main className="min-h-screen bg-background flex flex-col px-4 py-6 overflow-y-auto">
@@ -96,7 +124,7 @@ export default function PlayingScreen({
         {isDrawStage && (
           <div className="bg-surface border border-accent rounded-card px-4 py-3 text-center">
             <p className="text-accent text-sm font-medium">
-              {iGotItRight
+              {iGetFinalTurn
                 ? `${opponentName} guessed correctly — you get one final turn`
                 : `You guessed correctly — ${opponentName} gets one final turn`}
             </p>
@@ -111,15 +139,15 @@ export default function PlayingScreen({
             <p className="text-text-secondary text-xs capitalize mt-0.5">{opponentCharacter.deck}</p>
           </div>
 
-    {opponentCharacter.image_url && (
-  <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg p-2">
-    <img
-      src={opponentCharacter.image_url}
-      alt={opponentCharacter.name}
-      className="max-h-full max-w-full object-contain"
-    />
-  </div>
-)}
+          {opponentCharacter.image_url && (
+            <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg p-2">
+              <img
+                src={opponentCharacter.image_url}
+                alt={opponentCharacter.name}
+                className="max-h-full max-w-full object-contain"
+              />
+            </div>
+          )}
           <div className="px-4 pb-4 pt-3">
             <button
               onClick={() => setDescriptionExpanded(!descriptionExpanded)}
@@ -195,14 +223,18 @@ export default function PlayingScreen({
             </>
           )}
 
-          {/* Draw stage — I get the final turn */}
-          {isDrawStage && iGotItRight && (
+          {/* Draw stage — I get the final turn. If I know it, I guess OUT LOUD
+              and the other player confirms. If I DON'T know it, I hit "End Final
+              Turn" to give up — that ends the game and the other player wins.
+              This resolves the game; it does NOT flip the turn. */}
+          {isDrawStage && iGetFinalTurn && (
             <>
               <p className="text-text-secondary text-xs text-center">
-                Make your final guess out loud, then end your turn
+                Make your final guess out loud — {opponentName} confirms it. If you
+                dont know, end your final turn.
               </p>
               <button
-                onClick={onEndTurn}
+                onClick={() => onResolveDrawStage(false)}
                 className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity hover:opacity-90 cursor-pointer"
               >
                 End Final Turn
@@ -210,21 +242,22 @@ export default function PlayingScreen({
             </>
           )}
 
-          {/* Draw stage — opponent gets the final turn, I confirm */}
-          {isDrawStage && opponentGotItRight && (
+          {/* Draw stage — I guessed first, so I confirm the opponent's final
+              turn. This RESOLVES and ends the game. */}
+          {isDrawStage && iConfirmFinalTurn && (
             <>
               <p className="text-text-secondary text-xs text-center">
-                Did {opponentName} guess correctly?
+                Did {opponentName} guess correctly on their final turn?
               </p>
               <div className="flex gap-2">
                 <button
-                  onClick={onMarkIncorrect}
+                  onClick={() => onResolveDrawStage(false)}
                   className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
                 >
                   Incorrect ✗
                 </button>
                 <button
-                  onClick={onMarkCorrect}
+                  onClick={() => onResolveDrawStage(true)}
                   className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
                 >
                   Correct ✓
@@ -233,12 +266,14 @@ export default function PlayingScreen({
             </>
           )}
 
-          {/* Waiting for opponent */}
+          {/* Waiting for opponent (normal play, their turn) */}
           {isOpponentTurn && !isDrawStage && (
             <div className="w-full py-3 rounded-button bg-surface border border-border text-text-secondary text-sm text-center">
               Waiting for {opponentName}...
             </div>
           )}
+
+
 
         </div>
       </div>
