@@ -42,10 +42,10 @@ export default function LandingPage() {
 >
   Join room
 </button>
-          <button className="text-sm mt-2 transition-opacity duration-200 hover:opacity-75 cursor-pointer">
+          {/* <button className="text-sm mt-2 transition-opacity duration-200 hover:opacity-75 cursor-pointer">
   <span className="text-accent">Sign in</span>
   <span className="text-text-primary"> to save your tally</span>
-</button>
+</button> */}
         </div>
       </div>
     </main>

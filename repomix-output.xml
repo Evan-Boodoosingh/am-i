@@ -1,0 +1,3719 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+public/
+  images/
+    logo.png
+  file.svg
+  globe.svg
+  next.svg
+  vercel.svg
+  window.svg
+scripts/
+  generate-traits.ts
+  ingest-characters.ts
+  save-dossiers.ts
+  upload-images.ts
+src/
+  app/
+    (game)/
+      lobby/
+        create/
+          page.tsx
+        join/
+          page.tsx
+      room/
+        [roomCode]/
+          page.tsx
+    api/
+      oracle/
+        route.ts
+    favicon.ico
+    globals.css
+    layout.tsx
+    page.tsx
+  components/
+    game/
+      CreateRoom.tsx
+      GameRoom.tsx
+      JoinRoom.tsx
+      LandingPage.tsx
+      MatchSummary.tsx
+      PlayingScreen.tsx
+      RemoveCardsPanel.tsx
+  constants/
+    config.ts
+  hooks/
+    useAuth.ts
+    useGameplay.ts
+  lib/
+    supabase.ts
+.gitignore
+AGENTS.md
+CLAUDE.md
+eslint.config.mjs
+next.config.ts
+package.json
+postcss.config.mjs
+README.md
+tsconfig.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="public/file.svg">
+<svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 13.5V5.41a1 1 0 0 0-.3-.7L9.8.29A1 1 0 0 0 9.08 0H1.5v13.5A2.5 2.5 0 0 0 4 16h8a2.5 2.5 0 0 0 2.5-2.5m-1.5 0v-7H8v-5H3v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1M9.5 5V2.12L12.38 5zM5.13 5h-.62v1.25h2.12V5zm-.62 3h7.12v1.25H4.5zm.62 3h-.62v1.25h7.12V11z" clip-rule="evenodd" fill="#666" fill-rule="evenodd"/></svg>
+</file>
+
+<file path="public/globe.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g clip-path="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.27 14.1a6.5 6.5 0 0 0 3.67-3.45q-1.24.21-2.7.34-.31 1.83-.97 3.1M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.48-1.52a7 7 0 0 1-.96 0H7.5a4 4 0 0 1-.84-1.32q-.38-.89-.63-2.08a40 40 0 0 0 3.92 0q-.25 1.2-.63 2.08a4 4 0 0 1-.84 1.31zm2.94-4.76q1.66-.15 2.95-.43a7 7 0 0 0 0-2.58q-1.3-.27-2.95-.43a18 18 0 0 1 0 3.44m-1.27-3.54a17 17 0 0 1 0 3.64 39 39 0 0 1-4.3 0 17 17 0 0 1 0-3.64 39 39 0 0 1 4.3 0m1.1-1.17q1.45.13 2.69.34a6.5 6.5 0 0 0-3.67-3.44q.65 1.26.98 3.1M8.48 1.5l.01.02q.41.37.84 1.31.38.89.63 2.08a40 40 0 0 0-3.92 0q.25-1.2.63-2.08a4 4 0 0 1 .85-1.32 7 7 0 0 1 .96 0m-2.75.4a6.5 6.5 0 0 0-3.67 3.44 29 29 0 0 1 2.7-.34q.31-1.83.97-3.1M4.58 6.28q-1.66.16-2.95.43a7 7 0 0 0 0 2.58q1.3.27 2.95.43a18 18 0 0 1 0-3.44m.17 4.71q-1.45-.12-2.69-.34a6.5 6.5 0 0 0 3.67 3.44q-.65-1.27-.98-3.1" fill="#666"/></g><defs><clipPath id="a"><path fill="#fff" d="M0 0h16v16H0z"/></clipPath></defs></svg>
+</file>
+
+<file path="public/next.svg">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+</file>
+
+<file path="public/vercel.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+</file>
+
+<file path="public/window.svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 2.5h13v10a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1zM0 1h16v11.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 12.5zm3.75 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5M7 4.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" fill="#666"/></svg>
+</file>
+
+<file path="scripts/generate-traits.ts">
+import OpenAI from 'openai'
+import { createClient } from '@supabase/supabase-js'
+import * as dotenv from 'dotenv'
+
+dotenv.config({ path: '.env.local' })
+
+const deepseek = new OpenAI({
+  baseURL: 'https://api.deepseek.com',
+  apiKey: process.env.DEEPSEEK_API_KEY!,
+})
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+// PASTE YOUR EXISTING characterSources MAP HERE from the oracle route
+
+// (the full map with all 101 characters and their fandom/wikipedia URLs)
+interface CharacterSource {
+  type: 'fandom' | 'wikipedia'
+  url: string
+}
+const characterSources: Record<string, CharacterSource> = {
+  'Satoru Gojo': { type: 'fandom', url: 'https://jujutsu-kaisen.fandom.com/api.php?action=parse&page=Satoru_Gojo&prop=wikitext&format=json&origin=*' },
+  'Dio Brando': { type: 'fandom', url: 'https://jojo.fandom.com/api.php?action=parse&page=Dio_Brando&prop=wikitext&format=json&origin=*' },
+  'Light Yagami': { type: 'fandom', url: 'https://deathnote.fandom.com/api.php?action=parse&page=Light_Yagami&prop=wikitext&format=json&origin=*' },
+  'Naruto Uzumaki': { type: 'fandom', url: 'https://naruto.fandom.com/api.php?action=parse&page=Naruto_Uzumaki&prop=wikitext&format=json&origin=*' },
+  'Monkey D. Luffy': { type: 'fandom', url: 'https://onepiece.fandom.com/api.php?action=parse&page=Monkey_D._Luffy&prop=wikitext&format=json&origin=*' },
+  'Ichigo Kurosaki': { type: 'fandom', url: 'https://bleach.fandom.com/api.php?action=parse&page=Ichigo_Kurosaki&prop=wikitext&format=json&origin=*' },
+  'Itachi Uchiha': { type: 'fandom', url: 'https://naruto.fandom.com/api.php?action=parse&page=Itachi_Uchiha&prop=wikitext&format=json&origin=*' },
+  'Sosuke Aizen': { type: 'fandom', url: 'https://bleach.fandom.com/api.php?action=parse&page=Sousuke_Aizen&prop=wikitext&format=json&origin=*' },
+  'Roronoa Zoro': { type: 'fandom', url: 'https://onepiece.fandom.com/api.php?action=parse&page=Roronoa_Zoro&prop=wikitext&format=json&origin=*' },
+  'Hisoka Morow': { type: 'fandom', url: 'https://hunterxhunter.fandom.com/api.php?action=parse&page=Hisoka_Morow&prop=wikitext&format=json&origin=*' },
+  'Goku': { type: 'fandom', url: 'https://dragonball.fandom.com/api.php?action=parse&page=Goku&prop=wikitext&format=json&origin=*' },
+  'Levi Ackerman': { type: 'fandom', url: 'https://attackontitan.fandom.com/api.php?action=parse&page=Levi_Ackermann_(Anime)&prop=wikitext&format=json&origin=*' },
+  'Makima': { type: 'fandom', url: 'https://chainsaw-man.fandom.com/api.php?action=parse&page=Makima&prop=wikitext&format=json&origin=*' },
+  'Anya Forger': { type: 'fandom', url: 'https://spy-x-family.fandom.com/api.php?action=parse&page=Anya_Forger&prop=wikitext&format=json&origin=*' },
+  'Rem': { type: 'fandom', url: 'https://rezero.fandom.com/api.php?action=parse&page=Rem&prop=wikitext&format=json&origin=*' },
+  'Seto Kaiba': { type: 'fandom', url: 'https://yugioh.fandom.com/api.php?action=parse&page=Seto_Kaiba&prop=wikitext&format=json&origin=*' },
+  'Saitama': { type: 'fandom', url: 'https://onepunchman.fandom.com/api.php?action=parse&page=Saitama&prop=wikitext&format=json&origin=*' },
+  'All Might': { type: 'fandom', url: 'https://myheroacademia.fandom.com/api.php?action=parse&page=Toshinori_Yagi&prop=wikitext&format=json&origin=*' },
+  'Ash Ketchum': { type: 'fandom', url: 'https://pokemon.fandom.com/api.php?action=parse&page=Ash_Ketchum&prop=wikitext&format=json&origin=*' },
+  'Edward Elric': { type: 'fandom', url: 'https://fma.fandom.com/api.php?action=parse&page=Edward_Elric&prop=wikitext&format=json&origin=*' },
+  'SpongeBob SquarePants': { type: 'fandom', url: 'https://spongebob.fandom.com/api.php?action=parse&page=SpongeBob_SquarePants_(character)&prop=wikitext&format=json&origin=*' },
+  'Squidward Tentacles': { type: 'fandom', url: 'https://spongebob.fandom.com/api.php?action=parse&page=Squidward_Tentacles&prop=wikitext&format=json&origin=*' },
+  'Timmy Turner': { type: 'fandom', url: 'https://fairlyoddparents.fandom.com/api.php?action=parse&page=Timmy_Turner&prop=wikitext&format=json&origin=*' },
+  'Danny Phantom': { type: 'fandom', url: 'https://dannyphantom.fandom.com/api.php?action=parse&page=Danny_Phantom_(character)&prop=wikitext&format=json&origin=*' },
+  'Jimmy Neutron': { type: 'fandom', url: 'https://jimmyneutron.fandom.com/api.php?action=parse&page=Jimmy_Neutron&prop=wikitext&format=json&origin=*' },
+  'Aang': { type: 'fandom', url: 'https://avatar.fandom.com/api.php?action=parse&page=Aang&prop=wikitext&format=json&origin=*' },
+  'Prince Zuko': { type: 'fandom', url: 'https://avatar.fandom.com/api.php?action=parse&page=Zuko&prop=wikitext&format=json&origin=*' },
+  'Perry the Platypus': { type: 'fandom', url: 'https://phineasandferb.fandom.com/api.php?action=parse&page=Perry_the_Platypus&prop=wikitext&format=json&origin=*' },
+  'Dr. Doofenshmirtz': { type: 'fandom', url: 'https://phineasandferb.fandom.com/api.php?action=parse&page=Heinz_Doofenshmirtz&prop=wikitext&format=json&origin=*' },
+  'Bill Cipher': { type: 'fandom', url: 'https://gravityfalls.fandom.com/api.php?action=parse&page=Bill_Cipher&prop=wikitext&format=json&origin=*' },
+  'Ben Tennyson': { type: 'fandom', url: 'https://ben10.fandom.com/api.php?action=parse&page=Ben_Tennyson_(Classic)&prop=wikitext&format=json&origin=*' },
+  'Finn the Human': { type: 'fandom', url: 'https://adventuretime.fandom.com/api.php?action=parse&page=Finn&prop=wikitext&format=json&origin=*' },
+  'Mordecai': { type: 'fandom', url: 'https://regularshow.fandom.com/api.php?action=parse&page=Mordecai&prop=wikitext&format=json&origin=*' },
+  'Raven': { type: 'fandom', url: 'https://teentitans.fandom.com/api.php?action=parse&page=Raven&prop=wikitext&format=json&origin=*' },
+  'Mojo Jojo': { type: 'fandom', url: 'https://powerpuffgirls.fandom.com/api.php?action=parse&page=Mojo_Jojo_(1998_TV_series)&prop=wikitext&format=json&origin=*' },
+  'Courage the Cowardly Dog': { type: 'fandom', url: 'https://couragethecowardlydog.fandom.com/api.php?action=parse&page=Courage&prop=wikitext&format=json&origin=*' },
+  'Grim': { type: 'fandom', url: 'https://grimadventures.fandom.com/api.php?action=parse&page=Grim&prop=wikitext&format=json&origin=*' },
+  'Shego': { type: 'fandom', url: 'https://kimpossible.fandom.com/api.php?action=parse&page=Shego&prop=wikitext&format=json&origin=*' },
+  'Scooby-Doo': { type: 'fandom', url: 'https://scoobydoo.fandom.com/api.php?action=parse&page=Scooby-Doo&prop=wikitext&format=json&origin=*' },
+  'Ed': { type: 'fandom', url: 'https://ed.fandom.com/api.php?action=parse&page=Ed&prop=wikitext&format=json&origin=*' },
+  'Pikachu': { type: 'fandom', url: 'https://pokemon.fandom.com/api.php?action=parse&page=Pikachu&prop=wikitext&format=json&origin=*' },
+  'Mario': { type: 'fandom', url: 'https://mario.fandom.com/api.php?action=parse&page=Mario&prop=wikitext&format=json&origin=*' },
+  'Kirby': { type: 'fandom', url: 'https://kirby.fandom.com/api.php?action=parse&page=Kirby&prop=wikitext&format=json&origin=*' },
+  'Sonic the Hedgehog': { type: 'fandom', url: 'https://sonic.fandom.com/api.php?action=parse&page=Sonic_the_Hedgehog&prop=wikitext&format=json&origin=*' },
+  'Donkey Kong': { type: 'fandom', url: 'https://donkeykong.fandom.com/api.php?action=parse&page=Donkey_Kong&prop=wikitext&format=json&origin=*' },
+  'Trevor Philips': { type: 'fandom', url: 'https://gta.fandom.com/api.php?action=parse&page=Trevor_Philips&prop=wikitext&format=json&origin=*' },
+  'Link': { type: 'fandom', url: 'https://zelda.fandom.com/api.php?action=parse&page=Link&prop=wikitext&format=json&origin=*' },
+  'Bowser': { type: 'fandom', url: 'https://mario.fandom.com/api.php?action=parse&page=Bowser&prop=wikitext&format=json&origin=*' },
+  'Master Chief': { type: 'fandom', url: 'https://halo.fandom.com/api.php?action=parse&page=John-117&prop=wikitext&format=json&origin=*' },
+  'Kratos': { type: 'fandom', url: 'https://godofwar.fandom.com/api.php?action=parse&page=Kratos&prop=wikitext&format=json&origin=*' },
+  'Creeper': { type: 'fandom', url: 'https://minecraft.fandom.com/api.php?action=parse&page=Creeper&prop=wikitext&format=json&origin=*' },
+  'Pac-Man': { type: 'fandom', url: 'https://pacman.fandom.com/api.php?action=parse&page=Pac-Man&prop=wikitext&format=json&origin=*' },
+  'Sans': { type: 'fandom', url: 'https://undertale.fandom.com/api.php?action=parse&page=Sans&prop=wikitext&format=json&origin=*' },
+  'Steve': { type: 'fandom', url: 'https://minecraft.fandom.com/api.php?action=parse&page=Player&prop=wikitext&format=json&origin=*' },
+  'Scorpion': { type: 'fandom', url: 'https://mortalkombat.fandom.com/api.php?action=parse&page=Hanzo_Hasashi&prop=wikitext&format=json&origin=*' },
+  'CJ': { type: 'fandom', url: 'https://gta.fandom.com/api.php?action=parse&page=Carl_Johnson&prop=wikitext&format=json&origin=*' },
+  'Isabelle': { type: 'fandom', url: 'https://animalcrossing.fandom.com/api.php?action=parse&page=Isabelle&prop=wikitext&format=json&origin=*' },
+  'Mewtwo': { type: 'fandom', url: 'https://pokemon.fandom.com/api.php?action=parse&page=Mewtwo&prop=wikitext&format=json&origin=*' },
+  'Sephiroth': { type: 'fandom', url: 'https://finalfantasy.fandom.com/api.php?action=parse&page=Sephiroth&prop=wikitext&format=json&origin=*' },
+  'Crash Bandicoot': { type: 'fandom', url: 'https://crashbandicoot.fandom.com/api.php?action=parse&page=Crash_Bandicoot&prop=wikitext&format=json&origin=*' },
+  'Shrek': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Shrek_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Tony Stark': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Iron_Man&prop=extracts&explaintext=true&format=json&origin=*' },
+  'The Joker': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Joker_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Captain Jack Sparrow': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Jack_Sparrow&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Thanos': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Thanos&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Harry Potter': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Harry_Potter_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Edward Cullen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Edward_Cullen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Katniss Everdeen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Katniss_Everdeen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Gollum': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Gollum&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Patrick Bateman': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Patrick_Bateman&prop=extracts&explaintext=true&format=json&origin=*' },
+  'John Wick': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=John_Wick_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Gru': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Gru_(Despicable_Me)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Barbie': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Barbie_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Anakin Skywalker': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Anakin_Skywalker&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dominic Toretto': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Dominic_Toretto&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Lord Voldemort': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Lord_Voldemort&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Miles Morales': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Miles_Morales&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Lightning McQueen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Lightning_McQueen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Pennywise': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Pennywise_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Peter Parker': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Spider-Man&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Walter White': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Walter_White_(Breaking_Bad)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Michael Scott': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Michael_Scott_(The_Office)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Daenerys Targaryen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Daenerys_Targaryen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Homelander': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Homelander&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Negan': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Negan_(The_Walking_Dead)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Barney Stinson': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Barney_Stinson&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Ron Swanson': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Ron_Swanson&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Tony Soprano': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Tony_Soprano&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Eleven': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Eleven_(Stranger_Things)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Saul Goodman': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Saul_Goodman&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Ross Geller': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Ross_Geller&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Joffrey Baratheon': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Joffrey_Baratheon&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dexter Morgan': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Dexter_Morgan&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Sue Sylvester': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Sue_Sylvester&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dr. Gregory House': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Gregory_House&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dean Winchester': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Dean_Winchester&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Frank Reynolds': { type: 'wikipedia', url: "https://en.wikipedia.org/w/api.php?action=query&titles=Frank_Reynolds_(It's_Always_Sunny_in_Philadelphia)&prop=extracts&explaintext=true&format=json&origin=*" },
+  'Kendall Roy': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Kendall_Roy&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Rue Bennett': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Rue_Bennett&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Steve Harrington': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Steve_Harrington&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Darth Vader': { type: 'fandom', url: 'https://starwars.fandom.com/api.php?action=parse&page=Anakin_Skywalker&prop=wikitext&format=json&origin=*' },
+  'Hannibal Lecter': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Hannibal_Lecter&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Scar': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Scar_(The_Lion_King)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Green Goblin': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Green_Goblin&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Plankton': { type: 'fandom', url: 'https://spongebob.fandom.com/api.php?action=parse&page=Sheldon_J._Plankton&prop=wikitext&format=json&origin=*' },
+  'Michael Myers': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Michael_Myers_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Freddy Krueger': { type: 'fandom', url: 'https://villains.fandom.com/api.php?action=parse&page=Freddy_Krueger_(original)&prop=wikitext&format=json&origin=*' },
+  'Maleficent': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Maleficent&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Loki': { type: 'fandom', url: 'https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Loki&prop=wikitext&format=json&origin=*' },
+  'Cruella de Vil': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Cruella_de_Vil&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Chucky': { type: 'fandom', url: 'https://chucky.fandom.com/api.php?action=parse&page=Chucky&prop=wikitext&format=json&origin=*' },
+  'Wicked Witch of the West': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Wicked_Witch_of_the_West&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Captain Hook': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Captain_Hook&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Kylo Ren': { type: 'fandom', url: 'https://starwars.fandom.com/api.php?action=parse&page=Ben_Solo&prop=wikitext&format=json&origin=*' },
+}
+
+const TRAIT_DEFINITIONS = `
+resurrection: died and came back to life or was resurrected
+secret_identity: hides their true identity, powers, or nature from most people
+lost_family: lost a parent or close family member that shaped who they became
+villain_to_hero: started as a villain or antagonist before becoming beloved
+created_transformed: was created, experimented on, or transformed by someone else against their will
+obsession: consumed by a single obsession or goal that drives everything they do
+mask_pain: uses humor or a cheerful attitude to hide deep pain or trauma
+extremely_powerful: considered extremely powerful or among the strongest in their world
+adopted_orphan: an orphan or raised by someone other than their biological parents
+loyal_found_family: fiercely loyal to a small group they consider chosen family
+sacrifice: sacrificed themselves or gave up everything important for someone else
+villain: primarily a villain or antagonist in their story
+redemption_arc: went through a significant redemption arc from bad to good
+trauma_driven: primarily driven by a traumatic event from their past
+addiction: struggles with an addiction or compulsion they cannot control
+neglected: neglected or failed by the adults or authority figures meant to care for them
+genius: explicitly portrayed as a genius or exceptionally intelligent
+underdog: an underdog or outcast underestimated by everyone around them
+world_threat: has the power to threaten or destroy entire populations or worlds
+double_life: lives a double life balancing two completely different identities
+non_human: not human (animal, robot, monster, alien, deity, doll, or other species)
+iconic_weapon: strongly associated with one signature weapon or item they are always seen with
+leader: leads a team, organization, kingdom, crew, or group of followers
+comedic: primarily a comedic character known for making audiences laugh
+feared_by_enemies: widely feared by their enemies or the people around them
+manipulator: manipulates or deceives others as a core part of their character
+protects_hometown: dedicated to protecting their home, town, or world from threats
+reluctant_hero: never wanted their role or power but accepted the responsibility
+food_obsessed: known for a huge appetite or obsession with a specific food
+immortal_or_ageless: immortal, undead, ageless, or has lived far beyond a normal lifespan
+royalty: a prince, princess, king, queen, or member of a royal or noble bloodline
+iconic_duo: inseparable from one famous best friend or partner they are always seen with
+protects_younger_sibling: has a younger sibling they protect at all costs
+revenge_driven: primarily motivated by revenge for a past wrong
+silent_type: rarely or never speaks
+deadpan: famous for a deadpan, monotone, or emotionless delivery
+lazy: famously lazy or unmotivated
+rich: extremely wealthy or controls vast fortunes
+crime_world: operates within organized crime or a criminal enterprise
+transformation_form: can transform into a more powerful alternate form or state
+school_secret_life: balances school or student life with a secret second life
+lab_experiment: was experimented on in a lab or created through scientific experimentation
+animal_companion: has a loyal animal companion or pet by their side
+scaredy_cat: famously cowardly or easily frightened
+says_own_name: known for mostly saying or repeating their own name
+trickster_deals: known for making deals, tricks, or bargains with others
+lost_love: lost a spouse, partner, or great love
+cursed_burden: carries a curse, entity, or burden inside them they never chose
+chosen_one: prophesied, chosen, or destined for their role
+saved_world_repeatedly: has saved the world or their people multiple times
+unlucky_in_love: famously unlucky in love, divorced, or repeatedly failing at romance
+hates_their_job: stuck in a job they hate or are comically bad at
+desperate_for_approval: desperately craves approval, attention, or to be liked
+delusional_confidence: has confidence wildly out of proportion to their actual ability
+workplace_character: primarily defined by their workplace and coworkers
+big_ego: famous for an enormous ego or vanity
+terrible_boss: is or works for a comically terrible boss
+petty: known for holding grudges or being hilariously petty
+`.trim()
+
+function cleanWikitext(raw: string): string {
+  return raw
+    .replace(/\{\{[^}]*\}\}/g, '')
+    .replace(/\[\[([^\]|]*\|)?([^\]]*)\]\]/g, '$2')
+    .replace(/={2,}/g, '')
+    .replace(/[']{2,}/g, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+    .slice(0, 5000)
+}
+
+async function getCharacterContext(name: string): Promise<string> {
+  const source = characterSources[name]
+  if (!source) return ''
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 8000)
+    const res = await fetch(source.url, {
+      headers: { 'User-Agent': 'AmIGame/1.0' },
+      signal: controller.signal,
+    })
+    clearTimeout(timeout)
+    if (!res.ok) return ''
+    const data = await res.json()
+    if (source.type === 'fandom') {
+      const raw = data.parse?.wikitext?.['*'] ?? ''
+      if (raw.startsWith('#REDIRECT')) return ''
+      return cleanWikitext(raw)
+    } else {
+      const pages = data.query?.pages
+      if (!pages) return ''
+      const page = Object.values(pages)[0] as { extract?: string }
+      return (page?.extract ?? '').slice(0, 5000)
+    }
+  } catch {
+    return ''
+  }
+}
+
+async function generateTraits(
+  name: string,
+  deck: string,
+  description: string,
+  context: string
+): Promise<{ traits: Record<string, boolean>; notable_facts: string[] } | null> {
+  const combined = [description, context].filter(Boolean).join('\n\n').slice(0, 5000)
+  if (!combined) return null
+
+  try {
+    const completion = await deepseek.chat.completions.create({
+      model: 'deepseek-chat',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: `You are a character trait classifier for a pop culture game. Read the provided text about a character and evaluate each trait as true or false based ONLY on the provided text. If the text does not clearly support true, mark false.
+
+Trait definitions:
+${TRAIT_DEFINITIONS}
+
+Also extract 5 notable facts about the character from the text — their most defining, interesting, or surprising characteristics.
+
+Output a JSON object in this exact format:
+{
+  "traits": { "resurrection": false, "secret_identity": true, ... all 28 traits ... },
+  "notable_facts": ["fact one", "fact two", "fact three", "fact four", "fact five"]
+}`,
+        },
+        {
+          role: 'user',
+          content: `Character: ${name} (${deck})\n\nText:\n${combined}\n\nEvaluate all 28 traits and extract 5 notable facts. Output only the JSON object.`,
+        },
+      ],
+      max_tokens: 700,
+      temperature: 0,
+    })
+
+    const raw = completion.choices[0]?.message?.content?.trim() ?? '{}'
+    const parsed = JSON.parse(raw) as {
+      traits?: Record<string, boolean>
+      notable_facts?: string[]
+    }
+    if (!parsed.traits) return null
+    return {
+      traits: parsed.traits,
+      notable_facts: parsed.notable_facts ?? [],
+    }
+  } catch (err) {
+    console.error(`Trait generation failed for ${name}:`, err)
+    return null
+  }
+}
+
+async function run() {
+  const { data: characters } = await supabase
+    .from('characters')
+    .select('id, name, deck, description')
+
+  if (!characters) {
+    console.error('Could not fetch characters')
+    return
+  }
+
+  console.log(`Generating trait profiles for ${characters.length} characters...`)
+
+  for (const character of characters) {
+    // Skip characters that already have traits (allows resuming)
+    const { data: existing } = await supabase
+      .from('characters')
+      .select('traits')
+      .eq('id', character.id)
+      .single()
+
+    if (existing?.traits && Object.keys(existing.traits).length > 0) {
+      console.log(`Skipping ${character.name} — already has traits`)
+      continue
+    }
+
+    console.log(`Processing: ${character.name} (${character.deck})`)
+
+    const context = await getCharacterContext(character.name)
+    const result = await generateTraits(
+      character.name,
+      character.deck,
+      character.description ?? '',
+      context
+    )
+
+    if (!result) {
+      console.log(`✗ ${character.name} — trait generation failed`)
+      continue
+    }
+
+    const { error } = await supabase
+      .from('characters')
+      .update({
+        traits: result.traits,
+        notable_facts: result.notable_facts,
+      })
+      .eq('id', character.id)
+
+    if (error) {
+      console.error(`DB error for ${character.name}:`, error.message)
+    } else {
+      const trueTraits = Object.entries(result.traits)
+        .filter(([, v]) => v)
+        .map(([k]) => k)
+      console.log(`✓ ${character.name} — traits: [${trueTraits.join(', ')}]`)
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 300))
+  }
+
+  console.log('Done. Review the traits column in Supabase and correct any errors.')
+}
+
+run()
+</file>
+
+<file path="scripts/ingest-characters.ts">
+import OpenAI from 'openai'
+import { createClient } from '@supabase/supabase-js'
+import * as dotenv from 'dotenv'
+
+dotenv.config({ path: '.env.local' })
+
+const deepseek = new OpenAI({
+  baseURL: 'https://api.deepseek.com',
+  apiKey: process.env.DEEPSEEK_API_KEY!,
+})
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+const characters: { name: string; deck: string }[] = [
+  // ANIME
+  { name: 'Satoru Gojo', deck: 'anime' },
+  { name: 'Dio Brando', deck: 'anime' },
+  { name: 'Light Yagami', deck: 'anime' },
+  { name: 'Naruto Uzumaki', deck: 'anime' },
+  { name: 'Monkey D. Luffy', deck: 'anime' },
+  { name: 'Ichigo Kurosaki', deck: 'anime' },
+  { name: 'Itachi Uchiha', deck: 'anime' },
+  { name: 'Sosuke Aizen', deck: 'anime' },
+  { name: 'Roronoa Zoro', deck: 'anime' },
+  { name: 'Hisoka Morow', deck: 'anime' },
+  { name: 'Goku', deck: 'anime' },
+  { name: 'Levi Ackerman', deck: 'anime' },
+  { name: 'Makima', deck: 'anime' },
+  { name: 'Anya Forger', deck: 'anime' },
+  { name: 'Rem', deck: 'anime' },
+  { name: 'Seto Kaiba', deck: 'anime' },
+  { name: 'Saitama', deck: 'anime' },
+  { name: 'All Might', deck: 'anime' },
+  { name: 'Ash Ketchum', deck: 'anime' },
+  { name: 'Edward Elric', deck: 'anime' },
+
+  // MOVIES
+  { name: 'Shrek', deck: 'movies' },
+  { name: 'Tony Stark', deck: 'movies' },
+  { name: 'The Joker', deck: 'movies' },
+  { name: 'Captain Jack Sparrow', deck: 'movies' },
+  { name: 'Thanos', deck: 'movies' },
+  { name: 'Harry Potter', deck: 'movies' },
+  { name: 'Edward Cullen', deck: 'movies' },
+  { name: 'Katniss Everdeen', deck: 'movies' },
+  { name: 'Gollum', deck: 'movies' },
+  { name: 'Patrick Bateman', deck: 'movies' },
+  { name: 'John Wick', deck: 'movies' },
+  { name: 'Gru', deck: 'movies' },
+  { name: 'Barbie', deck: 'movies' },
+  { name: 'Anakin Skywalker', deck: 'movies' },
+  { name: 'Dominic Toretto', deck: 'movies' },
+  { name: 'Lord Voldemort', deck: 'movies' },
+  { name: 'Miles Morales', deck: 'movies' },
+  { name: 'Lightning McQueen', deck: 'movies' },
+  { name: 'Pennywise', deck: 'movies' },
+  { name: 'Peter Parker', deck: 'movies' },
+
+  // TV SHOWS
+  { name: 'Walter White', deck: 'tv' },
+  { name: 'Michael Scott', deck: 'tv' },
+  { name: 'Daenerys Targaryen', deck: 'tv' },
+  { name: 'Homelander', deck: 'tv' },
+  { name: 'Negan', deck: 'tv' },
+  { name: 'Barney Stinson', deck: 'tv' },
+  { name: 'Ron Swanson', deck: 'tv' },
+  { name: 'Tony Soprano', deck: 'tv' },
+  { name: 'Eleven', deck: 'tv' },
+  { name: 'Saul Goodman', deck: 'tv' },
+  { name: 'Ross Geller', deck: 'tv' },
+  { name: 'Joffrey Baratheon', deck: 'tv' },
+  { name: 'Dexter Morgan', deck: 'tv' },
+  { name: 'Sue Sylvester', deck: 'tv' },
+  { name: 'Dr. Gregory House', deck: 'tv' },
+  { name: 'Dean Winchester', deck: 'tv' },
+  { name: 'Frank Reynolds', deck: 'tv' },
+  { name: 'Kendall Roy', deck: 'tv' },
+  { name: 'Rue Bennett', deck: 'tv' },
+  { name: 'Steve Harrington', deck: 'tv' },
+
+  // CARTOONS
+  { name: 'SpongeBob SquarePants', deck: 'cartoons' },
+  { name: 'Squidward Tentacles', deck: 'cartoons' },
+  { name: 'Timmy Turner', deck: 'cartoons' },
+  { name: 'Danny Phantom', deck: 'cartoons' },
+  { name: 'Jimmy Neutron', deck: 'cartoons' },
+  { name: 'Aang', deck: 'cartoons' },
+  { name: 'Prince Zuko', deck: 'cartoons' },
+  { name: 'Perry the Platypus', deck: 'cartoons' },
+  { name: 'Dr. Doofenshmirtz', deck: 'cartoons' },
+  { name: 'Bill Cipher', deck: 'cartoons' },
+  { name: 'Ben Tennyson', deck: 'cartoons' },
+  { name: 'Finn the Human', deck: 'cartoons' },
+  { name: 'Mordecai', deck: 'cartoons' },
+  { name: 'Raven', deck: 'cartoons' },
+  { name: 'Mojo Jojo', deck: 'cartoons' },
+  { name: 'Courage the Cowardly Dog', deck: 'cartoons' },
+  { name: 'Grim', deck: 'cartoons' },
+  { name: 'Shego', deck: 'cartoons' },
+  { name: 'Scooby-Doo', deck: 'cartoons' },
+  { name: 'Ed', deck: 'cartoons' },
+
+  // GAMES
+  { name: 'Pikachu', deck: 'games' },
+  { name: 'Mario', deck: 'games' },
+  { name: 'Kirby', deck: 'games' },
+  { name: 'Sonic the Hedgehog', deck: 'games' },
+  { name: 'Donkey Kong', deck: 'games' },
+  { name: 'Trevor Philips', deck: 'games' },
+  { name: 'Link', deck: 'games' },
+  { name: 'Bowser', deck: 'games' },
+  { name: 'Master Chief', deck: 'games' },
+  { name: 'Kratos', deck: 'games' },
+  { name: 'Creeper', deck: 'games' },
+  { name: 'Pac-Man', deck: 'games' },
+  { name: 'Sans', deck: 'games' },
+  { name: 'Steve', deck: 'games' },
+  { name: 'Scorpion', deck: 'games' },
+  { name: 'CJ', deck: 'games' },
+  { name: 'Isabelle', deck: 'games' },
+  { name: 'Mewtwo', deck: 'games' },
+  { name: 'Sephiroth', deck: 'games' },
+  { name: 'Crash Bandicoot', deck: 'games' },
+
+  // VILLAINS
+  { name: 'Darth Vader', deck: 'villains' },
+  { name: 'The Joker', deck: 'villains' },
+  { name: 'Thanos', deck: 'villains' },
+  { name: 'Lord Voldemort', deck: 'villains' },
+  { name: 'Hannibal Lecter', deck: 'villains' },
+  { name: 'Scar', deck: 'villains' },
+  { name: 'Green Goblin', deck: 'villains' },
+  { name: 'Bowser', deck: 'villains' },
+  { name: 'Plankton', deck: 'villains' },
+  { name: 'Michael Myers', deck: 'villains' },
+  { name: 'Freddy Krueger', deck: 'villains' },
+  { name: 'Maleficent', deck: 'villains' },
+  { name: 'Loki', deck: 'villains' },
+  { name: 'Pennywise', deck: 'villains' },
+  { name: 'Cruella de Vil', deck: 'villains' },
+  { name: 'Gollum', deck: 'villains' },
+  { name: 'Chucky', deck: 'villains' },
+  { name: 'Wicked Witch of the West', deck: 'villains' },
+  { name: 'Captain Hook', deck: 'villains' },
+  { name: 'Kylo Ren', deck: 'villains' },
+]
+
+async function getDescription(name: string, deck: string): Promise<string> {
+  const response = await deepseek.chat.completions.create({
+    model: 'deepseek-chat',
+    messages: [
+      {
+        role: 'system',
+        content: `You are a writer for a pop culture deduction card game called "Am I?" where two players are each assigned a character. Each player can see their opponent's character card but not their own. Players ask yes or no questions to figure out who they are.
+
+The description on each card helps the player who CAN see it answer yes or no questions accurately about their opponent's character.
+
+Rules:
+- Third person only ("This character", "They", "Their")
+- One paragraph, no line breaks, no bullet points
+- Start with the show, movie, or game title — you may reference the title even if it matches the character's name
+- Include personality, iconic traits, meme-worthy moments, and one signature ability or moment
+- Be factually accurate — do not misrepresent the character's age, role, species, or relationships
+- Under 80 words
+- Be specific enough that someone could confidently answer yes or no questions about this character
+
+Examples of good descriptions:
+
+"From the Nickelodeon cartoon SpongeBob SquarePants, this tiny one-eyed restaurant owner has dedicated their entire existence to stealing a secret recipe from a rival. Obsessed, dramatic, and perpetually failing, they became a beloved internet meme for hilariously over-the-top evil plans and a surprisingly wholesome relationship with their computer wife Karen."
+
+"From the Nickelodeon animated series Avatar The Last Airbender, this 12-year-old airbender carries the weight of the entire world on his shoulders as the only person capable of mastering all four elements. Cheerful and playful despite the pressure, their flying bison and signature monk arrow tattoo are instantly recognizable across generations of fans."
+
+"From the anime series Jujutsu Kaisen, this silver-haired sorcerer is widely considered the strongest in the world and never lets anyone forget it. Effortlessly cool, blindfolded in battle, and with a smile that has launched a thousand memes, their overwhelming power and carefree attitude made them an instant fan favorite from their very first appearance."
+
+"From the DreamWorks animated film Shrek, this green ogre just wants to live alone in his swamp but keeps getting dragged into fairy tale adventures. Grumpy on the outside but deeply loyal underneath, their love story with a princess and iconic partnership with a talking donkey turned them into one of the most beloved and memed characters in internet history."
+
+"From the God of War video game series, this Spartan warrior turned god-slayer has spent decades violently murdering every deity he encounters across multiple mythologies. Bald, covered in ash-white skin, and carrying legendary blades chained to his arms, their journey from rage-fueled antihero to reluctant father figure became one of gaming's most celebrated character arcs."`,
+      },
+      {
+        role: 'user',
+        content: `Write a description for: ${name} (from the ${deck} category)`,
+      },
+    ],
+    max_tokens: 200,
+    temperature: 0.7,
+  })
+
+  return response.choices[0]?.message?.content?.trim() ?? ''
+}
+
+async function ingest() {
+  console.log(`Starting description update for ${characters.length} characters...`)
+
+  const { data: existing } = await supabase
+    .from('characters')
+    .select('name')
+    .not('description', 'is', null)
+
+  const existingNames = new Set((existing ?? []).map((c: { name: string }) => c.name))
+  console.log(`Found ${existingNames.size} characters already with descriptions. Skipping those.`)
+
+  for (const character of characters) {
+    if (existingNames.has(character.name)) {
+      console.log(`Skipping ${character.name} — already has description`)
+      continue
+    }
+
+    try {
+      console.log(`Processing: ${character.name} (${character.deck})`)
+
+      const description = await getDescription(character.name, character.deck)
+
+      const { error } = await supabase
+        .from('characters')
+        .update({ description })
+        .eq('name', character.name)
+        .eq('deck', character.deck)
+
+      if (error) {
+        console.error(`Error updating ${character.name}:`, error.message)
+      } else {
+        console.log(`✓ ${character.name}`)
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 500))
+    } catch (err) {
+      console.error(`Failed: ${character.name}`, err)
+    }
+  }
+
+  console.log('Done.')
+}
+
+ingest()
+</file>
+
+<file path="scripts/save-dossiers.ts">
+import OpenAI from 'openai'
+import { createClient } from '@supabase/supabase-js'
+import * as dotenv from 'dotenv'
+
+dotenv.config({ path: '.env.local' })
+
+const deepseek = new OpenAI({
+  baseURL: 'https://api.deepseek.com',
+  apiKey: process.env.DEEPSEEK_API_KEY!,
+})
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+interface CharacterSource {
+  type: 'fandom' | 'wikipedia'
+  url: string
+}
+
+// PASTE YOUR FULL characterSources MAP HERE (same one as before)
+const characterSources: Record<string, CharacterSource> = {
+  'Satoru Gojo': { type: 'fandom', url: 'https://jujutsu-kaisen.fandom.com/api.php?action=parse&page=Satoru_Gojo&prop=wikitext&format=json&origin=*' },
+  'Dio Brando': { type: 'fandom', url: 'https://jojo.fandom.com/api.php?action=parse&page=Dio_Brando&prop=wikitext&format=json&origin=*' },
+  'Light Yagami': { type: 'fandom', url: 'https://deathnote.fandom.com/api.php?action=parse&page=Light_Yagami&prop=wikitext&format=json&origin=*' },
+  'Naruto Uzumaki': { type: 'fandom', url: 'https://naruto.fandom.com/api.php?action=parse&page=Naruto_Uzumaki&prop=wikitext&format=json&origin=*' },
+  'Monkey D. Luffy': { type: 'fandom', url: 'https://onepiece.fandom.com/api.php?action=parse&page=Monkey_D._Luffy&prop=wikitext&format=json&origin=*' },
+  'Ichigo Kurosaki': { type: 'fandom', url: 'https://bleach.fandom.com/api.php?action=parse&page=Ichigo_Kurosaki&prop=wikitext&format=json&origin=*' },
+  'Itachi Uchiha': { type: 'fandom', url: 'https://naruto.fandom.com/api.php?action=parse&page=Itachi_Uchiha&prop=wikitext&format=json&origin=*' },
+  'Sosuke Aizen': { type: 'fandom', url: 'https://bleach.fandom.com/api.php?action=parse&page=Sousuke_Aizen&prop=wikitext&format=json&origin=*' },
+  'Roronoa Zoro': { type: 'fandom', url: 'https://onepiece.fandom.com/api.php?action=parse&page=Roronoa_Zoro&prop=wikitext&format=json&origin=*' },
+  'Hisoka Morow': { type: 'fandom', url: 'https://hunterxhunter.fandom.com/api.php?action=parse&page=Hisoka_Morow&prop=wikitext&format=json&origin=*' },
+  'Goku': { type: 'fandom', url: 'https://dragonball.fandom.com/api.php?action=parse&page=Goku&prop=wikitext&format=json&origin=*' },
+  'Levi Ackerman': { type: 'fandom', url: 'https://attackontitan.fandom.com/api.php?action=parse&page=Levi_Ackermann_(Anime)&prop=wikitext&format=json&origin=*' },
+  'Makima': { type: 'fandom', url: 'https://chainsaw-man.fandom.com/api.php?action=parse&page=Makima&prop=wikitext&format=json&origin=*' },
+  'Anya Forger': { type: 'fandom', url: 'https://spy-x-family.fandom.com/api.php?action=parse&page=Anya_Forger&prop=wikitext&format=json&origin=*' },
+  'Rem': { type: 'fandom', url: 'https://rezero.fandom.com/api.php?action=parse&page=Rem&prop=wikitext&format=json&origin=*' },
+  'Seto Kaiba': { type: 'fandom', url: 'https://yugioh.fandom.com/api.php?action=parse&page=Seto_Kaiba&prop=wikitext&format=json&origin=*' },
+  'Saitama': { type: 'fandom', url: 'https://onepunchman.fandom.com/api.php?action=parse&page=Saitama&prop=wikitext&format=json&origin=*' },
+  'All Might': { type: 'fandom', url: 'https://myheroacademia.fandom.com/api.php?action=parse&page=Toshinori_Yagi&prop=wikitext&format=json&origin=*' },
+  'Ash Ketchum': { type: 'fandom', url: 'https://pokemon.fandom.com/api.php?action=parse&page=Ash_Ketchum&prop=wikitext&format=json&origin=*' },
+  'Edward Elric': { type: 'fandom', url: 'https://fma.fandom.com/api.php?action=parse&page=Edward_Elric&prop=wikitext&format=json&origin=*' },
+  'SpongeBob SquarePants': { type: 'fandom', url: 'https://spongebob.fandom.com/api.php?action=parse&page=SpongeBob_SquarePants_(character)&prop=wikitext&format=json&origin=*' },
+  'Squidward Tentacles': { type: 'fandom', url: 'https://spongebob.fandom.com/api.php?action=parse&page=Squidward_Tentacles&prop=wikitext&format=json&origin=*' },
+  'Timmy Turner': { type: 'fandom', url: 'https://fairlyoddparents.fandom.com/api.php?action=parse&page=Timmy_Turner&prop=wikitext&format=json&origin=*' },
+  'Danny Phantom': { type: 'fandom', url: 'https://dannyphantom.fandom.com/api.php?action=parse&page=Danny_Phantom_(character)&prop=wikitext&format=json&origin=*' },
+  'Jimmy Neutron': { type: 'fandom', url: 'https://jimmyneutron.fandom.com/api.php?action=parse&page=Jimmy_Neutron&prop=wikitext&format=json&origin=*' },
+  'Aang': { type: 'fandom', url: 'https://avatar.fandom.com/api.php?action=parse&page=Aang&prop=wikitext&format=json&origin=*' },
+  'Prince Zuko': { type: 'fandom', url: 'https://avatar.fandom.com/api.php?action=parse&page=Zuko&prop=wikitext&format=json&origin=*' },
+  'Perry the Platypus': { type: 'fandom', url: 'https://phineasandferb.fandom.com/api.php?action=parse&page=Perry_the_Platypus&prop=wikitext&format=json&origin=*' },
+  'Dr. Doofenshmirtz': { type: 'fandom', url: 'https://phineasandferb.fandom.com/api.php?action=parse&page=Heinz_Doofenshmirtz&prop=wikitext&format=json&origin=*' },
+  'Bill Cipher': { type: 'fandom', url: 'https://gravityfalls.fandom.com/api.php?action=parse&page=Bill_Cipher&prop=wikitext&format=json&origin=*' },
+  'Ben Tennyson': { type: 'fandom', url: 'https://ben10.fandom.com/api.php?action=parse&page=Ben_Tennyson_(Classic)&prop=wikitext&format=json&origin=*' },
+  'Finn the Human': { type: 'fandom', url: 'https://adventuretime.fandom.com/api.php?action=parse&page=Finn&prop=wikitext&format=json&origin=*' },
+  'Mordecai': { type: 'fandom', url: 'https://regularshow.fandom.com/api.php?action=parse&page=Mordecai&prop=wikitext&format=json&origin=*' },
+  'Raven': { type: 'fandom', url: 'https://teentitans.fandom.com/api.php?action=parse&page=Raven&prop=wikitext&format=json&origin=*' },
+  'Mojo Jojo': { type: 'fandom', url: 'https://powerpuffgirls.fandom.com/api.php?action=parse&page=Mojo_Jojo_(1998_TV_series)&prop=wikitext&format=json&origin=*' },
+  'Courage the Cowardly Dog': { type: 'fandom', url: 'https://couragethecowardlydog.fandom.com/api.php?action=parse&page=Courage&prop=wikitext&format=json&origin=*' },
+  'Grim': { type: 'fandom', url: 'https://grimadventures.fandom.com/api.php?action=parse&page=Grim&prop=wikitext&format=json&origin=*' },
+  'Shego': { type: 'fandom', url: 'https://kimpossible.fandom.com/api.php?action=parse&page=Shego&prop=wikitext&format=json&origin=*' },
+  'Scooby-Doo': { type: 'fandom', url: 'https://scoobydoo.fandom.com/api.php?action=parse&page=Scooby-Doo&prop=wikitext&format=json&origin=*' },
+  'Ed': { type: 'fandom', url: 'https://ed.fandom.com/api.php?action=parse&page=Ed&prop=wikitext&format=json&origin=*' },
+  'Pikachu': { type: 'fandom', url: 'https://pokemon.fandom.com/api.php?action=parse&page=Pikachu&prop=wikitext&format=json&origin=*' },
+  'Mario': { type: 'fandom', url: 'https://mario.fandom.com/api.php?action=parse&page=Mario&prop=wikitext&format=json&origin=*' },
+  'Kirby': { type: 'fandom', url: 'https://kirby.fandom.com/api.php?action=parse&page=Kirby&prop=wikitext&format=json&origin=*' },
+  'Sonic the Hedgehog': { type: 'fandom', url: 'https://sonic.fandom.com/api.php?action=parse&page=Sonic_the_Hedgehog&prop=wikitext&format=json&origin=*' },
+  'Donkey Kong': { type: 'fandom', url: 'https://donkeykong.fandom.com/api.php?action=parse&page=Donkey_Kong&prop=wikitext&format=json&origin=*' },
+  'Trevor Philips': { type: 'fandom', url: 'https://gta.fandom.com/api.php?action=parse&page=Trevor_Philips&prop=wikitext&format=json&origin=*' },
+  'Link': { type: 'fandom', url: 'https://zelda.fandom.com/api.php?action=parse&page=Link&prop=wikitext&format=json&origin=*' },
+  'Bowser': { type: 'fandom', url: 'https://mario.fandom.com/api.php?action=parse&page=Bowser&prop=wikitext&format=json&origin=*' },
+  'Master Chief': { type: 'fandom', url: 'https://halo.fandom.com/api.php?action=parse&page=John-117&prop=wikitext&format=json&origin=*' },
+  'Kratos': { type: 'fandom', url: 'https://godofwar.fandom.com/api.php?action=parse&page=Kratos&prop=wikitext&format=json&origin=*' },
+  'Creeper': { type: 'fandom', url: 'https://minecraft.fandom.com/api.php?action=parse&page=Creeper&prop=wikitext&format=json&origin=*' },
+  'Pac-Man': { type: 'fandom', url: 'https://pacman.fandom.com/api.php?action=parse&page=Pac-Man&prop=wikitext&format=json&origin=*' },
+  'Sans': { type: 'fandom', url: 'https://undertale.fandom.com/api.php?action=parse&page=Sans&prop=wikitext&format=json&origin=*' },
+  'Steve': { type: 'fandom', url: 'https://minecraft.fandom.com/api.php?action=parse&page=Player&prop=wikitext&format=json&origin=*' },
+  'Scorpion': { type: 'fandom', url: 'https://mortalkombat.fandom.com/api.php?action=parse&page=Hanzo_Hasashi&prop=wikitext&format=json&origin=*' },
+  'CJ': { type: 'fandom', url: 'https://gta.fandom.com/api.php?action=parse&page=Carl_Johnson&prop=wikitext&format=json&origin=*' },
+  'Isabelle': { type: 'fandom', url: 'https://animalcrossing.fandom.com/api.php?action=parse&page=Isabelle&prop=wikitext&format=json&origin=*' },
+  'Mewtwo': { type: 'fandom', url: 'https://pokemon.fandom.com/api.php?action=parse&page=Mewtwo&prop=wikitext&format=json&origin=*' },
+  'Sephiroth': { type: 'fandom', url: 'https://finalfantasy.fandom.com/api.php?action=parse&page=Sephiroth&prop=wikitext&format=json&origin=*' },
+  'Crash Bandicoot': { type: 'fandom', url: 'https://crashbandicoot.fandom.com/api.php?action=parse&page=Crash_Bandicoot&prop=wikitext&format=json&origin=*' },
+  'Shrek': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Shrek_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Tony Stark': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Iron_Man&prop=extracts&explaintext=true&format=json&origin=*' },
+  'The Joker': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Joker_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Captain Jack Sparrow': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Jack_Sparrow&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Thanos': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Thanos&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Harry Potter': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Harry_Potter_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Edward Cullen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Edward_Cullen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Katniss Everdeen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Katniss_Everdeen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Gollum': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Gollum&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Patrick Bateman': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Patrick_Bateman&prop=extracts&explaintext=true&format=json&origin=*' },
+  'John Wick': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=John_Wick_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+    'Gru': { type: 'fandom', url: 'https://despicableme.fandom.com/api.php?action=parse&page=Felonious_Gru&prop=wikitext&format=json&origin=*' },
+  'Barbie': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Barbie_(character)&prop=extracts&explaintext=true&format=json&origin=*' },
+   'Anakin Skywalker': { type: 'fandom', url: 'https://starwars.fandom.com/api.php?action=parse&page=Anakin_Skywalker&prop=wikitext&format=json&origin=*' },
+  'Dominic Toretto': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Dominic_Toretto&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Lord Voldemort': { type: 'fandom', url: 'https://harrypotter.fandom.com/api.php?action=parse&page=Tom_Riddle&prop=wikitext&format=json&origin=*' },
+  'Miles Morales': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Miles_Morales&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Lightning McQueen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Lightning_McQueen&prop=extracts&explaintext=true&format=json&origin=*' },
+    'Pennywise': { type: 'fandom', url: 'https://stephenking.fandom.com/api.php?action=parse&page=It_(Creature)&prop=wikitext&format=json&origin=*' },
+  'Peter Parker': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Spider-Man&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Walter White': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Walter_White_(Breaking_Bad)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Michael Scott': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Michael_Scott_(The_Office)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Daenerys Targaryen': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Daenerys_Targaryen&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Homelander': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Homelander&prop=extracts&explaintext=true&format=json&origin=*' },
+ 
+  
+  'Barney Stinson': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Barney_Stinson&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Ron Swanson': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Ron_Swanson&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Tony Soprano': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Tony_Soprano&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Eleven': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Eleven_(Stranger_Things)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Saul Goodman': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Saul_Goodman&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Ross Geller': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Ross_Geller&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Joffrey Baratheon': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Joffrey_Baratheon&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dexter Morgan': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Dexter_Morgan&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Sue Sylvester': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Sue_Sylvester&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dr. Gregory House': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Gregory_House&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Dean Winchester': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Dean_Winchester&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Frank Reynolds': { type: 'fandom', url: 'https://itsalwayssunny.fandom.com/api.php?action=parse&page=Frank_Reynolds&prop=wikitext&format=json&origin=*' },
+
+  'Kendall Roy': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Kendall_Roy&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Rue Bennett': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Rue_Bennett&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Steve Harrington': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Steve_Harrington&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Darth Vader': { type: 'fandom', url: 'https://starwars.fandom.com/api.php?action=parse&page=Anakin_Skywalker&prop=wikitext&format=json&origin=*' },
+  'Hannibal Lecter': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Hannibal_Lecter&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Scar': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Scar_(The_Lion_King)&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Green Goblin': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Green_Goblin&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Plankton': { type: 'fandom', url: 'https://spongebob.fandom.com/api.php?action=parse&page=Sheldon_J._Plankton&prop=wikitext&format=json&origin=*' },
+   'Michael Myers': { type: 'fandom', url: 'https://halloween.fandom.com/api.php?action=parse&page=Michael_Myers&prop=wikitext&format=json&origin=*' },
+  'Freddy Krueger': { type: 'fandom', url: 'https://villains.fandom.com/api.php?action=parse&page=Freddy_Krueger_(original)&prop=wikitext&format=json&origin=*' },
+  'Maleficent': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Maleficent&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Loki': { type: 'fandom', url: 'https://marvelcinematicuniverse.fandom.com/api.php?action=parse&page=Loki&prop=wikitext&format=json&origin=*' },
+  'Cruella de Vil': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Cruella_de_Vil&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Chucky': { type: 'fandom', url: 'https://chucky.fandom.com/api.php?action=parse&page=Chucky&prop=wikitext&format=json&origin=*' },
+  'Wicked Witch of the West': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Wicked_Witch_of_the_West&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Captain Hook': { type: 'wikipedia', url: 'https://en.wikipedia.org/w/api.php?action=query&titles=Captain_Hook&prop=extracts&explaintext=true&format=json&origin=*' },
+  'Kylo Ren': { type: 'fandom', url: 'https://starwars.fandom.com/api.php?action=parse&page=Ben_Solo&prop=wikitext&format=json&origin=*' },
+}
+
+// Iteratively strip nested {{templates}} until none remain — fixes infobox junk
+function stripTemplates(text: string): string {
+  let prev = ''
+  let current = text
+  while (prev !== current) {
+    prev = current
+    current = current.replace(/\{\{[^{}]*\}\}/g, '')
+  }
+  return current
+}
+
+function cleanWikitext(raw: string): string {
+  let text = stripTemplates(raw)
+  text = text
+    .replace(/\[\[File:[^\]]*\]\]/gi, '')
+    .replace(/\[\[Category:[^\]]*\]\]/gi, '')
+    .replace(/\[\[([^\]|]*\|)?([^\]]*)\]\]/g, '$2')
+    .replace(/<ref[^>]*>[\s\S]*?<\/ref>/gi, '')
+    .replace(/<ref[^>]*\/>/gi, '')
+    .replace(/<[^>]*>/g, '')
+    .replace(/={2,}/g, '')
+    .replace(/[']{2,}/g, '')
+    .replace(/\|[^\n]*/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+  return text.slice(0, 6000)
+}
+
+async function fetchRaw(
+  name: string
+): Promise<{ text: string; reason?: string }> {
+  const source = characterSources[name]
+  if (!source) return { text: '', reason: 'NO SOURCE URL MAPPED' }
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 15000)
+    const res = await fetch(source.url, {
+      headers: { 'User-Agent': 'AmIGame/1.0' },
+      signal: controller.signal,
+    })
+    clearTimeout(timeout)
+    if (!res.ok) return { text: '', reason: `HTTP ${res.status}` }
+    const data = await res.json()
+    if (source.type === 'fandom') {
+      const raw = data.parse?.wikitext?.['*'] ?? ''
+      if (!raw) return { text: '', reason: 'EMPTY WIKITEXT' }
+      if (raw.startsWith('#REDIRECT')) return { text: '', reason: `REDIRECT PAGE — URL needs fixing: ${raw.slice(0, 80)}` }
+      return { text: cleanWikitext(raw) }
+    } else {
+      const pages = data.query?.pages
+      if (!pages) return { text: '', reason: 'NO PAGES IN RESPONSE' }
+      const page = Object.values(pages)[0] as { extract?: string }
+      const extract = page?.extract ?? ''
+      if (!extract) return { text: '', reason: 'EMPTY WIKIPEDIA EXTRACT' }
+      return { text: extract.slice(0, 6000) }
+    }
+  } catch {
+    return { text: '', reason: 'FETCH TIMEOUT/NETWORK — re-run to retry' }
+  }
+}
+
+// Normalize every character into the SAME dossier structure
+async function normalizeDossier(
+  name: string,
+  deck: string,
+  description: string,
+  rawText: string
+): Promise<string | null> {
+  const combined = [description, rawText].filter(Boolean).join('\n\n').slice(0, 10000)
+  if (!combined) return null
+
+  try {
+    const completion = await deepseek.chat.completions.create({
+      model: 'deepseek-chat',
+      messages: [
+        {
+          role: 'system',
+          content: `You convert messy character wiki text into a clean standardized dossier. Use ONLY information from the provided text. If a section has no information in the text, write "Unknown."
+
+Output EXACTLY this structure, plain text, no markdown:
+
+IDENTITY: [species/type, age or apparent age, physical form in 1-2 sentences]
+ORIGIN: [how they came to be who they are — birth, creation, transformation, key origin events]
+FAMILY & LOVED ONES: [parents, siblings, partners, children, closest friends — including losses]
+PERSONALITY: [core temperament, how they treat others, notable quirks]
+DRIVES: [what motivates them — goals, obsessions, fears, traumas]
+ABILITIES: [powers, skills, signature weapons or items]
+STORY EVENTS: [the most famous things that happen to or because of them — deaths, resurrections, betrayals, victories, transformations]
+ROLE: [hero/villain/other, occupation, who they lead or serve, where they live or protect]`,
+        },
+        {
+          role: 'user',
+          content: `Character: ${name} (${deck})
+
+Raw text:
+${combined}
+
+Write the standardized dossier. Output only the dossier.`,
+        },
+      ],
+      max_tokens: 700,
+      temperature: 0,
+    })
+    return completion.choices[0]?.message?.content?.trim() ?? null
+  } catch {
+    return null
+  }
+}
+
+async function run() {
+  const { data: characters } = await supabase
+    .from('characters')
+    .select('id, name, deck, description, wiki_dossier')
+
+  if (!characters) {
+    console.error('Could not fetch characters')
+    return
+  }
+
+  console.log(`Building normalized dossiers for ${characters.length} characters...`)
+
+  const failures: string[] = []
+
+  for (const character of characters) {
+    if (character.wiki_dossier && character.wiki_dossier.length > 200) {
+      console.log(`Skipping ${character.name} — dossier exists`)
+      continue
+    }
+
+    const { text, reason } = await fetchRaw(character.name)
+
+    if (!text || text.length < 200) {
+      console.log(`✗ ${character.name} — ${reason ?? `too thin (${text.length} chars)`}`)
+      failures.push(`${character.name}: ${reason}`)
+      continue
+    }
+
+    const dossier = await normalizeDossier(
+      character.name,
+      character.deck,
+      character.description ?? '',
+      text
+    )
+
+    if (!dossier || dossier.length < 200) {
+      console.log(`✗ ${character.name} — normalization failed`)
+      failures.push(`${character.name}: normalization failed`)
+      continue
+    }
+
+    const { error } = await supabase
+      .from('characters')
+      .update({ wiki_dossier: dossier })
+      .eq('id', character.id)
+
+    if (error) {
+      console.error(`DB error for ${character.name}:`, error.message)
+    } else {
+      console.log(`✓ ${character.name} — ${dossier.length} chars, normalized`)
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 300))
+  }
+
+  console.log('\nDone.')
+  if (failures.length > 0) {
+    console.log('FAILURES — paste this list back to Claude:')
+    failures.forEach(f => console.log(`  ${f}`))
+  }
+}
+
+run()
+</file>
+
+<file path="scripts/upload-images.ts">
+import { createClient } from '@supabase/supabase-js'
+import * as dotenv from 'dotenv'
+import * as fs from 'fs'
+import * as path from 'path'
+
+dotenv.config({ path: '.env.local' })
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+const PHOTOS_DIR = path.join(process.env.HOME!, 'Downloads', 'am-i-photos')
+const BUCKET = 'character-images'
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
+
+async function uploadImages() {
+  const files = fs.readdirSync(PHOTOS_DIR).filter(f =>
+    ['.jpg', '.jpeg', '.png', '.webp'].includes(path.extname(f).toLowerCase())
+  )
+
+  console.log(`Found ${files.length} images to upload...`)
+
+  const { data: characters } = await supabase
+    .from('characters')
+    .select('id, name, deck')
+
+  if (!characters) {
+    console.error('Could not fetch characters')
+    return
+  }
+
+  for (const file of files) {
+    const ext = path.extname(file)
+    const nameFromFile = path.basename(file, ext)
+
+    // Find matching characters by name
+    const matches = characters.filter(c =>
+      c.name.toLowerCase() === nameFromFile.toLowerCase()
+    )
+
+    if (matches.length === 0) {
+      console.log(`✗ No character found for: ${file}`)
+      continue
+    }
+
+    // Upload file to Supabase Storage
+    const filePath = path.join(PHOTOS_DIR, file)
+    const fileBuffer = fs.readFileSync(filePath)
+    const storageKey = `${nameFromFile}${ext}`
+
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET)
+      .upload(storageKey, fileBuffer, {
+        contentType: ext === '.webp' ? 'image/webp' : ext === '.png' ? 'image/png' : 'image/jpeg',
+        upsert: true,
+      })
+
+    if (uploadError) {
+      console.error(`Upload error for ${file}:`, uploadError.message)
+      continue
+    }
+
+    const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${encodeURIComponent(storageKey)}`
+
+    // Update all matching characters with this image
+    for (const character of matches) {
+      const { error: updateError } = await supabase
+        .from('characters')
+        .update({ image_url: publicUrl })
+        .eq('id', character.id)
+
+      if (updateError) {
+        console.error(`DB update error for ${character.name} (${character.deck}):`, updateError.message)
+      } else {
+        console.log(`✓ ${character.name} (${character.deck})`)
+      }
+    }
+  }
+
+  console.log('Done.')
+}
+
+uploadImages()
+</file>
+
+<file path="src/app/(game)/lobby/create/page.tsx">
+import CreateRoom from '@/components/game/CreateRoom'
+
+export default function CreateRoomPage() {
+  return <CreateRoom />
+}
+</file>
+
+<file path="src/app/(game)/lobby/join/page.tsx">
+import JoinRoom from '@/components/game/JoinRoom'
+
+export default function JoinRoomPage() {
+  return <JoinRoom />
+}
+</file>
+
+<file path="src/app/(game)/room/[roomCode]/page.tsx">
+import GameRoom from '@/components/game/GameRoom'
+
+interface Props {
+  params: Promise<{ roomCode: string }>
+}
+
+export default async function GameRoomPage({ params }: Props) {
+  const { roomCode } = await params
+  return <GameRoom roomCode={roomCode} />
+}
+</file>
+
+<file path="src/app/api/oracle/route.ts">
+import { NextRequest, NextResponse } from 'next/server'
+import OpenAI from 'openai'
+import { createClient } from '@supabase/supabase-js'
+
+const llm = new OpenAI({
+  baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+  apiKey: process.env.GEMINI_API_KEY!,
+})
+
+const MODEL = 'gemini-3.6-flash'
+
+// GLOBAL THROTTLE + RETRY.
+// Every LLM call in this route funnels through callLLM, and callLLM funnels
+// through a single serial queue. No two calls ever run at the same time, and
+// a minimum gap is enforced between the START of one call and the next. This
+// makes it physically impossible to burst the rate limiter, which is what was
+// tripping the 429s: one round fires ~10 calls, and firing them in parallel
+// looked like an attack even when the per-minute budget had room.
+
+// Allow up to MAX_CONCURRENT calls at once. Paid tier 1 permits ~1000
+// req/min, so a handful in flight together is safe and collapses a round's
+// slow sequential calls into a few parallel waits. A tiny stagger avoids a
+// hard simultaneous burst.
+const MAX_CONCURRENT = 4
+const STAGGER_MS = 100
+let inFlight = 0
+const waiters: (() => void)[] = []
+let lastStart = 0
+
+async function throttle<T>(job: () => Promise<T>): Promise<T> {
+  if (inFlight >= MAX_CONCURRENT) {
+    await new Promise<void>(resolve => waiters.push(resolve))
+  }
+  inFlight++
+  const now = Date.now()
+  const wait = Math.max(0, lastStart + STAGGER_MS - now)
+  if (wait > 0) await new Promise(r => setTimeout(r, wait))
+  lastStart = Date.now()
+  try {
+    return await job()
+  } finally {
+    inFlight--
+    const next = waiters.shift()
+    if (next) next()
+  }
+}
+
+// Retries any call that still comes back 429, waiting longer each time.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function callLLM(params: any): Promise<any> {
+  const delays = [500, 1000, 2000, 4000]
+  for (let attempt = 0; attempt <= delays.length; attempt++) {
+    try {
+      return await throttle(() => llm.chat.completions.create(params))
+    } catch (err: unknown) {
+      const status = (err as { status?: number })?.status
+      if (status === 429 && attempt < delays.length) {
+        console.log(`  [rate limited, waiting ${delays[attempt]}ms]`)
+        await new Promise(r => setTimeout(r, delays[attempt]))
+        continue
+      }
+      throw err
+    }
+  }
+}
+
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+const TRAIT_LABELS: Record<string, { label: string; tier: number }> = {
+  says_own_name: { label: 'both mostly just say their own name', tier: 1 },
+  scaredy_cat: { label: 'both are famous scaredy-cats', tier: 1 },
+  food_obsessed: { label: 'both think with their stomach', tier: 1 },
+  silent_type: { label: 'both almost never speak', tier: 1 },
+  resurrection: { label: 'both have died and come back to life', tier: 1 },
+  protects_younger_sibling: { label: 'both would do anything for their younger sibling', tier: 1 },
+  school_secret_life: { label: 'both juggle school with a secret second life', tier: 1 },
+  trickster_deals: { label: 'both love making deals you will regret', tier: 1 },
+  lazy: { label: 'both are famously lazy', tier: 1 },
+  lab_experiment: { label: 'both were made in a lab', tier: 1 },
+  immortal_or_ageless: { label: 'both have been alive far longer than they should be', tier: 1 },
+  cursed_burden: { label: 'both carry something inside them they never asked for', tier: 1 },
+  lost_love: { label: 'both lost the love of their life', tier: 1 },
+  addiction: { label: 'both struggle with something they cannot control', tier: 1 },
+  unlucky_in_love: { label: 'both are hopeless at love', tier: 1 },
+  delusional_confidence: { label: 'both have confidence their abilities cannot cash', tier: 1 },
+  petty: { label: 'both hold legendary grudges', tier: 1 },
+  royalty: { label: 'both are royalty', tier: 2 },
+  deadpan: { label: 'both are famous for their deadpan delivery', tier: 2 },
+  adopted_orphan: { label: 'both were raised by someone other than their birth parents', tier: 2 },
+  villain_to_hero: { label: 'both started as the villain before becoming beloved', tier: 2 },
+  redemption_arc: { label: 'both went through a major redemption arc', tier: 2 },
+  created_transformed: { label: 'both were transformed against their will', tier: 2 },
+  mask_pain: { label: 'both refuse to let anyone see their real pain', tier: 2 },
+  revenge_driven: { label: 'both are driven by revenge', tier: 2 },
+  transformation_form: { label: 'both have a far more powerful transformed state', tier: 2 },
+  secret_identity: { label: 'both hide their true identity from the world', tier: 2 },
+  double_life: { label: 'both live a double life', tier: 2 },
+  animal_companion: { label: 'both are never far from a loyal animal companion', tier: 2 },
+  iconic_duo: { label: 'both are inseparable from one famous best friend', tier: 2 },
+  chosen_one: { label: 'both were chosen or prophesied for their role', tier: 2 },
+  saved_world_repeatedly: { label: 'both have saved the world more than once', tier: 2 },
+  neglected: { label: 'both were failed by the adults meant to protect them', tier: 2 },
+  crime_world: { label: 'both operate deep in the criminal world', tier: 2 },
+  rich: { label: 'both are absurdly rich', tier: 2 },
+  obsession: { label: 'both are consumed by a single obsession', tier: 2 },
+  lost_family: { label: 'both lost family that shaped who they became', tier: 2 },
+  sacrifice: { label: 'both sacrificed everything for someone they love', tier: 2 },
+  manipulator: { label: 'both are master manipulators', tier: 2 },
+  reluctant_hero: { label: 'both never asked for their role but accepted it', tier: 2 },
+  iconic_weapon: { label: 'both are famous for one signature weapon', tier: 2 },
+  desperate_for_approval: { label: 'both just want everyone to like them', tier: 2 },
+  hates_their_job: { label: 'both are trapped in a job they cannot stand', tier: 2 },
+  terrible_boss: { label: 'both know the pain of a terrible boss', tier: 2 },
+  big_ego: { label: 'both have egos with their own zip code', tier: 2 },
+  genius: { label: 'both are certified geniuses', tier: 3 },
+  underdog: { label: 'both are underdogs everyone underestimated', tier: 3 },
+  extremely_powerful: { label: 'both are among the strongest in their world', tier: 3 },
+  world_threat: { label: 'both hold power that could end worlds', tier: 3 },
+  feared_by_enemies: { label: 'both are feared by everyone who crosses them', tier: 3 },
+  loyal_found_family: { label: 'both are fiercely loyal to their chosen family', tier: 3 },
+  leader: { label: 'both lead others who follow them', tier: 3 },
+  trauma_driven: { label: 'both are driven by a traumatic past', tier: 3 },
+  protects_hometown: { label: 'both protect their home from constant threats', tier: 3 },
+  non_human: { label: 'both are not human', tier: 3 },
+  villain: { label: 'both are the villain of their story', tier: 3 },
+  comedic: { label: 'both are beloved for making people laugh', tier: 3 },
+  workplace_character: { label: 'both are inseparable from their workplace', tier: 3 },
+}
+
+const FALLBACKS = [
+  'Both of your characters have left a permanent mark on pop culture.',
+  'Both of your characters are instantly recognizable around the world.',
+  'Both of your characters have inspired countless memes and imitations.',
+]
+
+const STYLE_SEEDS = [
+  'Make it sound like a dramatic movie-trailer line.',
+  'Make it playful, almost teasing the players.',
+  'Make it dry and matter-of-fact, like a deadpan host.',
+  'Make it sound like a juicy piece of gossip.',
+  'Make it short, punchy, and confident.',
+  'Make it sound slightly ominous.',
+  'Make it warm, like a host who loves these characters.',
+  'Make it sound like the setup to a joke.',
+]
+
+interface CharacterRow {
+  name: string
+  traits: Record<string, boolean> | null
+  wiki_dossier: string | null
+}
+
+function genericFallback(): string {
+  return FALLBACKS[Math.floor(Math.random() * FALLBACKS.length)]
+}
+
+// STAGE A — UNFENCED comparer: proposes up to THREE ranked candidate
+// connections from its own knowledge, pages attached as reference.
+async function findConnections(
+  nameOne: string,
+  nameTwo: string,
+  pageOne: string,
+  pageTwo: string
+): Promise<string[]> {
+  try {
+    const completion = await callLLM({
+      model: MODEL,
+      reasoning_effort: 'low',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: `You are a pop culture expert with encyclopedic knowledge. You will be given two characters. Using EVERYTHING you know about them — their stories, deaths, resurrections, tournaments, relationships, famous moments — find the most SURPRISING and SPECIFIC true connections between them.
+
+The gold standard: Goku and Jesus Christ — "both have died and been resurrected." Surprising, specific, true for both, recognizable to casual fans.
+
+Requirements:
+- SYMMETRY IS MANDATORY: each connection must be the SAME fact, independently true for each character. Never project one character's fact onto the other. If only one of them had their dog killed, that is NOT a connection.
+- IN-STORY FACTS ONLY: connections must be about the character's life inside their story — events, relationships, abilities, losses, habits. NEVER about the franchise or audience: being a protagonist, mascot, fan favorite, iconic, popular, or famous does NOT count.
+- Must be recognizable to a casual fan of each story — no obscure deep-lore
+- Prefer surprising and specific over generic
+- Propose up to THREE candidates, ranked most surprising and specific first. It is better to include a solid safe connection as your third candidate than three risky ones.
+- Keep each candidate under 25 words. Be concise.
+- If you cannot find even one honest connection, return an empty list.
+
+Output JSON: {"connections": ["best candidate", "second candidate", "third candidate"]}`,
+        },
+        {
+          role: 'user',
+          content: `CHARACTER ONE: ${nameOne}
+
+Reference page:
+${pageOne.slice(0, 20000)}
+
+CHARACTER TWO: ${nameTwo}
+
+Reference page:
+${pageTwo.slice(0, 20000)}
+
+Propose up to three ranked candidate connections. Output only the JSON object.`,
+        },
+      ],
+      max_tokens: 8000,
+      temperature: 0.7,
+    })
+    console.log(`  [findConnections finish_reason: ${completion.choices[0]?.finish_reason}]`)
+    const raw = completion.choices[0]?.message?.content?.trim()
+    if (!raw) {
+      console.error('findConnections: empty response from model')
+      return []
+    }
+    let parsed: { connections?: string[] }
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      console.error('findConnections: malformed JSON:', raw)
+      return []
+    }
+    return (parsed.connections ?? [])
+      .map(c => c?.trim())
+      .filter((c): c is string => !!c && c.toUpperCase() !== 'NONE')
+      .slice(0, 3)
+  } catch (err) {
+    console.error('findConnections error:', err)
+    return []
+  }
+}
+
+// STAGE B — writer phrases the verified connection
+async function writeAnnouncement(connection: string): Promise<string | null> {
+  const style = STYLE_SEEDS[Math.floor(Math.random() * STYLE_SEEDS.length)]
+  try {
+    const completion = await callLLM({
+      model: MODEL,
+      reasoning_effort: 'low',
+      messages: [
+        {
+          role: 'system',
+          content: `You are the witty host of a pop culture guessing game called "Am I?" You announce one true connection between two secret characters.
+
+You will receive the verified connection. Express it — nothing more, nothing less.
+
+RULES:
+- Express ONLY the given connection. Add no other claims, no exaggerations, no hyperbole beyond what the connection states.
+- EVERY WORD of your line must be true for BOTH characters equally. Never add a joke, image, or detail that fits only one of them.
+- Keep the SPECIFIC detail of the connection — do not water it down into something vaguer.
+- Never include names, source titles, places, or any detail that identifies either character.
+- Maximum 14 words, starting with "Both of your characters..."
+- ${style}
+- Output only the announcement`,
+        },
+        {
+          role: 'user',
+          content: `Verified connection: ${connection}
+
+Write the announcement.`,
+        },
+      ],
+      max_tokens: 2000,
+      temperature: 1.0,
+    })
+    return completion.choices[0]?.message?.content?.trim() ?? null
+  } catch (err) {
+    console.error('writeAnnouncement error:', err)
+    return null
+  }
+}
+
+// Candidate verification against the FULL wiki page, with reasoning.
+async function verifyAgainstPage(
+  claim: string,
+  name: string,
+  page: string
+): Promise<{ ok: boolean; reason: string }> {
+  try {
+    const completion = await callLLM({
+      model: MODEL,
+      reasoning_effort: 'low',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: `You are a fact checker. You will be given a character's full wiki page and a claim about them.
+
+IMPORTANT CONTEXT: The claim refers to TWO different secret characters. Judge ONLY whether it is true for THIS character. The word "both" does NOT require this page to mention any other character — ignore it and evaluate the claim as it applies to this character alone.
+
+Verdict rules:
+- Dramatic tone and wordplay are fine, but do NOT reinterpret concrete factual events as metaphors. If the claim asserts a specific event or action (trained someone, cloned, died, killed someone, faked their death, was expelled, married, had a pet killed), that event must be literally supported by the page for THIS character. If it is not, answer NO.
+- Answer NO if the claim contradicts the page or asserts a specific fact about this character the page does not support.
+- Otherwise answer YES.
+
+Output JSON: {"verdict": "YES" or "NO", "reason": "under 15 words explaining your verdict"}`,
+        },
+        {
+          role: 'user',
+          content: `WIKI PAGE for ${name}:
+${page.slice(0, 20000)}
+
+Claim: "${claim}"
+
+Output only the JSON object.`,
+        },
+      ],
+      max_tokens: 8000,
+      temperature: 0,
+    })
+    console.log(`  [verifyAgainstPage finish_reason: ${completion.choices[0]?.finish_reason}]`)
+    const raw = completion.choices[0]?.message?.content?.trim()
+    if (!raw) {
+      console.error('verifyAgainstPage: empty response from model')
+      return { ok: false, reason: 'empty response from verifier' }
+    }
+    let parsed: { verdict?: string; reason?: string }
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      console.error('verifyAgainstPage: malformed JSON:', raw)
+      return { ok: false, reason: 'malformed verifier response' }
+    }
+    return {
+      ok: parsed.verdict?.toUpperCase().startsWith('YES') ?? false,
+      reason: parsed.reason ?? 'no reason given',
+    }
+  } catch (err) {
+    console.error('verifyAgainstPage error:', err)
+    return { ok: false, reason: 'verifier call failed' }
+  }
+}
+
+// Line check: the connection is ALREADY verified — this only catches NEW
+// claims or exaggerations the writer added beyond the connection.
+async function verifyLineAddsNothing(
+  line: string,
+  connection: string,
+  name: string,
+  page: string
+): Promise<{ ok: boolean; reason: string }> {
+  try {
+    const completion = await callLLM({
+      model: MODEL,
+      reasoning_effort: 'low',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: `You are a quality checker for a guessing game. The following connection has ALREADY been fact-checked and confirmed true for this character — do NOT re-judge it:
+
+CONFIRMED CONNECTION: "${connection}"
+
+You will be given a stylized announcement based on that connection, plus the character's wiki page. Your ONLY job: check whether the announcement adds any NEW claim, exaggeration, or intensification beyond the confirmed connection that is false or unsupported for THIS character (e.g. the connection says "protects their family" but the line says "would burn the world" — that is an added claim).
+
+The announcement mentions two characters; judge only THIS one. Stylistic rephrasing of the confirmed connection is always acceptable.
+
+Output JSON: {"verdict": "YES" if the line adds nothing false or unsupported, "NO" if it does, "reason": "under 15 words"}`,
+        },
+        {
+          role: 'user',
+          content: `WIKI PAGE for ${name}:
+${page.slice(0, 20000)}
+
+Announcement: "${line}"
+
+Output only the JSON object.`,
+        },
+      ],
+      max_tokens: 8000,
+      temperature: 0,
+    })
+    console.log(`  [verifyLineAddsNothing finish_reason: ${completion.choices[0]?.finish_reason}]`)
+    const raw = completion.choices[0]?.message?.content?.trim()
+    if (!raw) {
+      console.error('verifyLineAddsNothing: empty response from model')
+      return { ok: false, reason: 'empty response from checker' }
+    }
+    let parsed: { verdict?: string; reason?: string }
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      console.error('verifyLineAddsNothing: malformed JSON:', raw)
+      return { ok: false, reason: 'malformed checker response' }
+    }
+    return {
+      ok: parsed.verdict?.toUpperCase().startsWith('YES') ?? false,
+      reason: parsed.reason ?? 'no reason given',
+    }
+  } catch (err) {
+    console.error('verifyLineAddsNothing error:', err)
+    return { ok: false, reason: 'line check failed' }
+  }
+}
+
+// Reviewer: identity leaks, drift, asymmetry; one repair max
+async function reviewAndRepair(
+  claim: string,
+  connection: string
+): Promise<{ verdict: 'PASS' | 'REPAIRED' | 'REJECT'; line?: string }> {
+  try {
+    const completion = await callLLM({
+      model: MODEL,
+      reasoning_effort: 'low',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: `You are the final quality gate for a guessing game announcement about two secret characters. Players must NOT be able to identify the characters from the line.
+
+Check for three problems:
+1. IDENTIFYING DETAILS: unique items, places, catchphrases, or combos so specific they point to one famous character.
+2. DRIFT: the line fails to express the intended connection.
+3. ASYMMETRY: any word, image, or joke in the line that applies to only ONE of the two characters rather than both equally.
+
+Decide:
+- Clean and on-target: {"verdict": "PASS"}
+- Fixable flaw: rewrite it (max 14 words, start with "Both of your characters...", express the intended connection, true for both equally, no identifying details) -> {"verdict": "REPAIRED", "line": "your rewrite"}
+- Unsalvageable: {"verdict": "REJECT"}
+
+Output only the JSON object.`,
+        },
+        {
+          role: 'user',
+          content: `Intended connection: ${connection}
+
+Announcement: "${claim}"
+
+Review and output the JSON verdict.`,
+        },
+      ],
+      max_tokens: 8000,
+      temperature: 0,
+    })
+    console.log(`  [reviewAndRepair finish_reason: ${completion.choices[0]?.finish_reason}]`)
+    const raw = completion.choices[0]?.message?.content?.trim()
+    if (!raw) {
+      console.error('reviewAndRepair: empty response from model')
+      return { verdict: 'REJECT' }
+    }
+    let parsed: { verdict?: string; line?: string }
+    try {
+      parsed = JSON.parse(raw)
+    } catch {
+      console.error('reviewAndRepair: malformed JSON:', raw)
+      return { verdict: 'REJECT' }
+    }
+    if (parsed.verdict === 'PASS') return { verdict: 'PASS' }
+    if (parsed.verdict === 'REPAIRED' && parsed.line) return { verdict: 'REPAIRED', line: parsed.line.trim() }
+    return { verdict: 'REJECT' }
+  } catch (err) {
+    console.error('reviewAndRepair error:', err)
+    return { verdict: 'REJECT' }
+  }
+}
+
+function leaksIdentity(claim: string, nameOne: string, nameTwo: string): boolean {
+  const lower = claim.toLowerCase()
+  const nameParts = [...nameOne.split(' '), ...nameTwo.split(' ')]
+    .map(p => p.toLowerCase())
+    .filter(p => p.length > 3)
+  return nameParts.some(part => lower.includes(part))
+}
+
+// Verified fallback: trait-based fallback lines get fact-checked before shipping.
+async function shipFallback(
+  traitFallback: string | null,
+  characterOne: string,
+  characterTwo: string,
+  pageOne: string,
+  pageTwo: string
+): Promise<string> {
+  if (!traitFallback) return genericFallback()
+  if (!pageOne || !pageTwo) return traitFallback
+
+  const fOne = await verifyAgainstPage(traitFallback, characterOne, pageOne)
+  const fTwo = await verifyAgainstPage(traitFallback, characterTwo, pageTwo)
+  console.log(`Fallback verified — ${characterOne}: ${fOne.ok} (${fOne.reason})`)
+  console.log(`Fallback verified — ${characterTwo}: ${fTwo.ok} (${fTwo.reason})`)
+
+  if (fOne.ok && fTwo.ok) return traitFallback
+
+  console.log(`Trait fallback failed verification — check this pair's trait booleans in Supabase. Using generic line.`)
+  return genericFallback()
+}
+
+// Try to turn one verified connection into a shippable line.
+async function attemptLine(
+  connection: string,
+  characterOne: string,
+  characterTwo: string,
+  pageOne: string,
+  pageTwo: string
+): Promise<string | null> {
+  const line = await writeAnnouncement(connection)
+  if (!line || leaksIdentity(line, characterOne, characterTwo)) {
+    console.log(`  Writer failed or leaked name for this candidate`)
+    return null
+  }
+  console.log(`  Generated: "${line}"`)
+
+  const resOne = await verifyLineAddsNothing(line, connection, characterOne, pageOne)
+  const resTwo = await verifyLineAddsNothing(line, connection, characterTwo, pageTwo)
+  console.log(`  Line check — ${characterOne}: ${resOne.ok} (${resOne.reason})`)
+  console.log(`  Line check — ${characterTwo}: ${resTwo.ok} (${resTwo.reason})`)
+
+  if (!resOne.ok || !resTwo.ok) return null
+
+  const review = await reviewAndRepair(line, connection)
+  console.log(`  Review verdict: ${review.verdict}`)
+
+  if (review.verdict === 'PASS') return line
+
+  if (review.verdict === 'REPAIRED' && review.line) {
+    const repaired = review.line
+    if (leaksIdentity(repaired, characterOne, characterTwo)) return null
+    console.log(`  Repaired to: "${repaired}"`)
+    const rOne = await verifyLineAddsNothing(repaired, connection, characterOne, pageOne)
+    const rTwo = await verifyLineAddsNothing(repaired, connection, characterTwo, pageTwo)
+    console.log(`  Repair check — ${characterOne}: ${rOne.ok} (${rOne.reason})`)
+    console.log(`  Repair check — ${characterTwo}: ${rTwo.ok} (${rTwo.reason})`)
+    if (rOne.ok && rTwo.ok) return repaired
+  }
+
+  return null
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const { characterOne, characterTwo } = await req.json()
+
+    const { data: rows, error } = await supabase
+      .from('characters')
+      .select('name, traits, wiki_dossier')
+      .in('name', [characterOne, characterTwo])
+
+    if (error || !rows || rows.length < 2) {
+      return NextResponse.json({ prompt: genericFallback() })
+    }
+
+    const charOne = rows.find((r: CharacterRow) => r.name === characterOne)
+    const charTwo = rows.find((r: CharacterRow) => r.name === characterTwo)
+
+    const traitsOne = charOne?.traits ?? {}
+    const traitsTwo = charTwo?.traits ?? {}
+    const pageOne = charOne?.wiki_dossier ?? ''
+    const pageTwo = charTwo?.wiki_dossier ?? ''
+
+    const shared = Object.keys(TRAIT_LABELS)
+      .filter(key => traitsOne[key] === true && traitsTwo[key] === true)
+      .sort((a, b) => TRAIT_LABELS[a].tier - TRAIT_LABELS[b].tier)
+
+    console.log(`\n=== ORACLE ===`)
+    console.log(`Pair: ${characterOne} vs ${characterTwo}`)
+    console.log(`Shared traits:`, shared)
+
+    const traitFallback =
+      shared.length > 0
+        ? `Both of your characters ${TRAIT_LABELS[shared[0]].label.replace(/^both /, '')}.`
+        : null
+
+    if (!pageOne || !pageTwo) {
+      console.log(`Missing wiki page — fallback\n`)
+      return NextResponse.json({
+        prompt: await shipFallback(traitFallback, characterOne, characterTwo, pageOne, pageTwo),
+      })
+    }
+
+    // STAGE A — propose up to three candidate connections
+    const candidates = await findConnections(characterOne, characterTwo, pageOne, pageTwo)
+    console.log(`Candidates:`, candidates)
+
+    if (candidates.length === 0) {
+      console.log(`No candidates — fallback\n`)
+      return NextResponse.json({
+        prompt: await shipFallback(traitFallback, characterOne, characterTwo, pageOne, pageTwo),
+      })
+    }
+
+    // STAGE A2 — verify all candidates against both pages in parallel.
+    // The throttle pool caps how many actually run at once.
+    const candidateChecks = await Promise.all(
+      candidates.map(async candidate => {
+        const [cOne, cTwo] = await Promise.all([
+          verifyAgainstPage(candidate, characterOne, pageOne),
+          verifyAgainstPage(candidate, characterTwo, pageTwo),
+        ])
+        return { candidate, cOne, cTwo, ok: cOne.ok && cTwo.ok }
+      })
+    )
+
+    for (const check of candidateChecks) {
+      console.log(`Candidate: "${check.candidate}"`)
+      console.log(`  ${characterOne}: ${check.cOne.ok} (${check.cOne.reason})`)
+      console.log(`  ${characterTwo}: ${check.cTwo.ok} (${check.cTwo.reason})`)
+    }
+
+    const verified = candidateChecks.filter(c => c.ok)
+
+    if (verified.length === 0) {
+      console.log(`No candidate survived verification — fallback\n`)
+      return NextResponse.json({
+        prompt: await shipFallback(traitFallback, characterOne, characterTwo, pageOne, pageTwo),
+      })
+    }
+
+    // STAGES B-D — try each verified connection in rank order until one
+    // produces a shippable line.
+    for (const check of verified) {
+      console.log(`Attempting line for: "${check.candidate}"`)
+      const shipped = await attemptLine(
+        check.candidate,
+        characterOne,
+        characterTwo,
+        pageOne,
+        pageTwo
+      )
+      if (shipped) {
+        console.log(`Shipping unique prompt: "${shipped}"\n`)
+        return NextResponse.json({ prompt: shipped })
+      }
+    }
+
+    console.log(`All verified candidates failed at the line stage — fallback\n`)
+    return NextResponse.json({
+      prompt: await shipFallback(traitFallback, characterOne, characterTwo, pageOne, pageTwo),
+    })
+  } catch (err) {
+    console.error('Oracle error:', err)
+    return NextResponse.json({ error: 'Oracle failed' }, { status: 500 })
+  }
+}
+</file>
+
+<file path="src/app/layout.tsx">
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}
+</file>
+
+<file path="src/components/game/MatchSummary.tsx">
+'use client'
+
+import { motion } from 'framer-motion'
+
+interface Round {
+  id: string
+  status: string
+  winner: string | null
+  total_turns: number
+  started_at: string
+  ended_at: string | null
+}
+
+interface Props {
+  round: Round
+  myRole: 'player_one' | 'player_two'
+  myName: string
+  opponentName: string
+  onPlayAgain: () => void
+  onExit: () => void
+}
+
+function formatDuration(startedAt: string, endedAt: string | null): string {
+  if (!endedAt) return '—'
+  const ms = new Date(endedAt).getTime() - new Date(startedAt).getTime()
+  const totalSeconds = Math.max(0, Math.round(ms / 1000))
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  if (minutes === 0) return `${seconds}s`
+  return `${minutes}m ${seconds}s`
+}
+
+export default function MatchSummary({
+  round,
+  myRole,
+  myName,
+  opponentName,
+  onPlayAgain,
+  onExit,
+}: Props) {
+  const isDraw = round.winner === 'draw'
+  const iWon = round.winner === myRole
+
+  const headline = isDraw ? 'Draw!' : iWon ? 'You Won!' : 'You Lost'
+  const subline = isDraw
+    ? 'Both of you guessed correctly'
+    : iWon
+      ? `You beat ${opponentName}`
+      : `${opponentName} guessed first`
+
+  return (
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-sm flex flex-col gap-6"
+      >
+        {/* Result headline */}
+        <div className="text-center">
+          <p className="text-text-secondary text-xs uppercase tracking-widest mb-2">
+            Match Complete
+          </p>
+          <h1 className="text-text-primary text-4xl font-semibold mb-1">
+            {headline}
+          </h1>
+          <p className="text-text-secondary text-sm">{subline}</p>
+        </div>
+
+        {/* Stats */}
+        <div className="bg-surface border border-border rounded-card divide-y divide-border">
+          <div className="flex items-center justify-between px-4 py-3">
+            <span className="text-text-secondary text-sm">Turns taken</span>
+            <span className="text-text-primary text-sm font-medium">
+              {round.total_turns}
+            </span>
+          </div>
+          <div className="flex items-center justify-between px-4 py-3">
+            <span className="text-text-secondary text-sm">Time</span>
+            <span className="text-text-primary text-sm font-medium">
+              {formatDuration(round.started_at, round.ended_at)}
+            </span>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col gap-3">
+          <button
+            onClick={onPlayAgain}
+            className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity hover:opacity-90 cursor-pointer"
+          >
+            Exit
+          </button>
+          {/* <button
+            onClick={onExit}
+            className="w-full py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+          >
+            Exit
+          </button> */}
+        </div>
+      </motion.div>
+    </main>
+  )
+}
+</file>
+
+<file path="src/components/game/RemoveCardsPanel.tsx">
+'use client'
+
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
+
+interface Character {
+  id: string
+  name: string
+  image_url: string | null
+  deck: string
+}
+
+interface Props {
+  selectedDecks: string[]
+  maxRemovals: number
+  roomCode: string
+  playerId: string
+}
+
+export default function RemoveCardsPanel({ selectedDecks, maxRemovals, roomCode, playerId }: Props) {
+  const [characters, setCharacters] = useState<Character[]>([])
+  const [removed, setRemoved] = useState<string[]>([])
+  const [activeTab, setActiveTab] = useState<string>(selectedDecks[0] ?? '')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      if (selectedDecks.length === 0) {
+        setLoading(false)
+        return
+      }
+
+      const { data } = await supabase
+        .from('characters')
+        .select('id, name, image_url, deck')
+        .in('deck', selectedDecks)
+        .order('name')
+
+      setCharacters(data ?? [])
+      setLoading(false)
+    }
+
+    fetchCharacters()
+  }, [selectedDecks])
+
+  const handleRemove = (id: string) => {
+    if (removed.includes(id)) {
+      setRemoved(removed.filter((r) => r !== id))
+    } else if (removed.length < maxRemovals) {
+      setRemoved([...removed, id])
+    }
+  }
+
+  const filteredCharacters = characters.filter((c) => c.deck === activeTab)
+  const removalsLeft = maxRemovals - removed.length
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-4">
+        <div className="w-6 h-6 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <p className="text-text-primary text-sm font-medium">Remove cards</p>
+        <span className="text-text-secondary text-xs">{removalsLeft} removals left</span>
+      </div>
+
+      <div className="flex gap-2 flex-wrap">
+        {selectedDecks.map((deck) => (
+          <button
+            key={deck}
+            onClick={() => setActiveTab(deck)}
+            className={`px-3 py-1 rounded-pill text-xs font-medium transition-all duration-200 cursor-pointer capitalize ${
+              activeTab === deck
+                ? 'bg-accent text-white'
+                : 'bg-surface text-text-secondary border border-border'
+            }`}
+          >
+            {deck}
+          </button>
+        ))}
+      </div>
+
+      {filteredCharacters.length === 0 ? (
+        <p className="text-text-secondary text-xs text-center py-4">
+          No characters in this deck yet.
+        </p>
+      ) : (
+        <div className="flex flex-col gap-2 max-h-48 overflow-y-auto">
+          {filteredCharacters.map((character) => {
+            const isRemoved = removed.includes(character.id)
+            const canRemove = removalsLeft > 0 || isRemoved
+
+            return (
+              <div
+                key={character.id}
+                className="flex items-center justify-between bg-surface rounded-button px-3 py-2"
+              >
+                <span className={`text-sm ${isRemoved ? 'text-text-secondary line-through' : 'text-text-primary'}`}>
+                  {character.name}
+                </span>
+                <button
+                  onClick={() => handleRemove(character.id)}
+                  disabled={!canRemove && !isRemoved}
+                  className={`text-xs px-3 py-1 rounded-pill transition-all duration-200 cursor-pointer disabled:cursor-not-allowed ${
+                    isRemoved
+                      ? 'bg-surface border border-accent text-accent'
+                      : 'bg-accent text-white hover:opacity-90 disabled:opacity-40'
+                  }`}
+                >
+                  {isRemoved ? 'Undo' : 'Remove'}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+</file>
+
+<file path="src/hooks/useAuth.ts">
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
+
+export function useAuth() {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const initAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (session?.user) {
+        setUser(session.user)
+        setLoading(false)
+        return
+      }
+
+      const { data, error } = await supabase.auth.signInAnonymously()
+
+      if (error) {
+        console.error('Auth error:', error)
+        setLoading(false)
+        return
+      }
+
+      setUser(data.user)
+      setLoading(false)
+    }
+
+    initAuth()
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  return { user, loading }
+}
+</file>
+
+<file path="src/lib/supabase.ts">
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+</file>
+
+<file path=".gitignore">
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+</file>
+
+<file path="AGENTS.md">
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
+</file>
+
+<file path="CLAUDE.md">
+@AGENTS.md
+</file>
+
+<file path="eslint.config.mjs">
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
+
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
+  // Override default ignores of eslint-config-next.
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+  ]),
+]);
+
+export default eslintConfig;
+</file>
+
+<file path="next.config.ts">
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+</file>
+
+<file path="postcss.config.mjs">
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+</file>
+
+<file path="README.md">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+</file>
+
+<file path="src/app/globals.css">
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #111111;
+  --color-surface: #1C1C1E;
+  --color-border: #2A2A2A;
+  --color-accent: #7C3AED;
+  --color-accent-muted: rgba(124, 58, 237, 0.2);
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #94A3B8;
+  --color-reveal: #F59E0B;
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-pill: 9999px;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: system-ui, sans-serif;
+}
+</file>
+
+<file path="src/hooks/useGameplay.ts">
+import { useState, useEffect, useRef } from "react";
+import { supabase } from "@/lib/supabase";
+
+interface Character {
+  id: string;
+  name: string;
+  description: string;
+  image_url: string | null;
+  deck: string;
+  traits?: Record<string, boolean> | null;
+}
+
+interface Round {
+  id: string;
+  session_id: string;
+  player_one_card_id: string;
+  player_two_card_id: string;
+  oracle_prompt: string;
+  current_turn: string;
+  status: string;
+  winner: string | null;
+  total_turns: number;
+  started_at: string;
+  ended_at: string | null;
+}
+
+interface GameplayState {
+  round: Round | null;
+  myCharacter: Character | null;
+  opponentCharacter: Character | null;
+  sessionId: string | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export function useGameplay(
+  roomCode: string,
+  roomId: string,
+  isHost: boolean,
+  hostPlayerId: string,
+  guestPlayerId: string,
+  selectedDecks: string[],
+  userId: string,
+) {
+  const [state, setState] = useState<GameplayState>({
+    round: null,
+    myCharacter: null,
+    opponentCharacter: null,
+    sessionId: null,
+    loading: true,
+    error: null,
+  });
+
+  const initialized = useRef(false);
+
+  useEffect(() => {
+    if (!userId || !roomId || initialized.current) return;
+    initialized.current = true;
+
+    const init = async () => {
+      try {
+        const { data: existingSession } = await supabase
+          .from("game_sessions")
+          .select("*")
+          .eq("room_id", roomId)
+          .single();
+
+        let sessionId = existingSession?.id;
+
+        if (!existingSession) {
+          if (!isHost) {
+            setState((prev) => ({ ...prev, loading: true }));
+            return;
+          }
+
+          const { data: newSession, error: sessionError } = await supabase
+            .from("game_sessions")
+            .insert({
+              room_id: roomId,
+              player_one_id: hostPlayerId,
+              player_two_id: guestPlayerId,
+              current_round: 1,
+              total_rounds_played: 0,
+            })
+            .select()
+            .single();
+
+          if (sessionError || !newSession) {
+            setState((prev) => ({
+              ...prev,
+              error: "Failed to create session",
+              loading: false,
+            }));
+            return;
+          }
+
+          sessionId = newSession.id;
+
+          const { data: characters, error: charError } = await supabase
+            .from("characters")
+            .select("id, name, description, image_url, deck, traits")
+            .in("deck", selectedDecks);
+
+          if (charError || !characters || characters.length < 2) {
+            setState((prev) => ({
+              ...prev,
+              error: "Not enough characters in selected decks",
+              loading: false,
+            }));
+            return;
+          }
+
+          // Find a pair with at least one shared trait so the Oracle always has
+          // something real to announce. Traits are pre-verified data in the DB,
+          // so this loop costs zero AI calls.
+          const hasSharedTrait = (
+            a: { traits?: Record<string, boolean> | null },
+            b: { traits?: Record<string, boolean> | null },
+          ): boolean => {
+            const ta = a.traits ?? {};
+            const tb = b.traits ?? {};
+            return Object.keys(ta).some(
+              (key) => ta[key] === true && tb[key] === true,
+            );
+          };
+
+          const MAX_ATTEMPTS = 25;
+          let charOne = characters[0];
+          let charTwo = characters[1];
+
+          for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            const shuffled = [...characters].sort(() => Math.random() - 0.5);
+            // Never pair a character with itself (duplicates across decks share names)
+            if (shuffled[0].name === shuffled[1].name) continue;
+
+            charOne = shuffled[0];
+            charTwo = shuffled[1];
+
+            if (hasSharedTrait(charOne, charTwo)) break;
+          }
+
+          const oracleRes = await fetch("/api/oracle", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              characterOne: charOne.name,
+              characterTwo: charTwo.name,
+              descriptionOne: charOne.description,
+              descriptionTwo: charTwo.description,
+              deckOne: charOne.deck,
+              deckTwo: charTwo.deck,
+            }),
+          });
+          const { prompt } = await oracleRes.json();
+
+          const firstTurn = Math.random() < 0.5 ? "player_one" : "player_two";
+
+          const { error: roundError } = await supabase.from("rounds").insert({
+            session_id: sessionId,
+            player_one_card_id: charOne.id,
+            player_two_card_id: charTwo.id,
+            oracle_prompt: prompt,
+            current_turn: firstTurn,
+            status: "active",
+            total_turns: 0,
+          });
+
+          if (roundError) {
+            setState((prev) => ({
+              ...prev,
+              error: "Failed to create round",
+              loading: false,
+            }));
+            return;
+          }
+        }
+
+        setState((prev) => ({ ...prev, sessionId }));
+      } catch (err) {
+        console.error("Gameplay init error:", err);
+        setState((prev) => ({
+          ...prev,
+          error: "Something went wrong",
+          loading: false,
+        }));
+      }
+    };
+
+    init();
+  }, [userId, roomId, isHost, hostPlayerId, guestPlayerId, selectedDecks]);
+
+  useEffect(() => {
+    if (!state.sessionId) return;
+
+    const fetchRoundAndCharacters = async (sessionId: string) => {
+      const { data: round } = await supabase
+        .from("rounds")
+        .select("*")
+        .eq("session_id", sessionId)
+        .order("started_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (!round) return;
+
+      const [{ data: charOne }, { data: charTwo }] = await Promise.all([
+        supabase
+          .from("characters")
+          .select("*")
+          .eq("id", round.player_one_card_id)
+          .single(),
+        supabase
+          .from("characters")
+          .select("*")
+          .eq("id", round.player_two_card_id)
+          .single(),
+      ]);
+
+      const myCharacter = isHost ? charTwo : charOne;
+      const opponentCharacter = isHost ? charOne : charTwo;
+
+      setState((prev) => ({
+        ...prev,
+        round,
+        myCharacter,
+        opponentCharacter,
+        loading: false,
+      }));
+    };
+
+    fetchRoundAndCharacters(state.sessionId);
+
+    const channel = supabase
+      .channel(`rounds:${state.sessionId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "rounds",
+          filter: `session_id=eq.${state.sessionId}`,
+        },
+        () => {
+          fetchRoundAndCharacters(state.sessionId!);
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [state.sessionId, isHost]);
+
+  useEffect(() => {
+    if (isHost || state.sessionId) return;
+
+    const interval = setInterval(async () => {
+      const { data } = await supabase
+        .from("game_sessions")
+        .select("*")
+        .eq("room_id", roomId)
+        .single();
+
+      if (data) {
+        setState((prev) => ({ ...prev, sessionId: data.id }));
+        clearInterval(interval);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isHost, state.sessionId, roomId]);
+
+  // Pass the turn to the other player and count the turn just taken.
+  const endTurn = async () => {
+    if (!state.round) return;
+    const nextTurn =
+      state.round.current_turn === "player_one" ? "player_two" : "player_one";
+    await supabase
+      .from("rounds")
+      .update({
+        current_turn: nextTurn,
+        total_turns: (state.round.total_turns ?? 0) + 1,
+      })
+      .eq("id", state.round.id);
+  };
+
+  // First correct guess: enter the draw stage. `winner` records who guessed
+  // correctly first; the OTHER player gets one final turn, so we also hand the
+  // turn to that other player. This keeps current_turn consistent with the UI.
+  const markCorrect = async () => {
+    if (!state.round) return;
+    const firstGuesser = state.round.current_turn;
+    const finalTurnPlayer =
+      firstGuesser === "player_one" ? "player_two" : "player_one";
+    await supabase
+      .from("rounds")
+      .update({
+        status: "draw_stage",
+        winner: firstGuesser,
+        current_turn: finalTurnPlayer,
+      })
+      .eq("id", state.round.id);
+  };
+
+  // Guess was wrong during normal play: just hand the turn to the other player.
+  const markIncorrect = async () => {
+    if (!state.round) return;
+    const nextTurn =
+      state.round.current_turn === "player_one" ? "player_two" : "player_one";
+    await supabase
+      .from("rounds")
+      .update({
+        current_turn: nextTurn,
+        total_turns: (state.round.total_turns ?? 0) + 1,
+      })
+      .eq("id", state.round.id);
+  };
+
+  // Update the running per-session tally. Upsert so it works whether or not a
+  // tally row already exists for this session.
+  const bumpTally = async (
+    result: "player_one" | "player_two" | "draw",
+  ) => {
+    if (!state.sessionId) return;
+
+    const { data: existing } = await supabase
+      .from("tally")
+      .select("*")
+      .eq("session_id", state.sessionId)
+      .maybeSingle();
+
+    const base = existing ?? {
+      session_id: state.sessionId,
+      player_one_wins: 0,
+      player_two_wins: 0,
+      draws: 0,
+    };
+
+    const next = {
+      session_id: state.sessionId,
+      player_one_wins: base.player_one_wins + (result === "player_one" ? 1 : 0),
+      player_two_wins: base.player_two_wins + (result === "player_two" ? 1 : 0),
+      draws: base.draws + (result === "draw" ? 1 : 0),
+    };
+
+    if (existing) {
+      await supabase.from("tally").update(next).eq("id", existing.id);
+    } else {
+      await supabase.from("tally").insert(next);
+    }
+  };
+
+  // Resolve the draw stage's final turn and END the game.
+  // finalWasCorrect === true  -> both players guessed right -> draw
+  // finalWasCorrect === false -> only the first guesser got it -> first guesser wins
+  const resolveDrawStage = async (finalWasCorrect: boolean) => {
+    if (!state.round) return;
+
+    // `winner` currently holds who guessed correctly FIRST (set by markCorrect).
+    const firstGuesser = state.round.winner as
+      | "player_one"
+      | "player_two"
+      | null;
+
+    let finalResult: "player_one" | "player_two" | "draw";
+    if (finalWasCorrect) {
+      finalResult = "draw";
+    } else {
+      // First guesser wins; fall back safely if winner was somehow unset.
+      finalResult = firstGuesser ?? "player_one";
+    }
+
+    await supabase
+      .from("rounds")
+      .update({
+        status: "finished",
+        winner: finalResult,
+        ended_at: new Date().toISOString(),
+        total_turns: (state.round.total_turns ?? 0) + 1,
+      })
+      .eq("id", state.round.id);
+
+    await bumpTally(finalResult);
+  };
+
+  return {
+    ...state,
+    endTurn,
+    markCorrect,
+    markIncorrect,
+    resolveDrawStage,
+  };
+}
+</file>
+
+<file path="src/app/page.tsx">
+import LandingPage from '@/components/game/LandingPage'
+
+export default function Home() {
+  return <LandingPage />
+}
+</file>
+
+<file path="src/components/game/JoinRoom.tsx">
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
+
+export default function JoinRoom() {
+  const router = useRouter()
+  const { user, loading: authLoading } = useAuth()
+  const [roomCode, setRoomCode] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const handleJoin = async () => {
+    if (roomCode.trim().length !== 6 || !user) return
+
+    setLoading(true)
+    setError(null)
+
+   
+
+    const { data: room } = await supabase
+      .from('rooms')
+      .select('room_code, status, host_player_id')
+      .eq('room_code', roomCode.trim().toUpperCase())
+      .single()
+
+
+
+    if (!room) {
+      setError('Room not found. Check the code and try again.')
+      setLoading(false)
+      return
+    }
+
+    if (room.status !== 'waiting') {
+      setError('This room is no longer available.')
+      setLoading(false)
+      return
+    }
+
+    if (room.host_player_id === user.id) {
+      setError('You cannot join your own room.')
+      setLoading(false)
+      return
+    }
+
+    const { error: updateError } = await supabase
+      .from('rooms')
+      .update({
+        guest_player_id: user.id,
+        status: 'active'
+      })
+      .eq('room_code', roomCode.trim().toUpperCase())
+
+   
+
+    if (updateError) {
+      setError('Failed to join room. Please try again.')
+      setLoading(false)
+      return
+    }
+
+    router.push(`/room/${roomCode.trim().toUpperCase()}`)
+  }
+
+  return (
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
+      <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
+        <button
+          onClick={() => router.back()}
+          className="text-text-secondary text-sm text-left cursor-pointer hover:text-text-primary transition-colors duration-200 self-start"
+        >
+          ← Back
+        </button>
+
+        <div>
+          <h1 className="text-2xl font-medium text-text-primary">Join a room</h1>
+          <p className="text-text-secondary text-sm mt-1">Enter the code your opponent shared with you</p>
+        </div>
+
+        <input
+          type="text"
+          maxLength={6}
+          placeholder="Enter room code"
+          value={roomCode}
+          onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+          className="w-full bg-surface border border-border rounded-button px-4 py-4 text-text-primary text-center text-2xl font-medium tracking-widest placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200"
+        />
+
+        {error && (
+          <p className="text-sm text-center" style={{ color: '#ef4444' }}>{error}</p>
+        )}
+
+        <button
+          onClick={handleJoin}
+          disabled={roomCode.trim().length !== 6 || loading || authLoading}
+          className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {loading ? 'Joining...' : 'Join room'}
+        </button>
+      </div>
+    </main>
+  )
+}
+</file>
+
+<file path="src/components/game/PlayingScreen.tsx">
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import MatchSummary from './MatchSummary'
+
+interface Character {
+  id: string
+  name: string
+  description: string
+  image_url: string | null
+  deck: string
+}
+
+interface Round {
+  id: string
+  oracle_prompt: string
+  current_turn: string
+  status: string
+  winner: string | null
+  total_turns: number
+  started_at: string
+  ended_at: string | null
+}
+
+interface Props {
+  round: Round
+  myCharacter: Character
+  opponentCharacter: Character
+  isHost: boolean
+  playerOneName: string
+  playerTwoName: string
+  onEndTurn: () => void
+  onMarkCorrect: () => void
+  onMarkIncorrect: () => void
+  onResolveDrawStage: (finalWasCorrect: boolean) => void
+  onPlayAgain: () => void
+  onExit: () => void
+}
+
+export default function PlayingScreen({
+  round,
+  myCharacter,
+  opponentCharacter,
+  isHost,
+  playerOneName,
+  playerTwoName,
+  onEndTurn,
+  onMarkCorrect,
+  onMarkIncorrect,
+  onResolveDrawStage,
+  onPlayAgain,
+  onExit,
+}: Props) {
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false)
+
+  const myRole = isHost ? 'player_one' : 'player_two'
+  const opponentRole = isHost ? 'player_two' : 'player_one'
+  const isMyTurn = round.current_turn === myRole
+  const isOpponentTurn = round.current_turn === opponentRole
+  const myName = isHost ? playerOneName : playerTwoName
+  const opponentName = isHost ? playerTwoName : playerOneName
+
+  const isDrawStage = round.status === 'draw_stage'
+  const isFinished = round.status === 'finished'
+  // In the draw stage, current_turn is the player who has the ONE final turn.
+  // The other player (the one who guessed correctly first, held in `winner`)
+  // waits, then confirms whether that final guess was right.
+  const iGetFinalTurn = isDrawStage && isMyTurn
+  const iConfirmFinalTurn = isDrawStage && isOpponentTurn
+
+  // Game over -> show the match summary instead of the play UI.
+  if (isFinished) {
+    return (
+      <MatchSummary
+        round={round}
+        myRole={myRole}
+        myName={myName}
+        opponentName={opponentName}
+        onPlayAgain={onPlayAgain}
+        onExit={onExit}
+      />
+    )
+  }
+
+  return (
+    <main className="min-h-screen bg-background flex flex-col px-4 py-6 overflow-y-auto">
+      <div className="flex flex-col gap-5 w-full max-w-sm mx-auto">
+
+        {/* Oracle prompt */}
+        <div className="bg-surface border border-border rounded-card px-4 py-3">
+          <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Oracle</p>
+          <p className="text-text-primary text-sm leading-relaxed">
+            {round.oracle_prompt}
+          </p>
+        </div>
+
+        {/* Turn indicator */}
+        <div className="flex items-center justify-between gap-3">
+          <div className={`flex-1 flex items-center gap-2 px-3 py-2 rounded-pill text-xs font-medium transition-all ${
+            isMyTurn && !isDrawStage
+              ? 'bg-accent text-white'
+              : 'bg-surface text-text-secondary border border-border'
+          }`}>
+            <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+              isMyTurn && !isDrawStage ? 'bg-white' : 'bg-text-secondary'
+            }`} />
+            <span className="truncate">{myName}</span>
+          </div>
+          <span className="text-text-secondary text-xs flex-shrink-0">vs</span>
+          <div className={`flex-1 flex items-center justify-end gap-2 px-3 py-2 rounded-pill text-xs font-medium transition-all ${
+            isOpponentTurn && !isDrawStage
+              ? 'bg-accent text-white'
+              : 'bg-surface text-text-secondary border border-border'
+          }`}>
+            <span className="truncate text-right">{opponentName}</span>
+            <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+              isOpponentTurn && !isDrawStage ? 'bg-white' : 'bg-text-secondary'
+            }`} />
+          </div>
+        </div>
+
+        {/* Draw stage banner */}
+        {isDrawStage && (
+          <div className="bg-surface border border-accent rounded-card px-4 py-3 text-center">
+            <p className="text-accent text-sm font-medium">
+              {iGetFinalTurn
+                ? `${opponentName} guessed correctly — you get one final turn`
+                : `You guessed correctly — ${opponentName} gets one final turn`}
+            </p>
+          </div>
+        )}
+
+        {/* Opponent's card */}
+        <div className="bg-surface border border-border rounded-card overflow-hidden">
+          <div className="px-4 pt-4 pb-2">
+            <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Their character</p>
+            <p className="text-text-primary text-xl font-medium">{opponentCharacter.name}</p>
+            <p className="text-text-secondary text-xs capitalize mt-0.5">{opponentCharacter.deck}</p>
+          </div>
+
+          {opponentCharacter.image_url && (
+            <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg p-2">
+              <img
+                src={opponentCharacter.image_url}
+                alt={opponentCharacter.name}
+                className="max-h-full max-w-full object-contain"
+              />
+            </div>
+          )}
+          <div className="px-4 pb-4 pt-3">
+            <button
+              onClick={() => setDescriptionExpanded(!descriptionExpanded)}
+              className="text-accent text-xs font-medium cursor-pointer hover:opacity-75 transition-opacity"
+            >
+              {descriptionExpanded ? 'Hide description' : 'Show description'}
+            </button>
+            <AnimatePresence>
+              {descriptionExpanded && (
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-text-secondary text-sm leading-relaxed mt-2 overflow-hidden"
+                >
+                  {opponentCharacter.description}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* My character — hidden */}
+        <div className="bg-surface border border-border rounded-card px-4 py-3 flex items-center justify-between">
+          <div>
+            <p className="text-text-secondary text-xs uppercase tracking-widest mb-0.5">Your character</p>
+            <p className="text-text-secondary text-sm italic">Hidden until round ends</p>
+          </div>
+          <div className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center">
+            <span className="text-text-secondary text-lg">?</span>
+          </div>
+        </div>
+
+        {/* Action area */}
+        <div className="flex flex-col gap-3">
+
+          {/* My turn — normal play */}
+          {isMyTurn && !isDrawStage && (
+            <>
+              <p className="text-text-secondary text-xs text-center">
+                Ask your question out loud, then end your turn
+              </p>
+              <button
+                onClick={onEndTurn}
+                className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity hover:opacity-90 cursor-pointer"
+              >
+                End Turn
+              </button>
+            </>
+          )}
+
+          {/* Opponent's turn — I confirm their guess */}
+          {isOpponentTurn && !isDrawStage && (
+            <>
+              <p className="text-text-secondary text-xs text-center">
+                Did {opponentName} guess correctly?
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={onMarkIncorrect}
+                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                >
+                  Incorrect ✗
+                </button>
+                <button
+                  onClick={onMarkCorrect}
+                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                >
+                  Correct ✓
+                </button>
+              </div>
+            </>
+          )}
+
+          {/* Draw stage — I get the final turn. If I know it, I guess OUT LOUD
+              and the other player confirms. If I DON'T know it, I hit "End Final
+              Turn" to give up — that ends the game and the other player wins.
+              This resolves the game; it does NOT flip the turn. */}
+          {isDrawStage && iGetFinalTurn && (
+            <>
+              <p className="text-text-secondary text-xs text-center">
+                Make your final guess out loud — {opponentName} confirms it. If you
+                dont know, end your final turn.
+              </p>
+              <button
+                onClick={() => onResolveDrawStage(false)}
+                className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity hover:opacity-90 cursor-pointer"
+              >
+                End Final Turn
+              </button>
+            </>
+          )}
+
+          {/* Draw stage — I guessed first, so I confirm the opponent's final
+              turn. This RESOLVES and ends the game. */}
+          {isDrawStage && iConfirmFinalTurn && (
+            <>
+              <p className="text-text-secondary text-xs text-center">
+                Did {opponentName} guess correctly on their final turn?
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => onResolveDrawStage(false)}
+                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                >
+                  Incorrect ✗
+                </button>
+                <button
+                  onClick={() => onResolveDrawStage(true)}
+                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                >
+                  Correct ✓
+                </button>
+              </div>
+            </>
+          )}
+
+          {/* Waiting for opponent (normal play, their turn) */}
+          {isOpponentTurn && !isDrawStage && (
+            <div className="w-full py-3 rounded-button bg-surface border border-border text-text-secondary text-sm text-center">
+              Waiting for {opponentName}...
+            </div>
+          )}
+
+
+
+        </div>
+      </div>
+    </main>
+  )
+}
+</file>
+
+<file path="src/constants/config.ts">
+export const config = {
+ 
+  game: {
+    roomCodeLength: 6,
+    maxRemovals: 5,
+    timerOptions: [15, 30, 45, 60],
+    defaultTimer: null,
+  },
+  decks: [
+    { id: 'anime', name: 'Anime', slug: 'anime', isFree: true },
+    { id: 'movies', name: 'Movies', slug: 'movies', isFree: true },
+    { id: 'tv', name: 'TV Shows', slug: 'tv', isFree: true },
+    { id: 'cartoons', name: 'Cartoons', slug: 'cartoons', isFree: true },
+    { id: 'games', name: 'Games', slug: 'games', isFree: true },
+    { id: 'villains', name: 'Villains', slug: 'villains', isFree: true },
+    
+  ],
+  app: {
+    name: 'Am I?',
+    tagline: 'A long distance deduction game for two',
+  },
+} as const
+</file>
+
+<file path="src/components/game/CreateRoom.tsx">
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { config } from '@/constants/config'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
+
+function generateRoomCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  return Array.from({ length: config.game.roomCodeLength })
+    .map(() => chars[Math.floor(Math.random() * chars.length)])
+    .join('')
+}
+
+export default function CreateRoom() {
+  const router = useRouter()
+  const { user, loading: authLoading } = useAuth()
+  const [roomCode] = useState(() => generateRoomCode())
+  const [copied, setCopied] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (authLoading || !user) return
+
+    const createRoom = async () => {
+      await new Promise(resolve => setTimeout(resolve, 500))
+
+      const { error } = await supabase
+        .from('rooms')
+        .upsert(
+          {
+            room_code: roomCode,
+            status: 'waiting',
+            host_player_id: user.id
+          },
+          { onConflict: 'room_code' }
+        )
+
+      if (error) {
+        setError('Failed to create room. Please try again.')
+        console.error(error)
+      } else {
+        setLoading(false)
+      }
+    }
+
+    createRoom()
+
+    const channel = supabase
+      .channel(`waiting:${roomCode}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'rooms',
+          filter: `room_code=eq.${roomCode}`,
+        },
+        (payload) => {
+          const updated = payload.new as { status: string; guest_player_id: string | null }
+          
+          if (updated.status === 'active' && updated.guest_player_id) {
+            router.push(`/room/${roomCode}`)
+          }
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [roomCode, user, authLoading, router])
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(roomCode)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: 'Am I?',
+        text: `Think you can figure out who you are? Join me on "Am I?" — the room code is: ${roomCode}`,
+      })
+    } else {
+      handleCopy()
+    }
+  }
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </main>
+    )
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-4">
+        <p className="text-text-secondary text-sm">{error}</p>
+        <button
+          onClick={() => router.back()}
+          className="text-accent text-sm cursor-pointer hover:opacity-75"
+        >
+          Go back
+        </button>
+      </main>
+    )
+  }
+
+  return (
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 py-12">
+      <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
+        <button
+          onClick={() => router.back()}
+          className="text-text-secondary text-sm text-left cursor-pointer hover:text-text-primary transition-colors duration-200 self-start"
+        >
+          ← Back
+        </button>
+
+        <div>
+          <h1 className="text-2xl font-medium text-text-primary">Your room</h1>
+          <p className="text-text-secondary text-sm mt-1">Share this code with your opponent</p>
+        </div>
+
+        <div className="bg-surface border border-accent rounded-card p-6 text-center">
+          <p className="text-accent text-4xl font-medium tracking-widest">{roomCode}</p>
+        </div>
+
+        <div className="flex gap-3">
+          <button
+            onClick={handleCopy}
+            className="flex-1 py-3 rounded-button border border-accent text-accent text-sm font-medium transition-all duration-200 hover:bg-accent hover:text-white cursor-pointer"
+          >
+            {copied ? 'Copied!' : 'Copy code'}
+          </button>
+          <button
+            onClick={handleShare}
+            className="flex-1 py-3 rounded-button bg-accent text-white text-sm font-medium transition-opacity duration-200 hover:opacity-90 cursor-pointer"
+          >
+            Share
+          </button>
+        </div>
+
+        <div className="flex flex-col items-center gap-3 mt-4">
+          <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          <p className="text-text-secondary text-sm">Waiting for your opponent...</p>
+        </div>
+      </div>
+    </main>
+  )
+}
+</file>
+
+<file path="src/components/game/LandingPage.tsx">
+'use client'
+
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { config } from '@/constants/config'
+
+
+
+export default function LandingPage() {
+
+    const router = useRouter()
+  return (
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+      <div className="flex flex-col items-center gap-4 w-full max-w-xs md:max-w-sm">
+       <Image
+  src="/images/logo.png"
+  alt="Am I? logo"
+  width={80}
+  height={80}
+  className="rounded-2xl w-24 h-24 md:w-24 md:h-24"
+/>
+
+        <div className="text-center">
+          <h1 className="text-3xl font-medium text-text-primary">
+            {config.app.name}
+          </h1>
+          <p className="text-text-secondary text-sm mt-2">
+            {config.app.tagline}
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3 w-full mt-8">
+          <button
+  onClick={() => router.push('/lobby/create')}
+  className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 active:opacity-75 cursor-pointer"
+>
+  Create room
+</button>
+        <button
+  onClick={() => router.push('/lobby/join')}
+  className="w-full py-4 rounded-button font-medium text-base text-accent border border-accent bg-transparent transition-all duration-200 hover:bg-accent hover:text-white active:opacity-75 cursor-pointer"
+>
+  Join room
+</button>
+          {/* <button className="text-sm mt-2 transition-opacity duration-200 hover:opacity-75 cursor-pointer">
+  <span className="text-accent">Sign in</span>
+  <span className="text-text-primary"> to save your tally</span>
+</button> */}
+        </div>
+      </div>
+    </main>
+  );
+}
+</file>
+
+<file path="package.json">
+{
+  "name": "am-i",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/supabase-js": "^2.108.2",
+    "dotenv": "^17.4.2",
+    "framer-motion": "^12.42.0",
+    "groq-sdk": "^1.3.0",
+    "next": "16.2.9",
+    "openai": "^6.45.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="src/components/game/GameRoom.tsx">
+'use client'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
+import { useAuth } from '@/hooks/useAuth'
+import { useGameplay } from '@/hooks/useGameplay'
+import { config } from '@/constants/config'
+import RemoveCardsPanel from '@/components/game/RemoveCardsPanel'
+import PlayingScreen from '@/components/game/PlayingScreen'
+interface Props {
+  roomCode: string
+}
+interface Room {
+  id: string
+  room_code: string
+  status: string
+  game_state: string
+  host_player_id: string | null
+  guest_player_id: string | null
+  player_one_name: string | null
+  player_two_name: string | null
+  selected_decks: string[]
+  player_one_confirmed: boolean
+  player_two_confirmed: boolean
+  max_removals: number
+}
+export default function GameRoom({ roomCode }: Props) {
+  const router = useRouter()
+  const { user } = useAuth()
+  const [room, setRoom] = useState<Room | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [playerName, setPlayerName] = useState('')
+  const [confirmed, setConfirmed] = useState(false)
+  useEffect(() => {
+    const fetchRoom = async () => {
+      const { data, error } = await supabase
+        .from('rooms')
+        .select('id, room_code, status, game_state, host_player_id, guest_player_id, player_one_name, player_two_name, selected_decks, player_one_confirmed, player_two_confirmed, max_removals')
+        .eq('room_code', roomCode)
+        .single()
+      if (error || !data) {
+        setError('Room not found.')
+        setLoading(false)
+        return
+      }
+      setRoom(data)
+      setLoading(false)
+    }
+    fetchRoom()
+    const channel = supabase
+      .channel(`room:${roomCode}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'rooms',
+          filter: `room_code=eq.${roomCode}`,
+        },
+        (payload) => {
+          setRoom(payload.new as Room)
+        }
+      )
+      .subscribe()
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [roomCode])
+  const isHost = user?.id === room?.host_player_id
+  const bothConnected = !!(room?.host_player_id && room?.guest_player_id)
+  const handleDeckToggle = async (slug: string) => {
+    if (!room || confirmed) return
+    const current = room.selected_decks ?? []
+    const updated = current.includes(slug)
+      ? current.filter((d) => d !== slug)
+      : [...current, slug]
+    await supabase
+      .from('rooms')
+      .update({ selected_decks: updated })
+      .eq('room_code', roomCode)
+  }
+  const handleRemovalChange = async (value: number) => {
+    if (!room || confirmed) return
+    const clamped = Math.min(10, Math.max(0, value))
+    await supabase
+      .from('rooms')
+      .update({ max_removals: clamped })
+      .eq('room_code', roomCode)
+  }
+  const handleConfirm = async () => {
+    if (!room || (room.selected_decks ?? []).length === 0) return
+    const nameField = isHost ? 'player_one_name' : 'player_two_name'
+    const confirmedField = isHost ? 'player_one_confirmed' : 'player_two_confirmed'
+    await supabase
+      .from('rooms')
+      .update({
+        [nameField]: playerName || (isHost ? 'Player 1' : 'Player 2'),
+        [confirmedField]: true,
+      })
+      .eq('room_code', roomCode)
+    setConfirmed(true)
+  }
+  useEffect(() => {
+    if (!room) return
+    if (room.player_one_confirmed && room.player_two_confirmed && room.game_state !== 'playing') {
+      supabase
+        .from('rooms')
+        .update({ game_state: 'playing' })
+        .eq('room_code', roomCode)
+        .then(({ error }) => {
+          if (error) console.error('Error updating game state:', error)
+        })
+    }
+  }, [room, roomCode])
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </main>
+    )
+  }
+  if (error) {
+    return (
+      <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-4">
+        <p className="text-text-secondary text-sm">{error}</p>
+        <button
+          onClick={() => router.push('/')}
+          className="text-accent text-sm cursor-pointer hover:opacity-75"
+        >
+          Go home
+        </button>
+      </main>
+    )
+  }
+  if (room?.game_state === 'playing' && user?.id) {
+    return (
+      <PlayingWrapper
+        room={room}
+        roomCode={roomCode}
+        isHost={isHost}
+        userId={user.id}
+      />
+    )
+  }
+  if (bothConnected) {
+    const selectedDecks = room?.selected_decks ?? []
+    const myConfirmed = isHost ? room?.player_one_confirmed : room?.player_two_confirmed
+    const opponentConfirmed = isHost ? room?.player_two_confirmed : room?.player_one_confirmed
+    const maxRemovals = room?.max_removals ?? 0
+    return (
+      <main className="min-h-screen bg-background flex flex-col px-6 py-12 overflow-y-auto">
+        <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
+          <div>
+            <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Room {room?.room_code}</p>
+            <h1 className="text-2xl font-medium text-text-primary">Game setup</h1>
+            <p className="text-text-secondary text-sm mt-1">
+              {isHost ? 'You are Player 1' : 'You are Player 2'}
+            </p>
+          </div>
+          <div>
+            <p className="text-text-primary text-sm font-medium mb-1">Select decks</p>
+            <p className="text-text-secondary text-xs mb-3">Both players see the same selection</p>
+            <div className="flex flex-wrap gap-2">
+              {config.decks.map((deck) => (
+                <button
+                  key={deck.id}
+                  onClick={() => handleDeckToggle(deck.slug)}
+                  disabled={confirmed}
+                  className={`px-4 py-2 rounded-pill text-sm font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed ${
+                    selectedDecks.includes(deck.slug)
+                      ? 'bg-accent text-white'
+                      : 'bg-surface text-text-secondary border border-border hover:border-accent'
+                  }`}
+                >
+                  {deck.name}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-text-primary text-sm font-medium mb-1">Card removals per player</p>
+            <p className="text-text-secondary text-xs mb-3">How many cards each player can remove before the round starts. Default is 0.</p>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => handleRemovalChange(maxRemovals - 1)}
+                disabled={confirmed || maxRemovals === 0}
+                className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                −
+              </button>
+              <span className="text-text-primary text-xl font-medium w-6 text-center">{maxRemovals}</span>
+              <button
+                onClick={() => handleRemovalChange(maxRemovals + 1)}
+                disabled={confirmed || maxRemovals === 10}
+                className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          {maxRemovals > 0 && selectedDecks.length > 0 && user && (
+            <RemoveCardsPanel
+              selectedDecks={selectedDecks}
+              maxRemovals={maxRemovals}
+              roomCode={roomCode}
+              playerId={user.id}
+            />
+          )}
+          <div>
+            <p className="text-text-primary text-sm font-medium mb-2">Your name <span className="text-text-secondary font-normal">(optional)</span></p>
+            <input
+              type="text"
+              placeholder={isHost ? 'Player 1' : 'Player 2'}
+              value={playerName}
+              onChange={(e) => setPlayerName(e.target.value)}
+              disabled={confirmed}
+              className="w-full bg-surface border border-border rounded-button px-4 py-3 text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-50"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-text-secondary">You</span>
+              <span className={myConfirmed ? 'text-accent' : 'text-text-secondary'}>
+                {myConfirmed ? 'Ready ✓' : 'Not ready'}
+              </span>
+            </div>
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-text-secondary">Opponent</span>
+              <span className={opponentConfirmed ? 'text-accent' : 'text-text-secondary'}>
+                {opponentConfirmed ? 'Ready ✓' : 'Waiting...'}
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={handleConfirm}
+            disabled={confirmed || selectedDecks.length === 0}
+            className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {confirmed ? 'Waiting for opponent...' : 'Confirm setup'}
+          </button>
+        </div>
+      </main>
+    )
+  }
+  return (
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+      <div className="flex flex-col gap-4 w-full max-w-xs md:max-w-md mx-auto text-center">
+        <p className="text-text-secondary text-sm">Room</p>
+        <p className="text-accent text-4xl font-medium tracking-widest">{room?.room_code}</p>
+        <div className="flex flex-col items-center gap-3 mt-6">
+          <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          <p className="text-text-secondary text-sm">Waiting for your opponent...</p>
+        </div>
+      </div>
+    </main>
+  )
+}
+function PlayingWrapper({
+  room,
+  roomCode,
+  isHost,
+  userId,
+}: {
+  room: Room
+  roomCode: string
+  isHost: boolean
+  userId: string
+}) {
+  const router = useRouter()
+  const {
+    round,
+    myCharacter,
+    opponentCharacter,
+    loading,
+    error,
+    endTurn,
+    markCorrect,
+    markIncorrect,
+    resolveDrawStage,
+  } = useGameplay(
+    roomCode,
+    room.id,
+    isHost,
+    room.host_player_id ?? '',
+    room.guest_player_id ?? '',
+    room.selected_decks ?? [],
+    userId
+  )
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+          <p className="text-text-secondary text-sm">Setting up the round...</p>
+        </div>
+      </main>
+    )
+  }
+  if (error) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center px-6">
+        <p className="text-text-secondary text-sm text-center">{error}</p>
+      </main>
+    )
+  }
+  if (!round || !myCharacter || !opponentCharacter) {
+    return (
+      <main className="min-h-screen bg-background flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </main>
+    )
+  }
+  return (
+    <PlayingScreen
+      round={round}
+      myCharacter={myCharacter}
+      opponentCharacter={opponentCharacter}
+      isHost={isHost}
+      playerOneName={room.player_one_name ?? 'Player 1'}
+      playerTwoName={room.player_two_name ?? 'Player 2'}
+      onEndTurn={endTurn}
+      onMarkCorrect={markCorrect}
+      onMarkIncorrect={markIncorrect}
+      onResolveDrawStage={resolveDrawStage}
+      onPlayAgain={() => router.push('/')}
+      onExit={() => router.push('/')}
+    />
+  )
+}
+</file>
+
+</files>

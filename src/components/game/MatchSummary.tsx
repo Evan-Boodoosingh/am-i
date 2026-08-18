@@ -89,14 +89,14 @@ export default function MatchSummary({
             onClick={onPlayAgain}
             className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity hover:opacity-90 cursor-pointer"
           >
-            Play Again
+            Exit
           </button>
-          <button
+          {/* <button
             onClick={onExit}
             className="w-full py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
           >
             Exit
-          </button>
+          </button> */}
         </div>
       </motion.div>
     </main>
