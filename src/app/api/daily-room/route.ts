@@ -25,18 +25,25 @@ export async function POST(request: Request) {
     // lowercase-safe them and prefix so they never collide with anything else.
     const roomName = `ami-${roomCode}`.toLowerCase()
 
-    // 1) Try to fetch an existing room with this name (idempotent join).
-    const existing = await fetch(
-      `https://api.daily.co/v1/rooms/${roomName}`,
-      { headers: { Authorization: `Bearer ${apiKey}` } },
-    )
-
-    if (existing.ok) {
-      const room = await existing.json()
-      return NextResponse.json({ url: room.url, name: room.name })
+    // Helper: fetch the existing room, return its URL or null if not there.
+    const fetchExisting = async (): Promise<{ url: string; name: string } | null> => {
+      const res = await fetch(`https://api.daily.co/v1/rooms/${roomName}`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      })
+      if (res.ok) {
+        const room = await res.json()
+        return { url: room.url, name: room.name }
+      }
+      return null
     }
 
-    // 2) Not found -> create it. Auto-expire a few hours out so rooms clean up.
+    // 1) Room already there? Return it (the common case once one player made it).
+    const existing = await fetchExisting()
+    if (existing) {
+      return NextResponse.json(existing)
+    }
+
+    // 2) Not there yet -> try to create it.
     const expSeconds = Math.floor(Date.now() / 1000) + 60 * 60 * 4 // 4 hours
     const created = await fetch('https://api.daily.co/v1/rooms', {
       method: 'POST',
@@ -56,17 +63,26 @@ export async function POST(request: Request) {
       }),
     })
 
-    if (!created.ok) {
-      const detail = await created.text()
-      console.error('Daily room creation failed:', detail)
-      return NextResponse.json(
-        { error: 'Failed to create video room' },
-        { status: 502 },
-      )
+    if (created.ok) {
+      const room = await created.json()
+      return NextResponse.json({ url: room.url, name: room.name })
     }
 
-    const room = await created.json()
-    return NextResponse.json({ url: room.url, name: room.name })
+    // 3) Create failed. The usual reason is a RACE: both players called at the
+    // same instant, both saw "not found", and the other player's create won —
+    // so this one collided on the duplicate name. Re-fetch; the room now exists.
+    const afterRace = await fetchExisting()
+    if (afterRace) {
+      return NextResponse.json(afterRace)
+    }
+
+    // Genuinely couldn't create or find it — now it's a real error.
+    const detail = await created.text()
+    console.error('Daily room creation failed:', detail)
+    return NextResponse.json(
+      { error: 'Failed to create video room' },
+      { status: 502 },
+    )
   } catch (err) {
     console.error('daily-room route error:', err)
     return NextResponse.json({ error: 'Something went wrong' }, { status: 500 })

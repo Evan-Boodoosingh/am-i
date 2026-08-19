@@ -57,17 +57,40 @@ export default function VideoPanel({ roomCode }: Props) {
   useEffect(() => {
     let cancelled = false
 
+    // Ask our server for the Daily room URL, retrying a few times. When both
+    // players hit setup at the same moment, their create-room calls can race and
+    // the first response may come back empty or 502. The room exists a moment
+    // later, so a short retry connects without needing a manual refresh.
+    const fetchRoomUrl = async (): Promise<string | null> => {
+      const MAX_ATTEMPTS = 4
+      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+        if (cancelled) return null
+        try {
+          const res = await fetch('/api/daily-room', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ roomCode }),
+          })
+          const data = await res.json()
+          if (data?.url) return data.url
+        } catch (e) {
+          console.error('daily-room fetch attempt failed', e)
+        }
+        // Wait before the next try (skip the wait after the last attempt).
+        if (attempt < MAX_ATTEMPTS - 1) {
+          await new Promise((r) => setTimeout(r, 1500))
+        }
+      }
+      return null
+    }
+
     const start = async () => {
       try {
-        // 1) Ask our server for the Daily room URL (creates it if needed).
-        const res = await fetch('/api/daily-room', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ roomCode }),
-        })
-        const data = await res.json()
-        if (!data?.url) {
-          console.error('No Daily room URL returned', data)
+        // 1) Ask our server for the Daily room URL (creates it if needed), with retry.
+        const url = await fetchRoomUrl()
+        if (!url) {
+          console.error('No Daily room URL after retries')
+          setPermissionDenied(true)
           return
         }
         if (cancelled) return
@@ -107,7 +130,7 @@ export default function VideoPanel({ roomCode }: Props) {
           .on('participant-left', updateTiles)
           .on('error', (e) => console.error('Daily error:', e))
 
-        await call.join({ url: data.url })
+        await call.join({ url })
 
         // Initial device state
         setCamOn(call.localVideo())

@@ -8,6 +8,7 @@ import { config } from '@/constants/config'
 import RemoveCardsPanel from '@/components/game/RemoveCardsPanel'
 import PlayingScreen from '@/components/game/PlayingScreen'
 import VideoPanel from '@/components/game/VideoPanel'
+import InfoButton from '@/components/game/InfoButton'
 interface Props {
   roomCode: string
 }
@@ -134,7 +135,6 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
-
   // Once BOTH players are connected, mount the video panel ONCE and keep it
   // mounted across every state below (setup -> playing -> recap). The screen
   // content switches underneath it, but VideoPanel itself never unmounts, so
@@ -142,6 +142,7 @@ export default function GameRoom({ roomCode }: Props) {
   if (bothConnected && user?.id && room) {
     return (
       <main className="min-h-screen bg-background flex flex-col px-4 py-6 overflow-y-auto">
+        <InfoButton />
         <VideoPanel roomCode={roomCode} />
         {room.game_state === 'playing' ? (
           <PlayingWrapper
@@ -167,10 +168,10 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
-
   // Host is in but still waiting for the guest to join.
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+      <InfoButton />
       <div className="flex flex-col gap-4 w-full max-w-xs md:max-w-md mx-auto text-center">
         <p className="text-text-secondary text-sm">Room</p>
         <p className="text-accent text-4xl font-medium tracking-widest">{room?.room_code}</p>
@@ -182,7 +183,6 @@ export default function GameRoom({ roomCode }: Props) {
     </main>
   )
 }
-
 function SetupScreen({
   room,
   roomCode,
@@ -221,7 +221,7 @@ function SetupScreen({
       </div>
       <div>
         <p className="text-text-primary text-sm font-medium mb-1">Select decks</p>
-        <p className="text-text-secondary text-xs mb-3">Both players see the same selection</p>
+        <p className="text-text-secondary text-xs mb-3">Select a deck your character will be randomly chosen from</p>
         <div className="flex flex-wrap gap-2">
           {config.decks.map((deck) => (
             <button
@@ -241,7 +241,7 @@ function SetupScreen({
       </div>
       <div>
         <p className="text-text-primary text-sm font-medium mb-1">Card removals per player</p>
-        <p className="text-text-secondary text-xs mb-3">How many cards each player can remove before the round starts. Default is 0.</p>
+        <p className="text-text-secondary text-xs mb-3">Remove characters you don not want to be assigned. Set how many each player can take out.</p>
         <div className="flex items-center gap-4">
           <button
             onClick={() => onRemovalChange(maxRemovals - 1)}
@@ -303,7 +303,6 @@ function SetupScreen({
     </div>
   )
 }
-
 function PlayingWrapper({
   room,
   roomCode,
@@ -354,6 +353,47 @@ function PlayingWrapper({
     return (
       <div className="flex items-center justify-center py-12">
         <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+      </div>
+    )
+  }
+  // While the Oracle is still writing the clue (status 'generating'), show the
+  // character you'll be reasoning about plus a quick refresher, so the ~18s wait
+  // becomes useful prep time instead of a blank spinner. opponentCharacter is the
+  // card shown during play, so we show the same one here for consistency.
+  if (round.status === 'generating') {
+    return (
+      <div className="flex flex-col items-center gap-5 w-full max-w-xs md:max-w-md mx-auto py-8">
+        <div className="flex flex-col items-center gap-1">
+          <div className="w-6 h-6 rounded-full border-2 border-accent border-t-transparent animate-spin mb-2" />
+          <p className="text-accent text-sm font-medium">Consulting the Oracle...</p>
+          <p className="text-text-secondary text-xs text-center">This is your opponents character to guess</p>
+        </div>
+        {opponentCharacter.image_url && (
+          <div className="w-full max-w-[240px] aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg border border-border bg-surface p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={opponentCharacter.image_url}
+              alt={opponentCharacter.name}
+              className="max-h-full max-w-full object-contain"
+            />
+          </div>
+        )}
+        <div className="text-center">
+          <p className="text-text-primary text-xl font-medium">{opponentCharacter.name}</p>
+          <p className="text-text-secondary text-xs capitalize mt-0.5">{opponentCharacter.deck}</p>
+        </div>
+        {opponentCharacter.description && (
+          <p className="text-text-secondary text-sm text-center leading-relaxed">
+            {opponentCharacter.description}
+          </p>
+        )}
+        <div className="w-full border-t border-border pt-4 mt-1">
+          <p className="text-text-secondary text-xs text-center leading-relaxed">
+            This is the character your opponent has to guess. You can see theirs, but
+            not your own. When the round begins, the Oracle reveals one clue connecting
+            you both. Take turns asking questions out loud and race to guess who you are.
+          </p>
+        </div>
       </div>
     )
   }

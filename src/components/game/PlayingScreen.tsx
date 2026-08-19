@@ -209,13 +209,13 @@ export default function PlayingScreen({
               <div className="flex gap-2">
                 <button
                   onClick={onMarkIncorrect}
-                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                  className="flex-1 py-3 rounded-button bg-surface border border-accent text-accent text-sm font-medium transition-opacity hover:opacity-75 cursor-pointer"
                 >
                   Incorrect ✗
                 </button>
                 <button
                   onClick={onMarkCorrect}
-                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                  className="flex-1 py-3 rounded-button bg-accent border border-accent text-white text-sm font-medium transition-opacity hover:opacity-90 cursor-pointer"
                 >
                   Correct ✓
                 </button>
@@ -252,13 +252,13 @@ export default function PlayingScreen({
               <div className="flex gap-2">
                 <button
                   onClick={() => onResolveDrawStage(false)}
-                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                  className="flex-1 py-3 rounded-button bg-surface border border-accent text-accent text-sm font-medium transition-opacity hover:opacity-75 cursor-pointer"
                 >
                   Incorrect ✗
                 </button>
                 <button
                   onClick={() => onResolveDrawStage(true)}
-                  className="flex-1 py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
+                  className="flex-1 py-3 rounded-button bg-accent border border-accent text-white text-sm font-medium transition-opacity hover:opacity-90 cursor-pointer"
                 >
                   Correct ✓
                 </button>
