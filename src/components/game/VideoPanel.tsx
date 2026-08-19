@@ -29,12 +29,24 @@ export default function VideoPanel({ roomCode }: Props) {
   const [enlarged, setEnlarged] = useState<'local' | 'remote' | null>(null)
   const [permissionDenied, setPermissionDenied] = useState(false)
 
-  // Attach a participant's video track to a <video> element.
-  const attachTrack = useCallback(
-    (el: HTMLVideoElement | null, track: MediaStreamTrack | undefined | null) => {
+  // Attach a participant's video AND audio tracks to a <video> element so the
+  // element plays both picture and sound. (Attaching only the video track — the
+  // original bug — means you see the opponent but never hear them.)
+  const attachStream = useCallback(
+    (
+      el: HTMLVideoElement | null,
+      videoTrack: MediaStreamTrack | undefined | null,
+      audioTrack: MediaStreamTrack | undefined | null,
+    ) => {
       if (!el) return
-      if (track) {
-        el.srcObject = new MediaStream([track])
+      const tracks: MediaStreamTrack[] = []
+      if (videoTrack) tracks.push(videoTrack)
+      if (audioTrack) tracks.push(audioTrack)
+      if (tracks.length > 0) {
+        el.srcObject = new MediaStream(tracks)
+        // Browsers block autoplay-with-sound until a user gesture; call play()
+        // and swallow the rejection so it resumes on the next interaction.
+        el.play().catch(() => {})
       } else {
         el.srcObject = null
       }
@@ -68,13 +80,19 @@ export default function VideoPanel({ roomCode }: Props) {
           const participants = call.participants()
           // Local
           const local = participants.local
-          attachTrack(localVideoRef.current, local?.tracks?.video?.persistentTrack ?? null)
+          // Local element is muted in the JSX, so no self-echo. Video only.
+          attachStream(
+            localVideoRef.current,
+            local?.tracks?.video?.persistentTrack ?? null,
+            null,
+          )
           // First remote participant (2-player game)
           const remote = Object.values(participants).find((p) => !p.local)
           setRemotePresent(!!remote)
-          attachTrack(
+          attachStream(
             remoteVideoRef.current,
             remote?.tracks?.video?.persistentTrack ?? null,
+            remote?.tracks?.audio?.persistentTrack ?? null,
           )
         }
 
@@ -113,7 +131,7 @@ export default function VideoPanel({ roomCode }: Props) {
         callRef.current = null
       }
     }
-  }, [roomCode, attachTrack])
+  }, [roomCode, attachStream])
 
   const toggleCamera = () => {
     const call = callRef.current
