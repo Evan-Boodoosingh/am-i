@@ -7,6 +7,7 @@ import { useGameplay } from '@/hooks/useGameplay'
 import { config } from '@/constants/config'
 import RemoveCardsPanel from '@/components/game/RemoveCardsPanel'
 import PlayingScreen from '@/components/game/PlayingScreen'
+import VideoPanel from '@/components/game/VideoPanel'
 interface Props {
   roomCode: string
 }
@@ -133,116 +134,41 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
-  if (room?.game_state === 'playing' && user?.id) {
+
+  // Once BOTH players are connected, mount the video panel ONCE and keep it
+  // mounted across every state below (setup -> playing -> recap). The screen
+  // content switches underneath it, but VideoPanel itself never unmounts, so
+  // the Daily call persists without reconnecting.
+  if (bothConnected && user?.id && room) {
     return (
-      <PlayingWrapper
-        room={room}
-        roomCode={roomCode}
-        isHost={isHost}
-        userId={user.id}
-      />
-    )
-  }
-  if (bothConnected) {
-    const selectedDecks = room?.selected_decks ?? []
-    const myConfirmed = isHost ? room?.player_one_confirmed : room?.player_two_confirmed
-    const opponentConfirmed = isHost ? room?.player_two_confirmed : room?.player_one_confirmed
-    const maxRemovals = room?.max_removals ?? 0
-    return (
-      <main className="min-h-screen bg-background flex flex-col px-6 py-12 overflow-y-auto">
-        <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
-          <div>
-            <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Room {room?.room_code}</p>
-            <h1 className="text-2xl font-medium text-text-primary">Game setup</h1>
-            <p className="text-text-secondary text-sm mt-1">
-              {isHost ? 'You are Player 1' : 'You are Player 2'}
-            </p>
-          </div>
-          <div>
-            <p className="text-text-primary text-sm font-medium mb-1">Select decks</p>
-            <p className="text-text-secondary text-xs mb-3">Both players see the same selection</p>
-            <div className="flex flex-wrap gap-2">
-              {config.decks.map((deck) => (
-                <button
-                  key={deck.id}
-                  onClick={() => handleDeckToggle(deck.slug)}
-                  disabled={confirmed}
-                  className={`px-4 py-2 rounded-pill text-sm font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed ${
-                    selectedDecks.includes(deck.slug)
-                      ? 'bg-accent text-white'
-                      : 'bg-surface text-text-secondary border border-border hover:border-accent'
-                  }`}
-                >
-                  {deck.name}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="text-text-primary text-sm font-medium mb-1">Card removals per player</p>
-            <p className="text-text-secondary text-xs mb-3">How many cards each player can remove before the round starts. Default is 0.</p>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => handleRemovalChange(maxRemovals - 1)}
-                disabled={confirmed || maxRemovals === 0}
-                className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                −
-              </button>
-              <span className="text-text-primary text-xl font-medium w-6 text-center">{maxRemovals}</span>
-              <button
-                onClick={() => handleRemovalChange(maxRemovals + 1)}
-                disabled={confirmed || maxRemovals === 10}
-                className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                +
-              </button>
-            </div>
-          </div>
-          {maxRemovals > 0 && selectedDecks.length > 0 && user && (
-            <RemoveCardsPanel
-              selectedDecks={selectedDecks}
-              maxRemovals={maxRemovals}
-              roomCode={roomCode}
-              playerId={user.id}
-            />
-          )}
-          <div>
-            <p className="text-text-primary text-sm font-medium mb-2">Your name <span className="text-text-secondary font-normal">(optional)</span></p>
-            <input
-              type="text"
-              placeholder={isHost ? 'Player 1' : 'Player 2'}
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              disabled={confirmed}
-              className="w-full bg-surface border border-border rounded-button px-4 py-3 text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-50"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-text-secondary">You</span>
-              <span className={myConfirmed ? 'text-accent' : 'text-text-secondary'}>
-                {myConfirmed ? 'Ready ✓' : 'Not ready'}
-              </span>
-            </div>
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-text-secondary">Opponent</span>
-              <span className={opponentConfirmed ? 'text-accent' : 'text-text-secondary'}>
-                {opponentConfirmed ? 'Ready ✓' : 'Waiting...'}
-              </span>
-            </div>
-          </div>
-          <button
-            onClick={handleConfirm}
-            disabled={confirmed || selectedDecks.length === 0}
-            className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {confirmed ? 'Waiting for opponent...' : 'Confirm setup'}
-          </button>
-        </div>
+      <main className="min-h-screen bg-background flex flex-col px-4 py-6 overflow-y-auto">
+        <VideoPanel roomCode={roomCode} />
+        {room.game_state === 'playing' ? (
+          <PlayingWrapper
+            room={room}
+            roomCode={roomCode}
+            isHost={isHost}
+            userId={user.id}
+          />
+        ) : (
+          <SetupScreen
+            room={room}
+            roomCode={roomCode}
+            isHost={isHost}
+            user={user}
+            playerName={playerName}
+            setPlayerName={setPlayerName}
+            confirmed={confirmed}
+            onDeckToggle={handleDeckToggle}
+            onRemovalChange={handleRemovalChange}
+            onConfirm={handleConfirm}
+          />
+        )}
       </main>
     )
   }
+
+  // Host is in but still waiting for the guest to join.
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
       <div className="flex flex-col gap-4 w-full max-w-xs md:max-w-md mx-auto text-center">
@@ -256,6 +182,128 @@ export default function GameRoom({ roomCode }: Props) {
     </main>
   )
 }
+
+function SetupScreen({
+  room,
+  roomCode,
+  isHost,
+  user,
+  playerName,
+  setPlayerName,
+  confirmed,
+  onDeckToggle,
+  onRemovalChange,
+  onConfirm,
+}: {
+  room: Room
+  roomCode: string
+  isHost: boolean
+  user: { id: string }
+  playerName: string
+  setPlayerName: (v: string) => void
+  confirmed: boolean
+  onDeckToggle: (slug: string) => void
+  onRemovalChange: (value: number) => void
+  onConfirm: () => void
+}) {
+  const selectedDecks = room?.selected_decks ?? []
+  const myConfirmed = isHost ? room?.player_one_confirmed : room?.player_two_confirmed
+  const opponentConfirmed = isHost ? room?.player_two_confirmed : room?.player_one_confirmed
+  const maxRemovals = room?.max_removals ?? 0
+  return (
+    <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
+      <div>
+        <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Room {room?.room_code}</p>
+        <h1 className="text-2xl font-medium text-text-primary">Game setup</h1>
+        <p className="text-text-secondary text-sm mt-1">
+          {isHost ? 'You are Player 1' : 'You are Player 2'}
+        </p>
+      </div>
+      <div>
+        <p className="text-text-primary text-sm font-medium mb-1">Select decks</p>
+        <p className="text-text-secondary text-xs mb-3">Both players see the same selection</p>
+        <div className="flex flex-wrap gap-2">
+          {config.decks.map((deck) => (
+            <button
+              key={deck.id}
+              onClick={() => onDeckToggle(deck.slug)}
+              disabled={confirmed}
+              className={`px-4 py-2 rounded-pill text-sm font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed ${
+                selectedDecks.includes(deck.slug)
+                  ? 'bg-accent text-white'
+                  : 'bg-surface text-text-secondary border border-border hover:border-accent'
+              }`}
+            >
+              {deck.name}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p className="text-text-primary text-sm font-medium mb-1">Card removals per player</p>
+        <p className="text-text-secondary text-xs mb-3">How many cards each player can remove before the round starts. Default is 0.</p>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => onRemovalChange(maxRemovals - 1)}
+            disabled={confirmed || maxRemovals === 0}
+            className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            −
+          </button>
+          <span className="text-text-primary text-xl font-medium w-6 text-center">{maxRemovals}</span>
+          <button
+            onClick={() => onRemovalChange(maxRemovals + 1)}
+            disabled={confirmed || maxRemovals === 10}
+            className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            +
+          </button>
+        </div>
+      </div>
+      {maxRemovals > 0 && selectedDecks.length > 0 && user && (
+        <RemoveCardsPanel
+          selectedDecks={selectedDecks}
+          maxRemovals={maxRemovals}
+          roomCode={roomCode}
+          playerId={user.id}
+        />
+      )}
+      <div>
+        <p className="text-text-primary text-sm font-medium mb-2">Your name <span className="text-text-secondary font-normal">(optional)</span></p>
+        <input
+          type="text"
+          placeholder={isHost ? 'Player 1' : 'Player 2'}
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value)}
+          disabled={confirmed}
+          className="w-full bg-surface border border-border rounded-button px-4 py-3 text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-50"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-text-secondary">You</span>
+          <span className={myConfirmed ? 'text-accent' : 'text-text-secondary'}>
+            {myConfirmed ? 'Ready ✓' : 'Not ready'}
+          </span>
+        </div>
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-text-secondary">Opponent</span>
+          <span className={opponentConfirmed ? 'text-accent' : 'text-text-secondary'}>
+            {opponentConfirmed ? 'Ready ✓' : 'Waiting...'}
+          </span>
+        </div>
+      </div>
+      <button
+        onClick={onConfirm}
+        disabled={confirmed || selectedDecks.length === 0}
+        className="w-full py-4 rounded-button bg-accent text-white font-medium text-base transition-opacity duration-200 hover:opacity-90 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+      >
+        {confirmed ? 'Waiting for opponent...' : 'Confirm setup'}
+      </button>
+    </div>
+  )
+}
+
 function PlayingWrapper({
   room,
   roomCode,
@@ -289,26 +337,24 @@ function PlayingWrapper({
   )
   if (loading) {
     return (
-      <main className="min-h-screen bg-background flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
-          <p className="text-text-secondary text-sm">Setting up the round...</p>
-        </div>
-      </main>
+      <div className="flex flex-col items-center gap-3 py-12">
+        <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
+        <p className="text-text-secondary text-sm">Setting up the round...</p>
+      </div>
     )
   }
   if (error) {
     return (
-      <main className="min-h-screen bg-background flex items-center justify-center px-6">
+      <div className="flex items-center justify-center px-6 py-12">
         <p className="text-text-secondary text-sm text-center">{error}</p>
-      </main>
+      </div>
     )
   }
   if (!round || !myCharacter || !opponentCharacter) {
     return (
-      <main className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex items-center justify-center py-12">
         <div className="w-8 h-8 rounded-full border-2 border-accent border-t-transparent animate-spin" />
-      </main>
+      </div>
     )
   }
   return (
