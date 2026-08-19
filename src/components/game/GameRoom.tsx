@@ -369,7 +369,7 @@ function PlayingWrapper({
           <p className="text-text-secondary text-xs text-center">This is your opponents character to guess</p>
         </div>
         {opponentCharacter.image_url && (
-          <div className="w-full max-w-[240px] aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg border border-border bg-surface p-2">
+          <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg border border-border bg-surface p-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={opponentCharacter.image_url}
