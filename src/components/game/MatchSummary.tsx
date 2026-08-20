@@ -51,7 +51,7 @@ export default function MatchSummary({
       ? `You beat ${opponentName}`
       : `${opponentName} guessed first`
   return (
-    <main className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-6">
+    <main className="flex-1 bg-background flex flex-col items-center justify-center px-4 py-6">
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
