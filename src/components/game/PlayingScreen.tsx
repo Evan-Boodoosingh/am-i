@@ -77,6 +77,7 @@ export default function PlayingScreen({
         myRole={myRole}
         myName={myName}
         opponentName={opponentName}
+        myCharacter={myCharacter}
         onPlayAgain={onPlayAgain}
         onExit={onExit}
       />
