@@ -9,9 +9,11 @@ import RemoveCardsPanel from '@/components/game/RemoveCardsPanel'
 import PlayingScreen from '@/components/game/PlayingScreen'
 import VideoPanel from '@/components/game/VideoPanel'
 import InfoButton from '@/components/game/InfoButton'
+
 interface Props {
   roomCode: string
 }
+
 interface Room {
   id: string
   room_code: string
@@ -26,6 +28,7 @@ interface Room {
   player_two_confirmed: boolean
   max_removals: number
 }
+
 export default function GameRoom({ roomCode }: Props) {
   const router = useRouter()
   const { user } = useAuth()
@@ -34,6 +37,7 @@ export default function GameRoom({ roomCode }: Props) {
   const [error, setError] = useState<string | null>(null)
   const [playerName, setPlayerName] = useState('')
   const [confirmed, setConfirmed] = useState(false)
+
   useEffect(() => {
     const fetchRoom = async () => {
       const { data, error } = await supabase
@@ -41,6 +45,7 @@ export default function GameRoom({ roomCode }: Props) {
         .select('id, room_code, status, game_state, host_player_id, guest_player_id, player_one_name, player_two_name, selected_decks, player_one_confirmed, player_two_confirmed, max_removals')
         .eq('room_code', roomCode)
         .single()
+
       if (error || !data) {
         setError('Room not found.')
         setLoading(false)
@@ -49,7 +54,9 @@ export default function GameRoom({ roomCode }: Props) {
       setRoom(data)
       setLoading(false)
     }
+
     fetchRoom()
+
     const channel = supabase
       .channel(`room:${roomCode}`)
       .on(
@@ -65,23 +72,28 @@ export default function GameRoom({ roomCode }: Props) {
         }
       )
       .subscribe()
+
     return () => {
       supabase.removeChannel(channel)
     }
   }, [roomCode])
+
   const isHost = user?.id === room?.host_player_id
   const bothConnected = !!(room?.host_player_id && room?.guest_player_id)
+
   const handleDeckToggle = async (slug: string) => {
     if (!room || confirmed) return
     const current = room.selected_decks ?? []
     const updated = current.includes(slug)
       ? current.filter((d) => d !== slug)
       : [...current, slug]
+
     await supabase
       .from('rooms')
       .update({ selected_decks: updated })
       .eq('room_code', roomCode)
   }
+
   const handleRemovalChange = async (value: number) => {
     if (!room || confirmed) return
     const clamped = Math.min(10, Math.max(0, value))
@@ -90,10 +102,12 @@ export default function GameRoom({ roomCode }: Props) {
       .update({ max_removals: clamped })
       .eq('room_code', roomCode)
   }
+
   const handleConfirm = async () => {
     if (!room || (room.selected_decks ?? []).length === 0) return
     const nameField = isHost ? 'player_one_name' : 'player_two_name'
     const confirmedField = isHost ? 'player_one_confirmed' : 'player_two_confirmed'
+
     await supabase
       .from('rooms')
       .update({
@@ -101,8 +115,10 @@ export default function GameRoom({ roomCode }: Props) {
         [confirmedField]: true,
       })
       .eq('room_code', roomCode)
+
     setConfirmed(true)
   }
+
   useEffect(() => {
     if (!room) return
     if (room.player_one_confirmed && room.player_two_confirmed && room.game_state !== 'playing') {
@@ -115,6 +131,7 @@ export default function GameRoom({ roomCode }: Props) {
         })
     }
   }, [room, roomCode])
+
   if (loading) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
@@ -122,6 +139,7 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
+
   if (error) {
     return (
       <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6 gap-4">
@@ -135,39 +153,48 @@ export default function GameRoom({ roomCode }: Props) {
       </main>
     )
   }
-  // Once BOTH players are connected, mount the video panel ONCE and keep it
-  // mounted across every state below (setup -> playing -> recap). The screen
-  // content switches underneath it, but VideoPanel itself never unmounts, so
-  // the Daily call persists without reconnecting.
+
+  // Side-by-side on tablet (md+) and desktop, stacking vertically only on small mobile
   if (bothConnected && user?.id && room) {
     return (
-      <main className="min-h-screen bg-background flex flex-col px-4 py-6 overflow-y-auto">
+      <main className="min-h-screen bg-background flex flex-col justify-center px-4 py-6 relative">
         <InfoButton />
-        <VideoPanel roomCode={roomCode} />
-        {room.game_state === 'playing' ? (
-          <PlayingWrapper
-            room={room}
-            roomCode={roomCode}
-            isHost={isHost}
-            userId={user.id}
-          />
-        ) : (
-          <SetupScreen
-            room={room}
-            roomCode={roomCode}
-            isHost={isHost}
-            user={user}
-            playerName={playerName}
-            setPlayerName={setPlayerName}
-            confirmed={confirmed}
-            onDeckToggle={handleDeckToggle}
-            onRemovalChange={handleRemovalChange}
-            onConfirm={handleConfirm}
-          />
-        )}
+        
+        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center justify-center">
+          {/* Left column: Video Panel (7 columns) */}
+          <div className="w-full md:col-span-7">
+            <VideoPanel roomCode={roomCode} />
+          </div>
+
+          {/* Right column: Setup Screen or Playing Wrapper (5 columns) */}
+          <div className="w-full md:col-span-5">
+            {room.game_state === 'playing' ? (
+              <PlayingWrapper
+                room={room}
+                roomCode={roomCode}
+                isHost={isHost}
+                userId={user.id}
+              />
+            ) : (
+              <SetupScreen
+                room={room}
+                roomCode={roomCode}
+                isHost={isHost}
+                user={user}
+                playerName={playerName}
+                setPlayerName={setPlayerName}
+                confirmed={confirmed}
+                onDeckToggle={handleDeckToggle}
+                onRemovalChange={handleRemovalChange}
+                onConfirm={handleConfirm}
+              />
+            )}
+          </div>
+        </div>
       </main>
     )
   }
+
   // Host is in but still waiting for the guest to join.
   return (
     <main className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
@@ -183,6 +210,7 @@ export default function GameRoom({ roomCode }: Props) {
     </main>
   )
 }
+
 function SetupScreen({
   room,
   roomCode,
@@ -210,16 +238,20 @@ function SetupScreen({
   const myConfirmed = isHost ? room?.player_one_confirmed : room?.player_two_confirmed
   const opponentConfirmed = isHost ? room?.player_two_confirmed : room?.player_one_confirmed
   const maxRemovals = room?.max_removals ?? 0
+
   return (
-    <div className="flex flex-col gap-6 w-full max-w-xs md:max-w-md mx-auto">
-      <div>
+    <div className="flex flex-col gap-4 w-full max-w-md mx-auto">
+      {/* Header */}
+      <div className="mb-1">
         <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">Room {room?.room_code}</p>
         <h1 className="text-2xl font-medium text-text-primary">Game setup</h1>
         <p className="text-text-secondary text-sm mt-1">
           {isHost ? 'You are Player 1' : 'You are Player 2'}
         </p>
       </div>
-      <div>
+
+      {/* Deck selection */}
+      <div className="bg-surface border border-border rounded-card p-4">
         <p className="text-text-primary text-sm font-medium mb-1">Select decks</p>
         <p className="text-text-secondary text-xs mb-3">Select a deck your character will be randomly chosen from</p>
         <div className="flex flex-wrap gap-2">
@@ -231,7 +263,7 @@ function SetupScreen({
               className={`px-4 py-2 rounded-pill text-sm font-medium transition-all duration-200 cursor-pointer disabled:cursor-not-allowed ${
                 selectedDecks.includes(deck.slug)
                   ? 'bg-accent text-white'
-                  : 'bg-surface text-text-secondary border border-border hover:border-accent'
+                  : 'bg-background text-text-secondary border border-border hover:border-accent'
               }`}
             >
               {deck.name}
@@ -239,14 +271,16 @@ function SetupScreen({
           ))}
         </div>
       </div>
-      <div>
+
+      {/* Card removals */}
+      <div className="bg-surface border border-border rounded-card p-4">
         <p className="text-text-primary text-sm font-medium mb-1">Card removals per player</p>
-        <p className="text-text-secondary text-xs mb-3">Remove characters you don not want to be assigned. Set how many each player can take out.</p>
+        <p className="text-text-secondary text-xs mb-3">Remove characters you dont want to be assigned. Set how many each player can take out.</p>
         <div className="flex items-center gap-4">
           <button
             onClick={() => onRemovalChange(maxRemovals - 1)}
             disabled={confirmed || maxRemovals === 0}
-            className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-10 h-10 rounded-button bg-background text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             −
           </button>
@@ -254,12 +288,13 @@ function SetupScreen({
           <button
             onClick={() => onRemovalChange(maxRemovals + 1)}
             disabled={confirmed || maxRemovals === 10}
-            className="w-10 h-10 rounded-button bg-surface text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-10 h-10 rounded-button bg-background text-text-primary text-lg font-medium border border-border hover:border-accent transition-colors duration-200 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             +
           </button>
         </div>
       </div>
+
       {maxRemovals > 0 && selectedDecks.length > 0 && user && (
         <RemoveCardsPanel
           selectedDecks={selectedDecks}
@@ -268,7 +303,9 @@ function SetupScreen({
           playerId={user.id}
         />
       )}
-      <div>
+
+      {/* Name */}
+      <div className="bg-surface border border-border rounded-card p-4">
         <p className="text-text-primary text-sm font-medium mb-2">Your name <span className="text-text-secondary font-normal">(optional)</span></p>
         <input
           type="text"
@@ -276,10 +313,12 @@ function SetupScreen({
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
           disabled={confirmed}
-          className="w-full bg-surface border border-border rounded-button px-4 py-3 text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-50"
+          className="w-full bg-background border border-border rounded-button px-4 py-3 text-text-primary text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200 disabled:opacity-50"
         />
       </div>
-      <div className="flex flex-col gap-2">
+
+      {/* Ready status */}
+      <div className="bg-surface border border-border rounded-card p-4 flex flex-col gap-2">
         <div className="flex items-center justify-between text-xs">
           <span className="text-text-secondary">You</span>
           <span className={myConfirmed ? 'text-accent' : 'text-text-secondary'}>
@@ -293,6 +332,7 @@ function SetupScreen({
           </span>
         </div>
       </div>
+
       <button
         onClick={onConfirm}
         disabled={confirmed || selectedDecks.length === 0}
@@ -303,6 +343,7 @@ function SetupScreen({
     </div>
   )
 }
+
 function PlayingWrapper({
   room,
   roomCode,
@@ -334,6 +375,7 @@ function PlayingWrapper({
     room.selected_decks ?? [],
     userId
   )
+
   if (loading) {
     return (
       <div className="flex flex-col items-center gap-3 py-12">
@@ -342,6 +384,7 @@ function PlayingWrapper({
       </div>
     )
   }
+
   if (error) {
     return (
       <div className="flex items-center justify-center px-6 py-12">
@@ -349,6 +392,7 @@ function PlayingWrapper({
       </div>
     )
   }
+
   if (!round || !myCharacter || !opponentCharacter) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -356,20 +400,17 @@ function PlayingWrapper({
       </div>
     )
   }
-  // While the Oracle is still writing the clue (status 'generating'), show the
-  // character you'll be reasoning about plus a quick refresher, so the ~18s wait
-  // becomes useful prep time instead of a blank spinner. opponentCharacter is the
-  // card shown during play, so we show the same one here for consistency.
+
   if (round.status === 'generating') {
     return (
-      <div className="flex flex-col items-center gap-5 w-full max-w-xs md:max-w-md mx-auto py-8">
+      <div className="flex flex-col items-center gap-5 w-full max-w-md mx-auto py-8">
         <div className="flex flex-col items-center gap-1">
           <div className="w-6 h-6 rounded-full border-2 border-accent border-t-transparent animate-spin mb-2" />
           <p className="text-accent text-sm font-medium">Consulting the Oracle...</p>
           <p className="text-text-secondary text-xs text-center">This is your opponents character to guess</p>
         </div>
         {opponentCharacter.image_url && (
-          <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg border border-border bg-surface p-2">
+          <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-card border border-border bg-surface p-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={opponentCharacter.image_url}
@@ -397,6 +438,7 @@ function PlayingWrapper({
       </div>
     )
   }
+
   return (
     <PlayingScreen
       round={round}

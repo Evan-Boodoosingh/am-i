@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+
 interface Character {
   id: string
   name: string
@@ -7,6 +8,7 @@ interface Character {
   image_url: string | null
   deck: string
 }
+
 interface Round {
   id: string
   status: string
@@ -15,6 +17,7 @@ interface Round {
   started_at: string
   ended_at: string | null
 }
+
 interface Props {
   round: Round
   myRole: 'player_one' | 'player_two'
@@ -24,6 +27,7 @@ interface Props {
   onPlayAgain: () => void
   onExit: () => void
 }
+
 function formatDuration(startedAt: string, endedAt: string | null): string {
   if (!endedAt) return '—'
   const ms = new Date(endedAt).getTime() - new Date(startedAt).getTime()
@@ -33,6 +37,7 @@ function formatDuration(startedAt: string, endedAt: string | null): string {
   if (minutes === 0) return `${seconds}s`
   return `${minutes}m ${seconds}s`
 }
+
 export default function MatchSummary({
   round,
   myRole,
@@ -50,6 +55,7 @@ export default function MatchSummary({
     : iWon
       ? `You beat ${opponentName}`
       : `${opponentName} guessed first`
+
   return (
     <main className="flex-1 bg-background flex flex-col items-center justify-center px-4 py-6">
       <motion.div
@@ -68,22 +74,14 @@ export default function MatchSummary({
           </h1>
           <p className="text-text-secondary text-sm">{subline}</p>
         </div>
-        {/* Character reveal — the character you were secretly assigned */}
+
+        {/* Character reveal container styled like the game room card */}
         {myCharacter && (
-          <div className="flex flex-col items-center gap-3 text-center">
-            <p className="text-text-secondary text-xs uppercase tracking-widest">
-              You were
-            </p>
-            {myCharacter.image_url && (
-              <div className="w-full max-w-[200px] aspect-[4/3] flex items-center justify-center">
-                <img
-                  src={myCharacter.image_url}
-                  alt={myCharacter.name}
-                  className="max-w-full max-h-full object-contain rounded-card"
-                />
-              </div>
-            )}
-            <div>
+          <div className="bg-surface border border-border rounded-card overflow-hidden flex flex-col">
+            <div className="px-4 pt-4 pb-2 text-center">
+              <p className="text-text-secondary text-xs uppercase tracking-widest mb-1">
+                You were
+              </p>
               <h2 className="text-text-primary text-2xl font-semibold">
                 {myCharacter.name}
               </h2>
@@ -91,8 +89,19 @@ export default function MatchSummary({
                 {myCharacter.deck}
               </p>
             </div>
+
+            {myCharacter.image_url && (
+              <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-lg p-2 bg-surface">
+                <img
+                  src={myCharacter.image_url}
+                  alt={myCharacter.name}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+            )}
           </div>
         )}
+
         {/* Stats */}
         <div className="bg-surface border border-border rounded-card divide-y divide-border">
           <div className="flex items-center justify-between px-4 py-3">
@@ -108,6 +117,7 @@ export default function MatchSummary({
             </span>
           </div>
         </div>
+
         {/* Actions */}
         <div className="flex flex-col gap-3">
           <button
@@ -116,12 +126,6 @@ export default function MatchSummary({
           >
             Exit
           </button>
-          {/* <button
-            onClick={onExit}
-            className="w-full py-3 rounded-button bg-surface border border-border text-text-secondary text-sm font-medium transition-colors hover:border-accent cursor-pointer"
-          >
-            Exit
-          </button> */}
         </div>
       </motion.div>
     </main>
