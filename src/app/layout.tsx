@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     siteName: "Am I?",
     images: [
       {
-        url: '/images/logo.png',
-        width: 800,
-        height: 800,
+        url: '/opengraph-image', // Points directly to your Next.js generated logo card
+        width: 1200,
+        height: 630,
         alt: 'Am I? Logo',
       },
     ],
@@ -33,10 +33,10 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary', // Change from 'summary_large_image' to 'summary' to force a compact square thumbnail style instead of a huge block
     title: "Am I?",
     description: "A two-player, real-time pop-culture deduction game.",
-    images: ['/images/logo.png'],
+    images: ['https://am-i.pro/opengraph-image'],
   },
 };
 
