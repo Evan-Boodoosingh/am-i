@@ -18,15 +18,11 @@ export default function JoinRoom() {
     setLoading(true)
     setError(null)
 
-   
-
     const { data: room } = await supabase
       .from('rooms')
       .select('room_code, status, host_player_id')
       .eq('room_code', roomCode.trim().toUpperCase())
       .single()
-
-
 
     if (!room) {
       setError('Room not found. Check the code and try again.')
@@ -54,8 +50,6 @@ export default function JoinRoom() {
       })
       .eq('room_code', roomCode.trim().toUpperCase())
 
-   
-
     if (updateError) {
       setError('Failed to join room. Please try again.')
       setLoading(false)
@@ -80,14 +74,20 @@ export default function JoinRoom() {
           <p className="text-text-secondary text-sm mt-1">Enter the code your opponent shared with you</p>
         </div>
 
-        <input
-          type="text"
-          maxLength={6}
-          placeholder="Enter room code"
-          value={roomCode}
-          onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-          className="w-full bg-surface border border-border rounded-button px-4 py-4 text-text-primary text-center text-2xl font-medium tracking-widest placeholder:text-text-secondary focus:outline-none focus:border-accent transition-colors duration-200"
-        />
+        {/* Input box styled identically to Create Room code box */}
+        <div className="bg-surface border border-accent rounded-card p-4 text-center">
+          <input
+            type="text"
+            maxLength={6}
+            value={roomCode}
+            onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+            className={`w-full bg-transparent text-4xl font-medium tracking-widest text-center focus:outline-none uppercase ${
+              roomCode ? 'text-accent' : 'text-text-secondary text-lg font-normal tracking-normal'
+            }`}
+            style={!roomCode ? { letterSpacing: 'normal' } : undefined}
+            {...(!roomCode ? { placeholder: 'ENTER CODE' } : {})}
+          />
+        </div>
 
         {error && (
           <p className="text-sm text-center" style={{ color: '#ef4444' }}>{error}</p>
@@ -100,6 +100,9 @@ export default function JoinRoom() {
         >
           {loading ? 'Joining...' : 'Join room'}
         </button>
+
+        {/* Invisible spacer matching the height of the waiting indicator on Create Room */}
+        <div className="h-[68px] mt-4 invisible" aria-hidden="true" />
       </div>
     </main>
   )
